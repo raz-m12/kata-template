@@ -22,27 +22,28 @@ class EmptySchemaIsNotAllowedException: public exception
 class SchemaMustStartAndEndWithParenthesisException: public exception
 { };
 
-/*
+
 class Argument
 {
     public:
-    Argument(const string& argName);
+    Argument(const string& name);
+    bool operator==(const Argument& other) const;
 
     private:
-    string argName;
+    string name_;
 };
-*/
+
 
 class ArgsParser 
 {
     public:
     ArgsParser(const string& schema, const vector<string>& args);
     bool GetArgValue(const string& argName) const;
-    // vector<Argument> GetSchema() const;
+    vector<Argument> GetSchema() const;
 
     private:
     void ParseSchema(const string& schema);
-    // vector<Argument> schema;
+    vector<Argument> schema_;
 };
 
 #endif

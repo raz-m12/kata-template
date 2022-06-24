@@ -21,18 +21,16 @@ using namespace std;
 // - BooleanFlagDefaultsToFalseWhenNotInArgumentList
 // ============================================================
 
+class AnArgsParser: public testing::Test {
+public:
+    static const string DefaultSchema;
+};
+const string AnArgsParser::DefaultSchema = "(f)";
 
-const static string DefaultSchema = "(f)";
 
 TEST(ArgsParser, ThrowsWhenGivenEmptySchema)
 {
     ASSERT_THROW(ArgsParser parser("", {}), EmptySchemaIsNotAllowedException);
-}
-
-TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
-{
-    ArgsParser parser{"(f)", {"-f"}};
-    ASSERT_TRUE(parser.GetArgValue("f"));
 }
 
 TEST(ArgsParser, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
@@ -45,12 +43,20 @@ TEST(ArgsParser, ThrowsWhenSchemaDoesNotEndWithCloseParanthesis)
     ASSERT_THROW(ArgsParser parser("(f", {}), SchemaMustStartAndEndWithParenthesisException);
 }
 
-TEST(ArgsParser, DISABLED_ArgumentListGetsParsedCorrectly)
+TEST(ArgsParser, VerifiesResultingSchemaParsedArguments)
 {
     ArgsParser parser{"(f,d)", {}};
 
-    // ASSERT_THAT(parser.GetSchema(), ElementsAre(Argument{"f"}, Argument{"d"}));
+    ASSERT_THAT(parser.GetSchema(), ElementsAre(Argument{"f"}, Argument{"d"}));
 }
+
+TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
+{
+    ArgsParser parser{"(f)", {"-f"}};
+    ASSERT_TRUE(parser.GetArgValue("f"));
+}
+
+
 
 TEST(ArgsParser, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)
 {
