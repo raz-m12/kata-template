@@ -18,7 +18,7 @@ using namespace std;
 // ============================================================
 
 
-TEST(ArgsParser, ZeroArgumentsGiven)
+TEST(ArgsParser, FeedsParserWithZeroArgs)
 {
     ArgsParser parser{"", {}};
 
