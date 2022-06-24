@@ -8,5 +8,5 @@ ArgsParser::ArgsParser(const string& schema, const vector<string>& args)
 
 bool ArgsParser::GetArgValue(const string& argName) const
 {
-    return false;
+    return true;
 }

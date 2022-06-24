@@ -34,3 +34,11 @@ TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
 
     ASSERT_TRUE(value);
 }
+
+TEST(ArgsParser, BooleanFlagDefaultsToFalseIfNotInArgumentList)
+{
+    ArgsParser parser{"f", {}};
+    auto value = parser.GetArgValue("f");
+
+    ASSERT_FALSE(value);
+}
