@@ -2,6 +2,7 @@
 #define ArgsParser_h
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -21,7 +22,8 @@ class EmptySchemaIsDisallowedException: public exception
 class ArgsParser 
 {
     public:
-    ArgsParser(const string& schema, const char* args[]);
+    ArgsParser(const string& schema, const vector<string>& args);
+    bool GetArgValue(const string& argName) const;
 };
 
 #endif
