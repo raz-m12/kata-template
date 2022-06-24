@@ -1,13 +1,13 @@
 #include "gmock/gmock.h"
 #include "include/ArgsParser.hpp"
 
-using namespace testing;
+using namespace ::testing;
 using namespace std;
 
 
 // ============================================================
 // ======================== Back log ==========================
-// 1. Feed the parser with 0 arguments
+// 1. Feeds parser with empty schema and throws exception
 // 2. Parses a one argument boolean attribute without a schema
 // 3. Parses one argument based on a schema with support for 
 //    one boolean
@@ -18,9 +18,7 @@ using namespace std;
 // ============================================================
 
 
-TEST(ArgsParser, FeedsParserWithZeroArgs)
+TEST(ArgsParser, ThrowsExceptionWhenGivenEmptySchema)
 {
-    ArgsParser parser{"", {}};
-
-    EXPECT_THAT(parser.GetParsedArgs(), ElementsAre());
+    ASSERT_THROW(ArgsParser parser("", {}), EmptySchemaIsDisallowedException);
 }

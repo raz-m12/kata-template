@@ -15,11 +15,13 @@ using namespace std;
 //  - char[*] - one element of a string array.
 // ==============================================
 
+class EmptySchemaIsDisallowedException: public std::invalid_argument 
+{ };
+
 class ArgsParser 
 {
     public:
     ArgsParser(const string& schema, const char* args[]);
-    string GetParsedArgs() const;
 };
 
 #endif
