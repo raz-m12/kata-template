@@ -13,6 +13,7 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -g -std=c++2a")
 set (SRCS 
     src/main.cpp
     src/ArgsParser.cpp
+    src/Argument.cpp
     test/ArgsParserTest.cpp)
 add_executable(kata ${SRCS})
 

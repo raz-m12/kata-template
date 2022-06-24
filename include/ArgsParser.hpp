@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "include/Argument.hpp"
 
 using namespace std;
 
@@ -25,19 +26,6 @@ class EmptySchemaIsNotAllowedException: public exception
 class SchemaMustStartAndEndWithParenthesisException: public exception
 { };
 
-// TODO move Argument to its own file
-class Argument
-{
-    public:
-    Argument(const string& name);
-    bool operator==(const Argument& other) const;
-    bool operator!=(const Argument& other) const;
-
-    private:
-    string name_;
-};
-
-
 class ArgsParser 
 {
     public:
@@ -48,7 +36,7 @@ class ArgsParser
     private:
     void ParseSchema(const string& bareSchema);
     void PopulateSchemaWithArguments(const string& bareSchema);
-    bool SchemaStartAndEndsWithParenthesis(const string& bareSchema) const;
+    bool SchemaStartsAndEndsWithParenthesis(const string& bareSchema) const;
     vector<Argument> schema_;
 };
 

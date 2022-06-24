@@ -1,19 +1,6 @@
 #include "include/ArgsParser.hpp"
 #include "sstream"
 
-// TODO move Argument to its own class
-Argument::Argument(const string& name): name_{name}
-{ }
-
-bool Argument::operator==(const Argument& other) const
-{
-    return name_ == other.name_;
-}
-
-bool Argument::operator!=(const Argument& other) const
-{
-    return !(*this == other);
-}
 
 ArgsParser::ArgsParser(const string& schema, const vector<string>& args) 
 {
@@ -25,13 +12,13 @@ ArgsParser::ArgsParser(const string& schema, const vector<string>& args)
 
 void ArgsParser::ParseSchema(const string& bareSchema)
 {
-    if(!SchemaStartAndEndsWithParenthesis(bareSchema))
+    if(!SchemaStartsAndEndsWithParenthesis(bareSchema))
         throw SchemaMustStartAndEndWithParenthesisException();
 
     PopulateSchemaWithArguments(bareSchema);
 }
 
-bool ArgsParser::SchemaStartAndEndsWithParenthesis(const string& schema) const
+bool ArgsParser::SchemaStartsAndEndsWithParenthesis(const string& schema) const
 {
     // TODO use a SchemaFormatter class to clean up these bits
     return schema.at(0) == '(' && schema.at(schema.length() - 1) == ')';
@@ -47,7 +34,8 @@ void ArgsParser::PopulateSchemaWithArguments(const string& bareSchema)
     {
         if(token.at(token.length() - 1) == ')') // TODO could refactor to use
             token.pop_back();                   // a SchemaFormatter class. This line as well
-        schema_.push_back({ token });           // TODO add argument type enum
+        schema_.push_back({ token, boolean });           // TODO add argument type enum
+        // Add a SchemmaFormatter method that returns the correct type based on the token
     }
 }
 

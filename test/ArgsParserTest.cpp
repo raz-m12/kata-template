@@ -47,7 +47,9 @@ TEST(ArgsParser, VerifiesResultingSchemaParsedArguments)
 {
     ArgsParser parser{"(f,d)", {}};
 
-    ASSERT_THAT(parser.GetSchema(), ElementsAre(Argument{"f"}, Argument{"d"}));
+    ASSERT_THAT(parser.GetSchema(), ElementsAre(
+        Argument{"f", boolean}, Argument{"d", boolean}
+    ));
 }
 
 TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
@@ -55,7 +57,6 @@ TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
     ArgsParser parser{"(f)", {"-f"}};
     ASSERT_TRUE(parser.GetArgValue("f"));
 }
-
 
 
 TEST(ArgsParser, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)
