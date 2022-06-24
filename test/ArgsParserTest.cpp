@@ -22,5 +22,5 @@ TEST(ArgsParser, FeedsParserWithZeroArgs)
 {
     ArgsParser parser{"", {}};
 
-    EXPECT_THAT(parser.GetParsedArgs(), Eq(""));
+    EXPECT_THAT(parser.GetParsedArgs(), ElementsAre());
 }
