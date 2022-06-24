@@ -12,12 +12,13 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -g -std=c++2a")
 # Creates the executable with source files
 set (SRCS 
     src/main.cpp
-    test/KataTest.cpp)
+    src/ArgsParser.cpp
+    test/ArgsParserTest.cpp)
 add_executable(kata ${SRCS})
 
 # Enables header imports via #include "include/header.hpp"
 set(header_files
-"${CMAKE_CURRENT_SOURCE_DIR}"
+    "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 target_include_directories(kata PRIVATE ${header_files})
 
