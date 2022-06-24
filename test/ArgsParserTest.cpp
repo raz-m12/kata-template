@@ -26,20 +26,23 @@ const static string DefaultSchema = "(f)";
 
 TEST(ArgsParser, ThrowsWhenGivenEmptySchema)
 {
-    ASSERT_THROW(ArgsParser parser("", {}), EmptySchemaIsDisallowedException);
+    ASSERT_THROW(ArgsParser parser("", {}), EmptySchemaIsNotAllowedException);
 }
 
 TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
 {
     ArgsParser parser{"(f)", {"-f"}};
-    auto value = parser.GetArgValue("f");
-
-    ASSERT_TRUE(value);
+    ASSERT_TRUE(parser.GetArgValue("f"));
 }
 
-TEST(ArgsParser, ThrowsWhenSchemaFormatDoesNotStartWithOpenParanthesis)
+TEST(ArgsParser, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
 {
-    ASSERT_THROW(ArgsParser parser("f", {}), SchemaFormatIsInvalidException);
+    ASSERT_THROW(ArgsParser parser("f)", {}), SchemaMustStartAndEndWithParenthesisException);
+}
+
+TEST(ArgsParser, ThrowsWhenSchemaDoesNotEndWithCloseParanthesis)
+{
+    ASSERT_THROW(ArgsParser parser("(f", {}), SchemaMustStartAndEndWithParenthesisException);
 }
 
 TEST(ArgsParser, DISABLED_ArgumentListGetsParsedCorrectly)

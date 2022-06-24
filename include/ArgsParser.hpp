@@ -16,14 +16,33 @@ using namespace std;
 //  - char[*] - one element of a string array.
 // ==============================================
 
-class EmptySchemaIsDisallowedException: public exception 
+class EmptySchemaIsNotAllowedException: public exception 
 { };
+
+class SchemaMustStartAndEndWithParenthesisException: public exception
+{ };
+
+/*
+class Argument
+{
+    public:
+    Argument(const string& argName);
+
+    private:
+    string argName;
+};
+*/
 
 class ArgsParser 
 {
     public:
     ArgsParser(const string& schema, const vector<string>& args);
     bool GetArgValue(const string& argName) const;
+    // vector<Argument> GetSchema() const;
+
+    private:
+    void ParseSchema(const string& schema);
+    // vector<Argument> schema;
 };
 
 #endif

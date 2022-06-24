@@ -1,12 +1,32 @@
 #include "include/ArgsParser.hpp"
+#include "sstream"
 
-ArgsParser::ArgsParser(const string& schema, const vector<string>& args) 
+
+// Argument::Argument(const string& argName): argName{argName}
+// {
+
+// }
+
+ArgsParser::ArgsParser(const string& bareSchema, const vector<string>& args) 
 {
-    if(schema.empty())
-        throw EmptySchemaIsDisallowedException();
+    if(bareSchema.empty())
+        throw EmptySchemaIsNotAllowedException();
+    
+    ParseSchema(bareSchema);
+}
+
+void ArgsParser::ParseSchema(const string& bareSchema)
+{
+    if(bareSchema.at(0) != '(' || bareSchema.at(bareSchema.length() - 1) != ')')
+        throw SchemaMustStartAndEndWithParenthesisException();
 }
 
 bool ArgsParser::GetArgValue(const string& argName) const
 {
     return true;
 }
+
+// vector<Argument> ArgsParser::GetSchema() const
+// {
+//     return schema;
+// }
