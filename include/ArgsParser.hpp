@@ -15,7 +15,7 @@ using namespace std;
 //  - char[*] - one element of a string array.
 // ==============================================
 
-class EmptySchemaIsDisallowedException: public std::invalid_argument 
+class EmptySchemaIsDisallowedException: public exception 
 { };
 
 class ArgsParser 
