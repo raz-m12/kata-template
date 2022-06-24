@@ -20,5 +20,7 @@ using namespace std;
 
 TEST(ArgsParser, ZeroArgumentsGiven)
 {
-    ArgsParser{};
+    ArgsParser parser{"", {}};
+
+    EXPECT_THAT(parser.GetParsedArgs(), Eq(""));
 }

@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 
 // ==============================================
 // Schema:
@@ -15,7 +17,9 @@
 
 class ArgsParser 
 {
-
+    public:
+    ArgsParser(const string& schema, const char* args[]);
+    string GetParsedArgs() const;
 };
 
 #endif
