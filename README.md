@@ -21,7 +21,10 @@ cmake --build .build --target kata
 
 ## Running the tests
 From the root directory:
-```
+```bash
 cd .build
 ctest
+# or with detailed test output
+ctest --rerun-failed --output-on-failure
 ```
+
