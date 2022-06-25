@@ -37,13 +37,13 @@ void SchemaParser::PopulateSchemaWithArguments(const string& bareSchema)
         
         if(IsBooleanType(token))
         {
-            schema_.push_back({ token, boolean });
+            schema_.push_back({ token, _boolean });
             continue;
         }
 
         if(IsIntegerType(token)) {
-            RemoveRedundantChars(token, integer);
-            schema_.push_back({ token, integer });
+            RemoveRedundantChars(token, _integer);
+            schema_.push_back({ token, _integer });
             continue;
         }
 
@@ -70,7 +70,7 @@ void SchemaParser::RemoveRedundantChars(string& token, ArgumentType tokenType)
 {
     // nothing to remove when token is a boolean
 
-    if(tokenType == integer)
+    if(tokenType == _integer)
         token.pop_back();
 }
 

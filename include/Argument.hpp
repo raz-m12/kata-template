@@ -5,10 +5,12 @@
 using namespace std;
 
 
+
 enum ArgumentType
 {
-    boolean,
-    integer
+    _boolean,
+    _integer,
+    _string
 };
 
 class Argument

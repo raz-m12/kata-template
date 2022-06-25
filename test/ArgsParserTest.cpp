@@ -50,8 +50,8 @@ TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedBooleanArguments)
     ArgsParser parser{schema, EmptyArgs};
 
     ASSERT_THAT(parser.GetSchema(), ElementsAre(
-        Argument{"f", boolean}, 
-        Argument{"d", boolean}
+        Argument{"f", _boolean}, 
+        Argument{"d", _boolean}
     ));
 }
 
@@ -61,11 +61,21 @@ TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
     ArgsParser parser(schema, EmptyArgs);
 
     ASSERT_THAT(parser.GetSchema(), ElementsAre(
-        Argument{"i", integer},
-        Argument{"o", integer}
+        Argument{"i", _integer},
+        Argument{"o", _integer}
     ));
 }
 
+TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArguments)
+{
+    const string schema{"(i#,o#)"};
+    ArgsParser parser(schema, EmptyArgs);
+
+    ASSERT_THAT(parser.GetSchema(), ElementsAre(
+        Argument{"i", _string},
+        Argument{"o", _string}
+    ));
+}
 
 
 // TODO Add fixture that describes the argument list tests
