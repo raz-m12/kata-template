@@ -1,7 +1,7 @@
 # Enables the vcpkg toolchain allowing to install gtest and any
 # other dependencies specified in vcpkg.json, used with ./install
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/extern/vcpkg/scripts/buildsystems/vcpkg.cmake
-    CACHE STRING "Vcpkg toolchain file")
+   CACHE STRING "Vcpkg toolchain file")
 
 cmake_minimum_required (VERSION 3.21)
 project (kata_exercise)
@@ -11,16 +11,16 @@ set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -g -std=c++2a")
 
 # Creates the executable with source files
 set (SRCS 
-    src/main.cpp
-    src/ArgsParser.cpp
-    src/Argument.cpp
-    src/SchemaParser.cpp
-    test/ArgsParserTest.cpp)
+   src/main.cpp
+   src/ArgsParser.cpp
+   src/Argument.cpp
+   src/SchemaParser.cpp
+   test/ArgsParserTest.cpp)
 add_executable(kata ${SRCS})
 
 # Enables header imports via #include "include/header.hpp"
 set(header_files
-    "${CMAKE_CURRENT_SOURCE_DIR}"
+   "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 target_include_directories(kata PRIVATE ${header_files})
 
