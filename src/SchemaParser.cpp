@@ -41,9 +41,17 @@ void SchemaParser::PopulateSchemaWithArguments(const string& bareSchema)
             continue;
         }
 
-        if(IsIntegerType(token)) {
+        if(IsIntegerType(token)) 
+        {
             RemoveRedundantChars(token, _integer);
             schema_.push_back({ token, _integer });
+            continue;
+        }
+
+        if(IsStringType(token))
+        {
+            RemoveRedundantChars(token, _string);
+            schema_.push_back({ token, _string });
             continue;
         }
 
@@ -66,12 +74,28 @@ bool SchemaParser::IsIntegerType(const string& token) const
     return token.length() == 2 && token.at(1) == '#';
 }
 
+bool SchemaParser::IsStringType(const string& token) const
+{
+    return token.length() == 2 && token.at(1) == '*';
+}
+
 void SchemaParser::RemoveRedundantChars(string& token, ArgumentType tokenType)
 {
-    // nothing to remove when token is a boolean
 
-    if(tokenType == _integer)
-        token.pop_back();
+    switch(tokenType)
+    {
+        case _boolean:
+            // nothing to remove when token is a boolean
+            break;
+
+        case _integer:
+        case _string:
+            token.pop_back();
+            break;
+
+        default:
+            throw std::invalid_argument("Unhandled token type");
+    }
 }
 
 vector<Argument> SchemaParser::GetSchema() const

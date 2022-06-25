@@ -68,7 +68,7 @@ TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
 
 TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArguments)
 {
-    const string schema{"(i#,o#)"};
+    const string schema{"(i*,o*)"};
     ArgsParser parser(schema, EmptyArgs);
 
     ASSERT_THAT(parser.GetSchema(), ElementsAre(
