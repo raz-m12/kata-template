@@ -28,6 +28,8 @@
          "label": "Build cmake config. files",
          "command": "cmake",
          "args": [
+            "-D CMAKE_C_COMPILER=clang",
+            "-D CMAKE_CXX_COMPILER=clang++",
             ".."
          ],
          "options": {
