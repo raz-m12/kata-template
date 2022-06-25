@@ -4,10 +4,17 @@ set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/extern/vcpkg/scripts/buildsystems/v
    CACHE STRING "Vcpkg toolchain file")
 
 cmake_minimum_required (VERSION 3.21)
+
+# Can change to another compiler like g++ or gcc (see tasks.json)
+# set(CMAKE_CXX_COMPILER "clang++")
+
 project (kata_exercise)
 
 # Compiler configurable options, uses the c++2020 standard
-set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -g -std=c++2a")
+# Adds compile time optimizations -O3
+# Adds link time optimizations -flto
+set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -Wextra -g -std=c++2a")
+
 
 # Creates the executable with source files
 set (SRCS 
