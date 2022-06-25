@@ -14,49 +14,48 @@ using namespace std;
 //    schema
 // 4. Gives as input arguments that do not adhere to the schema
 //    which throws an exception
-// 5. Adds schema support for: boolean, string, integer, double
-//    arrays
+// [DOING] Adds schema support for: boolean, string, integer, 
+//    double, arrays
 
 // Tests:
-// - VerifiesResultingSchemaParsedBooleanArguments
 // - BooleanFlagDefaultsToFalseWhenNotInArgumentList
 // ============================================================
 
-class AnArgsParser: public testing::Test {
+class SchemaValidationFixture: public testing::Test {
 public:
-    static const string DefaultSchema;
     static const vector<string> EmptyArgs;
 };
-const string AnArgsParser::DefaultSchema = "(f)";
-const vector<string> AnArgsParser::EmptyArgs = {};
+const vector<string> SchemaValidationFixture::EmptyArgs = {};
 
-TEST_F(AnArgsParser, ThrowsWhenGivenEmptySchema)
+
+TEST_F(SchemaValidationFixture, ThrowsWhenGivenEmptySchema)
 {
     // TODO pass as argument "()"
     ASSERT_THROW(ArgsParser parser("()", EmptyArgs), EmptySchemaIsNotAllowedException);
 }
 
-TEST_F(AnArgsParser, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
+TEST_F(SchemaValidationFixture, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
 {
     ASSERT_THROW(ArgsParser parser("f)", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
 }
 
-TEST_F(AnArgsParser, ThrowsWhenSchemaDoesNotEndWithCloseParanthesis)
+TEST_F(SchemaValidationFixture, ThrowsWhenSchemaDoesNotEndWithCloseParanthesis)
 {
     ASSERT_THROW(ArgsParser parser("(f", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
 }
 
-TEST_F(AnArgsParser, VerifiesResultingSchemaParsedBooleanArguments)
+TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedBooleanArguments)
 {
     const string schema{"(f,d)"};
     ArgsParser parser{schema, EmptyArgs};
 
     ASSERT_THAT(parser.GetSchema(), ElementsAre(
-        Argument{"f", boolean}, Argument{"d", boolean}
+        Argument{"f", boolean}, 
+        Argument{"d", boolean}
     ));
 }
 
-TEST_F(AnArgsParser, VerifiesResultingSchemaParsedIntegerArguments)
+TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
 {
     const string schema{"(i#,o#)"};
     ArgsParser parser(schema, EmptyArgs);
@@ -67,6 +66,10 @@ TEST_F(AnArgsParser, VerifiesResultingSchemaParsedIntegerArguments)
     ));
 }
 
+
+
+// TODO Add fixture that describes the argument list tests
+//      Possibly add a parameterized test where needed
 TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
 {
     ArgsParser parser{"(f)", {"-f"}};
