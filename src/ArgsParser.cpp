@@ -35,7 +35,8 @@ void ArgsParser::PopulateSchemaWithArguments(const string& bareSchema)
         if(token.at(token.length() - 1) == ')') // TODO could refactor to use
             token.pop_back();                   // a SchemaFormatter class. This line as well
         schema_.push_back({ token, boolean });           // TODO add argument type enum
-        // Add a SchemmaFormatter method that returns the correct type based on the token
+        // Add a SchemmaFormatter method that returns 
+        // the correct type based on the token
     }
 }
 

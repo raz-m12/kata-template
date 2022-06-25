@@ -18,34 +18,38 @@ using namespace std;
 //    arrays
 
 // Tests:
+// - VerifiesResultingSchemaParsedBooleanArguments
 // - BooleanFlagDefaultsToFalseWhenNotInArgumentList
 // ============================================================
 
 class AnArgsParser: public testing::Test {
 public:
     static const string DefaultSchema;
+    static const vector<string> EmptyArgs;
 };
 const string AnArgsParser::DefaultSchema = "(f)";
+const vector<string> AnArgsParser::EmptyArgs = {};
 
-
-TEST(ArgsParser, ThrowsWhenGivenEmptySchema)
+TEST_F(AnArgsParser, ThrowsWhenGivenEmptySchema)
 {
-    ASSERT_THROW(ArgsParser parser("", {}), EmptySchemaIsNotAllowedException);
+    // TODO pass as argument "()"
+    ASSERT_THROW(ArgsParser parser("", EmptyArgs), EmptySchemaIsNotAllowedException);
 }
 
-TEST(ArgsParser, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
+TEST_F(AnArgsParser, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
 {
-    ASSERT_THROW(ArgsParser parser("f)", {}), SchemaMustStartAndEndWithParenthesisException);
+    ASSERT_THROW(ArgsParser parser("f)", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
 }
 
-TEST(ArgsParser, ThrowsWhenSchemaDoesNotEndWithCloseParanthesis)
+TEST_F(AnArgsParser, ThrowsWhenSchemaDoesNotEndWithCloseParanthesis)
 {
-    ASSERT_THROW(ArgsParser parser("(f", {}), SchemaMustStartAndEndWithParenthesisException);
+    ASSERT_THROW(ArgsParser parser("(f", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
 }
 
-TEST(ArgsParser, VerifiesResultingSchemaParsedArguments)
+TEST_F(AnArgsParser, VerifiesResultingSchemaParsedBooleanArguments)
 {
-    ArgsParser parser{"(f,d)", {}};
+    const string schema{"(f,d)"};
+    ArgsParser parser{schema, EmptyArgs};
 
     ASSERT_THAT(parser.GetSchema(), ElementsAre(
         Argument{"f", boolean}, Argument{"d", boolean}
