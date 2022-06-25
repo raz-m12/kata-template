@@ -7,7 +7,8 @@ using namespace std;
 
 enum ArgumentType
 {
-    boolean
+    boolean,
+    integer
 };
 
 class Argument

@@ -32,11 +32,22 @@ void ArgsParser::PopulateSchemaWithArguments(const string& bareSchema)
 
     while(getline(ss, token, ','))
     {
-        if(token.at(token.length() - 1) == ')') // TODO could refactor to use
-            token.pop_back();                   // a SchemaFormatter class. This line as well
-        schema_.push_back({ token, boolean });           // TODO add argument type enum
-        // Add a SchemmaFormatter method that returns 
-        // the correct type based on the token
+        // TODO could refactor to use a SchemaParser class.
+        if(token.at(token.length() - 1) == ')') 
+            token.pop_back();
+        
+        if(token.length() == 1) {
+            schema_.push_back({ token, boolean });
+            continue;
+        }
+
+        if(token.length() == 2 && token.at(1) == '#') {
+            token.pop_back();
+            schema_.push_back({ token, integer });
+            continue;
+        }
+        
+        // TODO do a test in which the schema contains invalid characters
     }
 }
 
