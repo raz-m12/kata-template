@@ -56,6 +56,17 @@ TEST_F(AnArgsParser, VerifiesResultingSchemaParsedBooleanArguments)
     ));
 }
 
+TEST_F(AnArgsParser, VerifiesResultingSchemaParsedIntegerArguments)
+{
+    const string schema{"(i#,o#)"};
+    ArgsParser parser(schema, EmptyArgs);
+
+    ASSERT_THAT(parser.GetSchema(), ElementsAre(
+        Argument{"i", integer},
+        Argument{"o", integer}
+    ));
+}
+
 TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
 {
     ArgsParser parser{"(f)", {"-f"}};
