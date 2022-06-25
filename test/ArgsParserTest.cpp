@@ -1,6 +1,7 @@
 #include "gmock/gmock.h"
 #include "include/ArgsParser.hpp"
 
+using namespace argskata::lib;
 using namespace ::testing;
 using namespace std;
 
@@ -23,58 +24,58 @@ using namespace std;
 
 class SchemaValidationFixture: public testing::Test {
 public:
-    static const vector<string> EmptyArgs;
+   static const vector<string> EmptyArgs;
 };
 const vector<string> SchemaValidationFixture::EmptyArgs = {};
 
 
 TEST_F(SchemaValidationFixture, ThrowsWhenGivenEmptySchema)
 {
-    // TODO pass as argument "()"
-    ASSERT_THROW(ArgsParser parser("()", EmptyArgs), EmptySchemaIsNotAllowedException);
+   // TODO pass as argument "()"
+   ASSERT_THROW(ArgsParser parser("()", EmptyArgs), EmptySchemaIsNotAllowedException);
 }
 
 TEST_F(SchemaValidationFixture, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
 {
-    ASSERT_THROW(ArgsParser parser("f)", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
+   ASSERT_THROW(ArgsParser parser("f)", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
 }
 
 TEST_F(SchemaValidationFixture, ThrowsWhenSchemaDoesNotEndWithCloseParanthesis)
 {
-    ASSERT_THROW(ArgsParser parser("(f", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
+   ASSERT_THROW(ArgsParser parser("(f", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
 }
 
 TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedBooleanArguments)
 {
-    const string schema{"(f,d)"};
-    ArgsParser parser{schema, EmptyArgs};
+   const string schema{"(f,d)"};
+   ArgsParser parser{schema, EmptyArgs};
 
-    ASSERT_THAT(parser.GetSchema(), ElementsAre(
-        Argument{"f", _boolean}, 
-        Argument{"d", _boolean}
-    ));
+   ASSERT_THAT(parser.GetSchema(), ElementsAre(
+      Argument{"f", ArgumentType::_boolean},
+      Argument{"d", ArgumentType::_boolean}
+   ));
 }
 
 TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
 {
-    const string schema{"(i#,o#)"};
-    ArgsParser parser(schema, EmptyArgs);
+   const string schema{"(i#,o#)"};
+   ArgsParser parser(schema, EmptyArgs);
 
-    ASSERT_THAT(parser.GetSchema(), ElementsAre(
-        Argument{"i", _integer},
-        Argument{"o", _integer}
-    ));
+   ASSERT_THAT(parser.GetSchema(), ElementsAre(
+      Argument{"i", ArgumentType::_integer},
+      Argument{"o", ArgumentType::_integer}
+   ));
 }
 
 TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArguments)
 {
-    const string schema{"(i*,o*)"};
-    ArgsParser parser(schema, EmptyArgs);
+   const string schema{"(i*,o*)"};
+   ArgsParser parser(schema, EmptyArgs);
 
-    ASSERT_THAT(parser.GetSchema(), ElementsAre(
-        Argument{"i", _string},
-        Argument{"o", _string}
-    ));
+   ASSERT_THAT(parser.GetSchema(), ElementsAre(
+      Argument{"i", ArgumentType::_string},
+      Argument{"o", ArgumentType::_string}
+   ));
 }
 
 
@@ -82,15 +83,15 @@ TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArguments)
 //      Possibly add a parameterized test where needed
 TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
 {
-    ArgsParser parser{"(f)", {"-f"}};
-    ASSERT_TRUE(parser.GetArgValue("f"));
+   ArgsParser parser{"(f)", {"-f"}};
+   ASSERT_TRUE(parser.GetArgValue("f"));
 }
 
 
 TEST(ArgsParser, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)
 {
-    ArgsParser parser{"f", {}};
-    auto value = parser.GetArgValue("f");
+   ArgsParser parser{"f", {}};
+   auto value = parser.GetArgValue("f");
 
-    ASSERT_FALSE(value);
+   ASSERT_FALSE(value);
 }

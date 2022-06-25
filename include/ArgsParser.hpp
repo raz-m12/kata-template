@@ -4,8 +4,6 @@
 #include <iostream>
 #include "include/SchemaParser.hpp"
 
-using namespace std;
-
 
 // ==============================================
 // Schema:
@@ -19,18 +17,25 @@ using namespace std;
 // -f -s Bob -n 1 -a 3.2 -p e1 -p e2 -p e3
 // ==============================================
 
+namespace argskata {
+   namespace lib {
+      namespace impl {
+         using namespace std;
 
+         // TODO make as many methods as possible const
+         class ArgsParser 
+         {
+            public:
+            ArgsParser(const string& bareSchema, const vector<string>& args);
+            bool GetArgValue(const string& argName) const;
+            vector<Argument> GetSchema() const;
 
-// TODO make as many methods as possible const
-class ArgsParser 
-{
-    public:
-    ArgsParser(const string& bareSchema, const vector<string>& args);
-    bool GetArgValue(const string& argName) const;
-    vector<Argument> GetSchema() const;
-
-    private:
-    SchemaParser schemaParser_;
-};
+            private:
+            SchemaParser schemaParser_;
+         };
+      }
+      using impl::ArgsParser;
+   }
+}
 
 #endif
