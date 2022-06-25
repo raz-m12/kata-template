@@ -2,8 +2,7 @@
 #define ArgsParser_h
 
 #include <iostream>
-#include <vector>
-#include "include/Argument.hpp"
+#include "include/SchemaParser.hpp"
 
 using namespace std;
 
@@ -20,12 +19,9 @@ using namespace std;
 // -f -s Bob -n 1 -a 3.2 -p e1 -p e2 -p e3
 // ==============================================
 
-class EmptySchemaIsNotAllowedException: public exception 
-{ };
 
-class SchemaMustStartAndEndWithParenthesisException: public exception
-{ };
 
+// TODO make as many methods as possible const
 class ArgsParser 
 {
     public:
@@ -34,10 +30,7 @@ class ArgsParser
     vector<Argument> GetSchema() const;
 
     private:
-    void ParseSchema(const string& bareSchema);
-    void PopulateSchemaWithArguments(const string& bareSchema);
-    bool SchemaStartsAndEndsWithParenthesis(const string& bareSchema) const;
-    vector<Argument> schema_;
+    SchemaParser schemaParser_;
 };
 
 #endif

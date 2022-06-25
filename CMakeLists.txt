@@ -14,6 +14,7 @@ set (SRCS
     src/main.cpp
     src/ArgsParser.cpp
     src/Argument.cpp
+    src/SchemaParser.cpp
     test/ArgsParserTest.cpp)
 add_executable(kata ${SRCS})
 

@@ -33,7 +33,7 @@ const vector<string> AnArgsParser::EmptyArgs = {};
 TEST_F(AnArgsParser, ThrowsWhenGivenEmptySchema)
 {
     // TODO pass as argument "()"
-    ASSERT_THROW(ArgsParser parser("", EmptyArgs), EmptySchemaIsNotAllowedException);
+    ASSERT_THROW(ArgsParser parser("()", EmptyArgs), EmptySchemaIsNotAllowedException);
 }
 
 TEST_F(AnArgsParser, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
