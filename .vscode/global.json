@@ -5,11 +5,12 @@
     "git.confirmSync": false,
     "debug.onTaskErrors": "showErrors",
     "diffEditor.ignoreTrimWhitespace": false,
-    "debug.inlineValues": true,
+    "debug.inlineValues": "on",
     "window.zoomLevel": -1,
     "files.autoSave": "afterDelay",
     "c-cpp-flylint.clang.enable": false,
     "c-cpp-flylint.enable": true,
     "c-cpp-flylint.flawfinder.enable": false,
-    "c-cpp-flylint.flexelint.enable": false
+    "c-cpp-flylint.flexelint.enable": false,
+    "c-cpp-flylint.lizard.enable": false
 }

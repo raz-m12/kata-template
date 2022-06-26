@@ -11,6 +11,21 @@
 
     "c-cpp-flylint.enable": false,
     "c-cpp-flylint.cppcheck.enable": false,
+
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    "C_Cpp.codeAnalysis.exclude": {
+      "**/.build": true,
+      "**/extern": true
+    },
+    "C_Cpp.codeAnalysis.clangTidy.checks.enabled": [
+      "cppcoreguidelines-*"
+    ],
+    "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+      "clang-analyzer-*"
+    ],
+    "C_Cpp.codeAnalysis.runAutomatically": true,
+
     "files.associations": {
       "vector": "cpp",
       "any": "cpp",
@@ -74,9 +89,5 @@
       "iostream": "cpp",
       "stdexcept": "cpp",
       "cinttypes": "cpp"
-    },
-    "C_Cpp.codeAnalysis.runAutomatically": false,
-    "C_Cpp.codeAnalysis.clangTidy.args": [
-      "cppcoreguidelines-*"
-    ],
+    }
 }
