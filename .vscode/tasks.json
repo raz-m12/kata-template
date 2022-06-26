@@ -29,6 +29,7 @@
          "args": [
             "-D CMAKE_C_COMPILER=clang",
             "-D CMAKE_CXX_COMPILER=clang++",
+            "-DRUN_CLANG_TIDY=OFF",
             ".."
          ],
          "options": {
@@ -37,12 +38,12 @@
          "problemMatcher": [
             "$gcc"
          ],
-         "group": "build",
+         "group": "none",
          "detail": "Used to generate cmake configuration files."
         },
       {
          "type": "shell",
-         "label": "Run CppCheck static analyser",
+         "label": "Run CppCheck",
          "command": "cppcheck",
          "args": [
                "--enable=all",
@@ -55,7 +56,47 @@
          },
          "group": "build",
          "detail": "Generate code analysis reports",
-      }
+      },
+      {
+         "type": "cppbuild",
+         "label": "Run Clang Tidy",
+         "command": "cmake",
+         "args": [
+            "--build",
+            ".build",
+            "--target",
+            "kata"
+         ],
+         "options": {
+            "cwd": "${workspaceFolder}/"
+         },
+         "problemMatcher": [
+            "$gcc"
+         ],
+         "group": {
+            "kind": "build"
+         },
+         "dependsOn": "Build using clang tidy"
+      },
+      {
+         "type": "shell",
+         "label": "Build using clang tidy",
+         "command": "cmake",
+         "args": [
+            "-D CMAKE_C_COMPILER=clang",
+            "-D CMAKE_CXX_COMPILER=clang++",
+            "-DRUN_CLANG_TIDY=ON",
+            ".."
+         ],
+         "options": {
+            "cwd": "${workspaceFolder}/.build/"
+         },
+         "problemMatcher": [
+            "$gcc"
+         ],
+         "group": "none",
+         "detail": "Used to generate cmake configuration files."
+        },
    ],
    "version": "2.0.0"
 }

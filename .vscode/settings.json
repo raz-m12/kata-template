@@ -1,4 +1,5 @@
 {
+    // Global configuration file store in ~/.config/Code/User/settings.json. See global.json.
     "cmake.sourceDirectory": "${workspaceFolder}",
     "testMate.cpp.test.advancedExecutables": [
         {
@@ -7,6 +8,9 @@
         }
     ],
     "cmake.buildDirectory": "${workspaceFolder}/.build",
+
+    "c-cpp-flylint.enable": false,
+    "c-cpp-flylint.cppcheck.enable": false,
     "files.associations": {
       "vector": "cpp",
       "any": "cpp",
@@ -71,4 +75,8 @@
       "stdexcept": "cpp",
       "cinttypes": "cpp"
     },
+    "C_Cpp.codeAnalysis.runAutomatically": false,
+    "C_Cpp.codeAnalysis.clangTidy.args": [
+      "cppcoreguidelines-*"
+    ],
 }

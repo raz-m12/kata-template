@@ -8,15 +8,29 @@ cmake_minimum_required (VERSION 3.21)
 # Can change to another compiler like g++ or gcc (see tasks.json)
 # set(CMAKE_CXX_COMPILER "clang++")
 
-project (kata_exercise)
+# Enable linters
+# Clang Tidy linter (see target Run Clang Tidy)
+option(MyOption "RUN_CLANG_TIDY" OFF)
+
+if(RUN_CLANG_TIDY)
+   message("Running clang tidy")
+   set(CMAKE_CXX_CLANG_TIDY
+      clang-tidy;
+      -header-filter=.;
+      -checks=*;)
+endif()
 
 # Compiler configurable options, uses the c++2020 standard
+# Passing -Wextra uses a linter as well
 # Adds compile time optimizations -O3
 # Adds link time optimizations -flto
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -Wextra -g -std=c++2a")
 
-# Required by CppCheck
+# CppCheck linter (must be installed to be used by the flylint extension)
+# Generates a file used by the target "Run CppCheck static analyser".
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+project (kata_exercise)
 
 # Creates the executable with source files
 set (SRCS 
