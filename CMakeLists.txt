@@ -15,6 +15,8 @@ project (kata_exercise)
 # Adds link time optimizations -flto
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -Wextra -g -std=c++2a")
 
+# Required by CppCheck
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Creates the executable with source files
 set (SRCS 
