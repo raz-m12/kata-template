@@ -1,39 +1,38 @@
-#ifndef Argument_hpp
-#define Argument_hpp
+#ifndef ARGUMENT_HPP
+#define ARGUMENT_HPP
 
-#include <iostream>
+#include "iostream"
 
+namespace argskata
+{
+    namespace lib
+    {
+        namespace impl
+        {
+            using std::string;
 
-namespace argskata {
-   namespace lib {
-      namespace impl {
-         using namespace std;
+            enum ArgumentType
+            {
+                _boolean,
+                _integer,
+                _string
+            };
 
-         enum ArgumentType
-         {
-            _boolean,
-            _integer,
-            _string
-         };
-
-         class Argument
-         {
+            class Argument
+            {
             public:
-            Argument(const string& name, ArgumentType type);
-            bool operator==(const Argument& other) const;
-            bool operator!=(const Argument& other) const;
+                Argument(string name, ArgumentType type);
+                auto operator==(const Argument &other) const -> bool;
+                auto operator!=(const Argument &other) const -> bool;
 
             private:
-            string name_;
-            ArgumentType type_;
-         };
-      }
-      using impl::ArgumentType;
-      using impl::Argument;
-   }
-}
-
-
-
+                string name_;
+                ArgumentType type_;
+            };
+        } // namespace impl
+        using impl::Argument;
+        using impl::ArgumentType;
+    } // namespace lib
+} // namespace argskata
 
 #endif

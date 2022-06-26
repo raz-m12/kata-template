@@ -1,19 +1,25 @@
 #include "include/ArgsParser.hpp"
 
-using namespace argskata::lib;
-using namespace std;
+using argskata::lib::ArgsParser;
+using std::string;
 
-ArgsParser::ArgsParser(const string& schema, const vector<string>& args) 
+namespace argskata
 {
-   schemaParser_.Parse(schema);
-}
+    namespace lib
+    {
+        ArgsParser::ArgsParser(const string &schema, const vector<string> & /*args*/)
+        {
+            schemaParser_.Parse(schema);
+        }
 
-bool ArgsParser::GetArgValue(const string& argName) const
-{
-   return true;
-}
+        auto ArgsParser::GetArgValue(const string & /*argName*/) -> bool
+        {
+            return true;
+        }
 
-vector<Argument> ArgsParser::GetSchema() const
-{
-   return schemaParser_.GetSchema();
-}
+        auto ArgsParser::GetSchema() const -> vector<Argument>
+        {
+            return schemaParser_.GetSchema();
+        }
+    } // namespace lib
+} // namespace argskata

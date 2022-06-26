@@ -2,106 +2,115 @@
 #include "include/SchemaParser.hpp"
 #include "include/Argument.hpp"
 
-using namespace argskata::lib;
-using namespace std;
-
-void SchemaParser::Parse(const string& bareSchema)
-{    
-   AssertValidSchemaFormat(bareSchema);
-   PopulateSchemaWithArguments(bareSchema);
-}
-
-void SchemaParser::AssertValidSchemaFormat(const string& bareSchema)
+namespace argskata
 {
-   if(!SchemaStartsAndEndsWithParenthesis(bareSchema))
-      throw SchemaMustStartAndEndWithParenthesisException();
+    namespace lib
+    {
+        auto SchemaParser::Parse(const string &bareSchema) -> void
+        {
+            AssertValidSchemaFormat(bareSchema);
+            PopulateSchemaWithArguments(bareSchema);
+        }
 
-   bool emptySchema = bareSchema.length() <= 2;
-   if(emptySchema)
-      throw EmptySchemaIsNotAllowedException();
-}
+        auto SchemaParser::AssertValidSchemaFormat(const string &bareSchema) -> void
+        {
+            if (!SchemaStartsAndEndsWithParenthesis(bareSchema))
+            {
+                throw SchemaMustStartAndEndWithParenthesisException();
+            }
 
+            bool emptySchema = bareSchema.length() <= 2;
+            if (emptySchema)
+            {
+                throw EmptySchemaIsNotAllowedException();
+            }
+        }
 
-bool SchemaParser::SchemaStartsAndEndsWithParenthesis(const string& schema) const
-{
-   return schema.at(0) == '(' && schema.at(schema.length() - 1) == ')';
-}
+        auto SchemaParser::SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool
+        {
+            return schema.at(0) == '(' && schema.at(schema.length() - 1) == ')';
+        }
 
-void SchemaParser::PopulateSchemaWithArguments(const string& bareSchema)
-{
-   istringstream ss{bareSchema};
-   string token;
-   ss.ignore(); // ignore first character '('
+        auto SchemaParser::PopulateSchemaWithArguments(const string &bareSchema) -> void
+        {
+            istringstream iss{bareSchema};
+            string token;
+            iss.ignore(); // ignore first character '('
 
-   while(getline(ss, token, ','))
-   {
-      if(IsSchemaLastToken(token)) 
-         token.pop_back(); // remove token last character ')'
-      
-      if(IsBooleanType(token))
-      {
-         schema_.push_back({ token, _boolean });
-         continue;
-      }
+            #pragma unroll 2
+            while (getline(iss, token, ','))
+            {
+                if (IsSchemaLastToken(token))
+                {
+                    token.pop_back(); // remove token last character ')'
+                }
 
-      if(IsIntegerType(token)) 
-      {
-         RemoveRedundantChars(token, _integer);
-         schema_.push_back({ token, _integer });
-         continue;
-      }
+                if (IsBooleanType(token))
+                {
+                    schema_.emplace_back(Argument{token, _boolean});
+                    continue;
+                }
 
-      if(IsStringType(token))
-      {
-         RemoveRedundantChars(token, _string);
-         schema_.push_back({ token, _string });
-         continue;
-      }
+                if (IsIntegerType(token))
+                {
+                    RemoveRedundantChars(token, _integer);
+                    schema_.emplace_back(Argument{token, _integer});
+                    continue;
+                }
 
-      // TODO do a test in which the schema contains invalid characters
-   }
-}
+                if (IsStringType(token))
+                {
+                    RemoveRedundantChars(token, _string);
+                    schema_.emplace_back(Argument{token, _string});
+                    continue;
+                }
 
-bool SchemaParser::IsSchemaLastToken(const string& token) const
-{
-   return token.at(token.length() - 1) == ')';
-}
+                // TODO(RV) do a test in which the schema contains invalid characters
+            }
+        }
 
-bool SchemaParser::IsBooleanType(const string& token) const
-{
-   return token.length() == 1;
-}
+        auto SchemaParser::IsSchemaLastToken(const string &token) -> bool
+        {
+            return token.at(token.length() - 1) == ')';
+        }
 
-bool SchemaParser::IsIntegerType(const string& token) const
-{
-   return token.length() == 2 && token.at(1) == '#';
-}
+        auto SchemaParser::IsBooleanType(const string &token) -> bool
+        {
+            return token.length() == 1;
+        }
 
-bool SchemaParser::IsStringType(const string& token) const
-{
-   return token.length() == 2 && token.at(1) == '*';
-}
+        auto SchemaParser::IsIntegerType(const string &token) -> bool
+        {
+            return token.length() == 2 && token.at(1) == '#';
+        }
 
-void SchemaParser::RemoveRedundantChars(string& token, ArgumentType tokenType)
-{
+        auto SchemaParser::IsStringType(const string &token) -> bool
+        {
+            return token.length() == 2 && token.at(1) == '*';
+        }
 
-   switch(tokenType)
-   {
-      case _boolean:
-         // nothing to remove when token is a boolean
-         break;
+        void SchemaParser::RemoveRedundantChars(string &token, ArgumentType tokenType)
+        {
 
-      case _integer:
-      case _string:
-         token.pop_back();
-         break;
+            switch (tokenType)
+            {
+            case _boolean:
+                // nothing to remove when token is a boolean
+                break;
 
-      default:
-         throw std::invalid_argument("Unhandled token type");
-   }
-}
+            case _integer:
+            case _string:
+                token.pop_back();
+                break;
 
-vector<Argument> SchemaParser::GetSchema() const
-{
-   return schema_;
-}
+            default:
+                throw std::invalid_argument("Unhandled token type");
+            }
+        }
+
+        auto SchemaParser::GetSchema() const -> std::vector<Argument>
+        {
+            return schema_;
+        }
+    } // namespace lib
+} // namespace argskata

@@ -1,9 +1,8 @@
-#ifndef ArgsParser_h
-#define ArgsParser_h
+#ifndef ARGSPARSER_HPP
+#define ARGSPARSER_HPP
 
 #include <iostream>
 #include "include/SchemaParser.hpp"
-
 
 // ==============================================
 // Schema:
@@ -17,25 +16,28 @@
 // -f -s Bob -n 1 -a 3.2 -p e1 -p e2 -p e3
 // ==============================================
 
-namespace argskata {
-   namespace lib {
-      namespace impl {
-         using namespace std;
+namespace argskata
+{
+    namespace lib
+    {
+        namespace impl
+        {
+            using std::string;
 
-         // TODO make as many methods as possible const
-         class ArgsParser 
-         {
+            // TODO(RV) make as many methods as possible const
+            class ArgsParser
+            {
             public:
-            ArgsParser(const string& bareSchema, const vector<string>& args);
-            bool GetArgValue(const string& argName) const;
-            vector<Argument> GetSchema() const;
+                ArgsParser(const string &bareSchema, const vector<string> &args);
+                [[nodiscard]] static auto GetArgValue(const string &argName) -> bool;
+                [[nodiscard]] auto GetSchema() const -> vector<Argument>;
 
             private:
-            SchemaParser schemaParser_;
-         };
-      }
-      using impl::ArgsParser;
-   }
-}
+                SchemaParser schemaParser_;
+            };
+        } // namespace impl
+        using impl::ArgsParser;
+    } // namespace lib
+} // namespace argskata
 
 #endif
