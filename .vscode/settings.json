@@ -1,11 +1,28 @@
 {
-    // See ~/.config/Code/User/settings.json for user wide addon config
+    // Global configuration file store in ~/.config/Code/User/settings.json. See global.json.
     "cmake.sourceDirectory": "${workspaceFolder}",
     "testMate.cpp.test.advancedExecutables": [
         {
-            "pattern": "{.build,Build,BUILD,out,Out,OUT}/**/*{test,Test,TEST,kata}*",
-            "cwd": "${absDirpath}",
+          "pattern": "{.build,Build,BUILD,out,Out,OUT}/**/*{test,Test,TEST,kata}*",
+          "cwd": "${absDirpath}",
         }
     ],
-    "cmake.buildDirectory": "${workspaceFolder}/.build"
+    "cmake.buildDirectory": "${workspaceFolder}/.build",
+
+    "c-cpp-flylint.enable": false,
+    "c-cpp-flylint.cppcheck.enable": false,
+
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    "C_Cpp.codeAnalysis.exclude": {
+      "**/.build": true,
+      "**/extern": true
+    },
+    "C_Cpp.codeAnalysis.clangTidy.checks.enabled": [
+      "cppcoreguidelines-*"
+    ],
+    "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
+      "clang-analyzer-*"
+    ],
+    "C_Cpp.codeAnalysis.runAutomatically": true
 }
