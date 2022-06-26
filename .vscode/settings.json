@@ -20,10 +20,15 @@
       "**/extern": true
     },
     "C_Cpp.codeAnalysis.clangTidy.checks.enabled": [
-      "cppcoreguidelines-*"
+      "*"
     ],
     "C_Cpp.codeAnalysis.clangTidy.checks.disabled": [
-      "clang-analyzer-*"
+      "google-build-using-namespace",
+      "modernize-concat-nested-namespaces",
+      "llvmlibc-*",
+      "llvm-*",
+      // rules to be revised
+      "fuchsia-*"
     ],
     "C_Cpp.codeAnalysis.runAutomatically": true
 }
