@@ -6,4 +6,5 @@
           "cwd": "${absDirpath}",
         }
     ],
+    "cmake.buildDirectory": "${workspaceFolder}/.build"
 }
