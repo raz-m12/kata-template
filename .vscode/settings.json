@@ -6,6 +6,7 @@
           "cwd": "${absDirpath}",
         }
     ],
+    "cmake.buildDirectory": "${workspaceFolder}/.build",
     "files.associations": {
       "vector": "cpp",
       "any": "cpp",
