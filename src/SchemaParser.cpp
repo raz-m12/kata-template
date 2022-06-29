@@ -76,9 +76,10 @@ namespace argskata
                 {
                     RemoveRedundantChars(token, _strArr);
                     schema_.emplace_back(Argument{token, _strArr});
+                    continue;
                 }
 
-                // TODO(RV) do a test in which the schema contains invalid characters
+                throw SchemaInvalidCharacterDetectedException();
             }
         }
 

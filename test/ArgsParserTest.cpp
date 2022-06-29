@@ -94,6 +94,12 @@ namespace argskata_test
                                             Argument{"o", ArgumentType::_strArr}));
     }
 
+    TEST_F(SchemaValidationFixture, ThrowsOnInvalidSchemaCharacterDetected)
+    {
+        const string schema{"(fd)"};
+        ASSERT_THROW(ArgsParser(schema, EmptyArgs), SchemaInvalidCharacterDetectedException);
+    }
+
     // TODO(RV) Add fixture that describes the argument list tests
     //          Possibly add a parameterized test where needed
     TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)

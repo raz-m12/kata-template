@@ -21,6 +21,10 @@ namespace argskata
             {
             };
 
+            class SchemaInvalidCharacterDetectedException : public exception
+            {
+            };
+
             class SchemaParser
             {
             public:
@@ -45,6 +49,7 @@ namespace argskata
         } // namespace impl
         using impl::EmptySchemaIsNotAllowedException;
         using impl::SchemaMustStartAndEndWithParenthesisException;
+        using impl::SchemaInvalidCharacterDetectedException;
         using impl::SchemaParser;
     } // namespace lib
 } // namespace argskata
