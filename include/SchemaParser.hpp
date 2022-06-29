@@ -39,6 +39,7 @@ namespace argskata
                 [[nodiscard]] static auto IsIntegerType(const string& token)            -> bool;
                 [[nodiscard]] static auto IsStringType(const string& token)             -> bool;
                 [[nodiscard]] static auto IsDoubleType(const string& token)             -> bool;
+                [[nodiscard]] static auto IsStringArrayType(const string& token)        -> bool;
                 static auto RemoveRedundantChars(string &token, ArgumentType tokenType) -> void;
             };
         } // namespace impl

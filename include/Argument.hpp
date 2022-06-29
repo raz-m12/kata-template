@@ -16,7 +16,8 @@ namespace argskata
                 _boolean,
                 _string,
                 _integer,
-                _double
+                _double,
+                _strArr
             };
 
             class Argument

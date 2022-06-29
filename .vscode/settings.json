@@ -25,8 +25,8 @@
         "modernize-concat-nested-namespaces",
         "llvmlibc-*",
         "llvm-*",
-        // rules to be revised
-        "fuchsia-*"
+        "fuchsia-*",
+        "altera-id-dependent-backward-branch"
     ],
     "C_Cpp.codeAnalysis.runAutomatically": true,
     "files.associations": {

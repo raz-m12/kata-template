@@ -84,6 +84,16 @@ namespace argskata_test
                                             Argument{"o", ArgumentType::_double}));
     }
 
+    TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArrayArguments)
+    {
+        const string schema{"(i[*],o[*])"};
+        ArgsParser parser(schema, EmptyArgs);
+
+        ASSERT_THAT(parser.GetSchema(), ElementsAre(
+                                            Argument{"i", ArgumentType::_strArr},
+                                            Argument{"o", ArgumentType::_strArr}));
+    }
+
     // TODO(RV) Add fixture that describes the argument list tests
     //          Possibly add a parameterized test where needed
     TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)

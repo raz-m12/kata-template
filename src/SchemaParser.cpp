@@ -72,6 +72,12 @@ namespace argskata
                     continue;
                 }
 
+                if (IsStringArrayType(token))
+                {
+                    RemoveRedundantChars(token, _strArr);
+                    schema_.emplace_back(Argument{token, _strArr});
+                }
+
                 // TODO(RV) do a test in which the schema contains invalid characters
             }
         }
@@ -101,6 +107,11 @@ namespace argskata
             return token.length() == 3 && token.at(1) == '#' && token.at(2) == '#';
         }
 
+        auto SchemaParser::IsStringArrayType(const string& token) -> bool
+        {
+            return token.length() == 4 && token.at(1) == '[' && token.at(2) == '*' && token.at(3) == ']';
+        }
+
         void SchemaParser::RemoveRedundantChars(string &token, ArgumentType tokenType)
         {
 
@@ -116,6 +127,12 @@ namespace argskata
                 break;
             
             case _double:
+                token.pop_back();
+                token.pop_back();
+                break;
+
+            case _strArr:
+                token.pop_back();
                 token.pop_back();
                 token.pop_back();
                 break;
