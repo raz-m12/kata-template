@@ -31,7 +31,6 @@ namespace argskata_test
 
     TEST_F(SchemaValidationFixture, ThrowsWhenGivenEmptySchema)
     {
-        // TODO(RV) pass as argument "()"
         ASSERT_THROW(ArgsParser parser("()", EmptyArgs), EmptySchemaIsNotAllowedException);
     }
 
@@ -73,6 +72,16 @@ namespace argskata_test
         ASSERT_THAT(parser.GetSchema(), ElementsAre(
                                             Argument{"i", ArgumentType::_string},
                                             Argument{"o", ArgumentType::_string}));
+    }
+
+    TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesDoubleArguments)
+    {
+        const string schema{"(i##,o##)"};
+        ArgsParser parser(schema, EmptyArgs);
+
+        ASSERT_THAT(parser.GetSchema(), ElementsAre(
+                                            Argument{"i", ArgumentType::_double},
+                                            Argument{"o", ArgumentType::_double}));
     }
 
     // TODO(RV) Add fixture that describes the argument list tests

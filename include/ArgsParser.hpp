@@ -24,13 +24,12 @@ namespace argskata
         {
             using std::string;
 
-            // TODO(RV) make as many methods as possible const
             class ArgsParser
             {
             public:
                 ArgsParser(const string &bareSchema, const vector<string> &args);
                 [[nodiscard]] static auto GetArgValue(const string &argName) -> bool;
-                [[nodiscard]] auto GetSchema() const -> vector<Argument>;
+                [[nodiscard]] auto GetSchema()                         const -> vector<Argument>;
 
             private:
                 SchemaParser schemaParser_;

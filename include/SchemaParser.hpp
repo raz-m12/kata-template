@@ -33,12 +33,12 @@ namespace argskata
                 static void AssertValidSchemaFormat(const string &bareSchema);
                 [[nodiscard]] static auto SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool;
 
-                void PopulateSchemaWithArguments(const string &schema);
-                [[nodiscard]] static auto IsSchemaLastToken(const string &token) -> bool;
-                [[nodiscard]] static auto IsBooleanType(const string &token) -> bool;
-                [[nodiscard]] static auto IsIntegerType(const string &token) -> bool;
-                [[nodiscard]] static auto IsStringType(const string &token) -> bool;
-                static void RemoveRedundantChars(string &token, ArgumentType tokenType);
+                auto PopulateSchemaWithArguments(const string &schema)                  -> void;
+                [[nodiscard]] static auto IsSchemaLastToken(const string &token)        -> bool;
+                [[nodiscard]] static auto IsBooleanType(const string &token)            -> bool;
+                [[nodiscard]] static auto IsIntegerType(const string &token)            -> bool;
+                [[nodiscard]] static auto IsStringType(const string &token)             -> bool;
+                static auto RemoveRedundantChars(string &token, ArgumentType tokenType) -> void;
             };
         } // namespace impl
         using impl::EmptySchemaIsNotAllowedException;
