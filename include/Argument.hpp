@@ -14,8 +14,9 @@ namespace argskata
             enum ArgumentType
             {
                 _boolean,
+                _string,
                 _integer,
-                _string
+                _double
             };
 
             class Argument

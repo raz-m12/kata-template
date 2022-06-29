@@ -65,6 +65,13 @@ namespace argskata
                     continue;
                 }
 
+                if (IsDoubleType(token))
+                {
+                    RemoveRedundantChars(token, _double);
+                    schema_.emplace_back(Argument{token, _double});
+                    continue;
+                }
+
                 // TODO(RV) do a test in which the schema contains invalid characters
             }
         }
@@ -89,6 +96,11 @@ namespace argskata
             return token.length() == 2 && token.at(1) == '*';
         }
 
+        auto SchemaParser::IsDoubleType(const string& token) -> bool
+        {
+            return token.length() == 3 && token.at(1) == '#' && token.at(2) == '#';
+        }
+
         void SchemaParser::RemoveRedundantChars(string &token, ArgumentType tokenType)
         {
 
@@ -100,6 +112,11 @@ namespace argskata
 
             case _integer:
             case _string:
+                token.pop_back();
+                break;
+            
+            case _double:
+                token.pop_back();
                 token.pop_back();
                 break;
 
