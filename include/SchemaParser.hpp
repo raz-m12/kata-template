@@ -13,10 +13,6 @@ namespace argskata
         {
             using namespace std;
 
-            class EmptySchemaIsNotAllowedException : public exception
-            {
-            };
-
             class SchemaMustStartAndEndWithParenthesisException : public exception
             {
             };
@@ -54,7 +50,6 @@ namespace argskata
                 auto ArgumentIsValid(const std::string& /*arg*/) const                  -> bool;
             };
         } // namespace impl
-        using impl::EmptySchemaIsNotAllowedException;
         using impl::SchemaMustStartAndEndWithParenthesisException;
         using impl::SchemaInvalidCharacterDetectedException;
         using impl::ArgumentNotPartOfTheSchemaException;

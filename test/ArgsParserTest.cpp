@@ -29,11 +29,6 @@ namespace argskata_test
     };
     const vector<string> SchemaValidationFixture::EmptyArgs = {};
 
-    TEST_F(SchemaValidationFixture, ThrowsWhenGivenEmptySchema)
-    {
-        ASSERT_THROW(ArgsParser parser("()", EmptyArgs), EmptySchemaIsNotAllowedException);
-    }
-
     TEST_F(SchemaValidationFixture, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
     {
         ASSERT_THROW(ArgsParser parser("f)", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);

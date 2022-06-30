@@ -19,12 +19,6 @@ namespace argskata
             {
                 throw SchemaMustStartAndEndWithParenthesisException();
             }
-
-            bool emptySchema = bareSchema.length() <= 2;
-            if (emptySchema)
-            {
-                throw EmptySchemaIsNotAllowedException();
-            }
         }
 
         auto SchemaParser::SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool
