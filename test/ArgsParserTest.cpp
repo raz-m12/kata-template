@@ -102,13 +102,21 @@ namespace argskata_test
 
     // TODO(RV) Add fixture that describes the argument list tests
     //          Possibly add a parameterized test where needed
-    TEST(ArgsParser, BooleanFlagDefaultsToTrueIfInArgumentList)
+    TEST(ArgumentValueValidator, BooleanFlagDefaultsToTrueIfInArgumentList)
     {
         ArgsParser parser{"(f)", {"-f"}};
         ASSERT_TRUE(parser.GetArgValue("f"));
     }
 
-    TEST(ArgsParser, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)
+    TEST(ArgumentValueValidator, ThrowsWhenArgumentIsNotPartOfTheSchema)
+    {
+        const string ArgumentNotInSchema{"-x"};
+
+        ArgsParser parser{"()", { ArgumentNotInSchema }};
+        ASSERT_TRUE(parser.GetArgValue("f"));
+    }
+
+    TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)
     {
         ArgsParser parser{"f", {}};
         auto value = ArgsParser::GetArgValue("f");
