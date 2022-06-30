@@ -25,10 +25,14 @@ namespace argskata
             {
             };
 
+            class ArgumentNotPartOfTheSchemaException : public exception
+            {
+            };
+
             class SchemaParser
             {
             public:
-                void Parse(const string &bareSchema);
+                void Parse(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] auto GetSchema() const -> vector<Argument>;
 
             private:
@@ -45,11 +49,15 @@ namespace argskata
                 [[nodiscard]] static auto IsDoubleType(const string& token)             -> bool;
                 [[nodiscard]] static auto IsStringArrayType(const string& token)        -> bool;
                 static auto RemoveRedundantChars(string &token, ArgumentType tokenType) -> void;
+
+                auto PopulateArgumentsWithValues(const vector<string>& args)            -> void;
+                auto ArgumentIsValid(const std::string& /*arg*/) const                  -> bool;
             };
         } // namespace impl
         using impl::EmptySchemaIsNotAllowedException;
         using impl::SchemaMustStartAndEndWithParenthesisException;
         using impl::SchemaInvalidCharacterDetectedException;
+        using impl::ArgumentNotPartOfTheSchemaException;
         using impl::SchemaParser;
     } // namespace lib
 } // namespace argskata

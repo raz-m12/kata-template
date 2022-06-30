@@ -7,9 +7,9 @@ namespace argskata
 {
     namespace lib
     {
-        ArgsParser::ArgsParser(const string &schema, const vector<string> & /*args*/)
+        ArgsParser::ArgsParser(const string &schema, const vector<string>& args)
         {
-            schemaParser_.Parse(schema);
+            schemaParser_.Parse(schema, args);
         }
 
         auto ArgsParser::GetArgValue(const string & /*argName*/) -> bool

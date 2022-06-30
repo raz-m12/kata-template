@@ -6,10 +6,11 @@ namespace argskata
 {
     namespace lib
     {
-        auto SchemaParser::Parse(const string &bareSchema) -> void
+        auto SchemaParser::Parse(const string &bareSchema, const vector<string>& args) -> void
         {
             AssertValidSchemaFormat(bareSchema);
             PopulateSchemaWithArguments(bareSchema);
+            PopulateArgumentsWithValues(args);
         }
 
         auto SchemaParser::AssertValidSchemaFormat(const string &bareSchema) -> void
@@ -141,6 +142,20 @@ namespace argskata
             default:
                 throw std::invalid_argument("Unhandled token type");
             }
+        }
+
+        auto SchemaParser::PopulateArgumentsWithValues(const std::vector<std::string>& args) -> void
+        {
+            for(const auto& arg: args)
+            {
+                if(!ArgumentIsValid(arg))
+                    throw ArgumentNotPartOfTheSchemaException();
+            }
+        }
+
+        auto SchemaParser::ArgumentIsValid(const std::string& /*arg*/) const -> bool
+        {
+            return false;
         }
 
         auto SchemaParser::GetSchema() const -> std::vector<Argument>
