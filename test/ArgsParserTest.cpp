@@ -103,11 +103,16 @@ namespace argskata_test
         ASSERT_TRUE(parser.GetArgValue("f"));
     }
 
-    TEST(ArgumentValueValidator, ThrowsWhenArgumentIsNotPartOfTheSchema)
+    TEST(ArgumentValueValidator, ThrowsWhenSchemaIsEmptyAndThereAreArguments)
     {
         const string ArgumentNotInSchema{"-x"};
 
-        ASSERT_THROW(ArgsParser parser("(f)", { ArgumentNotInSchema }), ArgumentNotPartOfTheSchemaException);
+        ASSERT_THROW(ArgsParser parser("()", { ArgumentNotInSchema }), ArgumentNotPartOfTheSchemaException);
+    }
+
+    TEST(ArgumentValueValidator, DISABLED_ThrowsWhenArgumentIsNotPartOfSchema)
+    {
+        
     }
 
     TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)

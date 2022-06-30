@@ -8,22 +8,33 @@ namespace argskata
     {
         auto SchemaParser::Parse(const string &bareSchema, const vector<string>& args) -> void
         {
-            AssertValidSchemaFormat(bareSchema);
+            AssertValidSchemaFormat(bareSchema, args);
             PopulateSchemaWithArguments(bareSchema);
             PopulateArgumentsWithValues(args);
         }
 
-        auto SchemaParser::AssertValidSchemaFormat(const string &bareSchema) -> void
+        auto SchemaParser::AssertValidSchemaFormat(const string &bareSchema, const vector<string>& args) -> void
         {
             if (!SchemaStartsAndEndsWithParenthesis(bareSchema))
             {
                 throw SchemaMustStartAndEndWithParenthesisException();
+            }
+            
+            if (SchemaIsEmptyAndThereAreArgumentsToParse(bareSchema, args))
+            {
+                throw ArgumentNotPartOfTheSchemaException();
             }
         }
 
         auto SchemaParser::SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool
         {
             return schema.at(0) == '(' && schema.at(schema.length() - 1) == ')';
+        }
+
+        auto SchemaParser::SchemaIsEmptyAndThereAreArgumentsToParse(const string &schema, const vector<string>& args) -> bool
+        {
+            return schema.length() == 2 && !args.empty();
+
         }
 
         auto SchemaParser::PopulateSchemaWithArguments(const string &bareSchema) -> void

@@ -34,8 +34,9 @@ namespace argskata
             private:
                 vector<Argument> schema_;
 
-                static void AssertValidSchemaFormat(const string &bareSchema);
+                static void AssertValidSchemaFormat(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] static auto SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool;
+                [[nodiscard]] static auto SchemaIsEmptyAndThereAreArgumentsToParse(const string &schema, const vector<string>& args) -> bool;
 
                 auto PopulateSchemaWithArguments(const string &schema)                  -> void;
                 [[nodiscard]] static auto IsSchemaLastToken(const string &token)        -> bool;
