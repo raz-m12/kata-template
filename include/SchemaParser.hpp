@@ -3,6 +3,7 @@
 
 #include "iostream"
 #include "vector"
+#include "unordered_map"
 #include "include/Argument.hpp"
 
 namespace argskata
@@ -29,10 +30,10 @@ namespace argskata
             {
             public:
                 void Parse(const string &bareSchema, const vector<string>& args);
-                [[nodiscard]] auto GetSchema() const -> vector<Argument>;
+                [[nodiscard]] auto GetSchema() const -> unordered_map<string, Argument>;
 
             private:
-                vector<Argument> schema_;
+                unordered_map<string, Argument> schema_;
 
                 static void AssertValidSchemaFormat(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] static auto SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool;
@@ -49,6 +50,7 @@ namespace argskata
 
                 auto PopulateArgumentsWithValues(const vector<string>& args)            -> void;
                 auto ArgumentIsValid(const std::string& /*arg*/) const                  -> bool;
+
             };
         } // namespace impl
         using impl::SchemaMustStartAndEndWithParenthesisException;

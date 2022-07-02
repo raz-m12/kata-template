@@ -2,6 +2,7 @@
 
 using argskata::lib::ArgsParser;
 using std::string;
+using std::unordered_map;
 
 namespace argskata
 {
@@ -17,7 +18,7 @@ namespace argskata
             return true;
         }
 
-        auto ArgsParser::GetSchema() const -> vector<Argument>
+        auto ArgsParser::GetSchema() const -> unordered_map<string, Argument>
         {
             return schemaParser_.GetSchema();
         }

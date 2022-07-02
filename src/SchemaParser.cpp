@@ -6,20 +6,22 @@ namespace argskata
 {
     namespace lib
     {
-        auto SchemaParser::Parse(const string &bareSchema, const vector<string>& args) -> void
+        using std::make_pair;
+
+        auto SchemaParser::Parse(const string &bareSchema, const vector<string> &args) -> void
         {
             AssertValidSchemaFormat(bareSchema, args);
             PopulateSchemaWithArguments(bareSchema);
             PopulateArgumentsWithValues(args);
         }
 
-        auto SchemaParser::AssertValidSchemaFormat(const string &bareSchema, const vector<string>& args) -> void
+        auto SchemaParser::AssertValidSchemaFormat(const string &bareSchema, const vector<string> &args) -> void
         {
             if (!SchemaStartsAndEndsWithParenthesis(bareSchema))
             {
                 throw SchemaMustStartAndEndWithParenthesisException();
             }
-            
+
             if (SchemaIsEmptyAndThereAreArgumentsToParse(bareSchema, args))
             {
                 throw ArgumentNotPartOfTheSchemaException();
@@ -31,10 +33,9 @@ namespace argskata
             return schema.at(0) == '(' && schema.at(schema.length() - 1) == ')';
         }
 
-        auto SchemaParser::SchemaIsEmptyAndThereAreArgumentsToParse(const string &schema, const vector<string>& args) -> bool
+        auto SchemaParser::SchemaIsEmptyAndThereAreArgumentsToParse(const string &schema, const vector<string> &args) -> bool
         {
             return schema.length() == 2 && !args.empty();
-
         }
 
         auto SchemaParser::PopulateSchemaWithArguments(const string &bareSchema) -> void
@@ -43,7 +44,7 @@ namespace argskata
             string token;
             iss.ignore(); // ignore first character '('
 
-            #pragma unroll 2
+#pragma unroll 2
             while (getline(iss, token, ','))
             {
                 if (IsSchemaLastToken(token))
@@ -53,35 +54,35 @@ namespace argskata
 
                 if (IsBooleanType(token))
                 {
-                    schema_.emplace_back(Argument{token, _boolean});
+                    schema_.insert(make_pair(token, Argument{token, _boolean}));
                     continue;
                 }
 
                 if (IsIntegerType(token))
                 {
                     RemoveRedundantChars(token, _integer);
-                    schema_.emplace_back(Argument{token, _integer});
+                    schema_.insert(make_pair(token, Argument{token, _integer}));
                     continue;
                 }
 
                 if (IsStringType(token))
                 {
                     RemoveRedundantChars(token, _string);
-                    schema_.emplace_back(Argument{token, _string});
+                    schema_.insert(make_pair(token, Argument{token, _string}));
                     continue;
                 }
 
                 if (IsDoubleType(token))
                 {
                     RemoveRedundantChars(token, _double);
-                    schema_.emplace_back(Argument{token, _double});
+                    schema_.insert(make_pair(token, Argument{token, _double}));
                     continue;
                 }
 
                 if (IsStringArrayType(token))
                 {
                     RemoveRedundantChars(token, _strArr);
-                    schema_.emplace_back(Argument{token, _strArr});
+                    schema_.insert(make_pair(token, Argument{token, _strArr}));
                     continue;
                 }
 
@@ -109,12 +110,12 @@ namespace argskata
             return token.length() == 2 && token.at(1) == '*';
         }
 
-        auto SchemaParser::IsDoubleType(const string& token) -> bool
+        auto SchemaParser::IsDoubleType(const string &token) -> bool
         {
             return token.length() == 3 && token.at(1) == '#' && token.at(2) == '#';
         }
 
-        auto SchemaParser::IsStringArrayType(const string& token) -> bool
+        auto SchemaParser::IsStringArrayType(const string &token) -> bool
         {
             return token.length() == 4 && token.at(1) == '[' && token.at(2) == '*' && token.at(3) == ']';
         }
@@ -132,7 +133,7 @@ namespace argskata
             case _string:
                 token.pop_back();
                 break;
-            
+
             case _double:
                 token.pop_back();
                 token.pop_back();
@@ -149,23 +150,27 @@ namespace argskata
             }
         }
 
-        auto SchemaParser::PopulateArgumentsWithValues(const std::vector<std::string>& args) -> void
+        auto SchemaParser::PopulateArgumentsWithValues(const std::vector<std::string> &args) -> void
         {
-            for(const auto& arg: args)
+            for (const auto &arg : args)
             {
-                if(!ArgumentIsValid(arg))
+                if (!ArgumentIsValid(arg))
+                {
                     throw ArgumentNotPartOfTheSchemaException();
+                }
             }
         }
 
-        auto SchemaParser::ArgumentIsValid(const std::string& /*arg*/) const -> bool
+        auto SchemaParser::ArgumentIsValid(const std::string & /*arg*/) const -> bool
         {
             return false;
         }
 
-        auto SchemaParser::GetSchema() const -> std::vector<Argument>
+        auto SchemaParser::GetSchema() const -> std::unordered_map<string, Argument>
         {
             return schema_;
         }
+
+  
     } // namespace lib
 } // namespace argskata
