@@ -8,6 +8,7 @@
         }
     ],
     "cmake.buildDirectory": "${workspaceFolder}/.build",
+    // Can be removed if everything is ok. "C_Cpp.codeAnalysis.clangTidy.useBuildPath": true,
     "c-cpp-flylint.enable": false,
     "c-cpp-flylint.cppcheck.enable": false,
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",

@@ -1,13 +1,11 @@
 #include "sstream"
-#include "include/SchemaParser.hpp"
 #include "include/Argument.hpp"
+#include "include/SchemaParser.hpp"
 
 namespace argskata
 {
     namespace lib
     {
-        using std::make_pair;
-
         auto SchemaParser::Parse(const string &bareSchema, const vector<string> &args) -> void
         {
             AssertValidSchemaFormat(bareSchema, args);
@@ -152,6 +150,7 @@ namespace argskata
 
         auto SchemaParser::PopulateArgumentsWithValues(const std::vector<std::string> &args) -> void
         {
+            #pragma unroll 1
             for (const auto &arg : args)
             {
                 if (!ArgumentIsValid(arg))

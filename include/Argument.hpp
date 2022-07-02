@@ -10,6 +10,7 @@ namespace argskata
         namespace impl
         {
             using std::string;
+            using std::size_t;
 
             enum ArgumentType
             {
@@ -20,9 +21,12 @@ namespace argskata
                 _strArr
             };
 
+            class ArgumentHasher;
+
             class Argument
             {
             public:
+                friend ArgumentHasher;
 
                 Argument(string name, ArgumentType type);
                 auto operator==(const Argument &other) const -> bool;
@@ -32,8 +36,16 @@ namespace argskata
                 string name_;
                 ArgumentType type_;
             };
+
+            class ArgumentHasher
+            {
+                public:
+                auto operator()(const Argument &arg) const -> size_t;
+            };
         } // namespace impl
+
         using impl::Argument;
+        using impl::ArgumentHasher;
         using impl::ArgumentType;
     } // namespace lib
 } // namespace argskata

@@ -14,17 +14,6 @@ namespace argskata
         {
             using namespace std;
 
-            struct ArgumentHasher
-            {
-                std::size_t operator()(const Argument& k) const
-                {
-                    using std::hash;
-                    using std::size_t;
-                    using std::string;
-
-                    return 1;//((hash<string>()(k.name_) ^ (hash<ArgumentType>()(k.type_) << 1)) >> 1) ^ (hash<int>()(k.third) << 1);
-                }
-            };
 
             class SchemaMustStartAndEndWithParenthesisException : public exception
             {
