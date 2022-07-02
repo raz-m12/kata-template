@@ -3,7 +3,7 @@
 
 #include "iostream"
 #include "vector"
-#include "unordered_set"
+#include "unordered_map"
 #include "include/Argument.hpp"
 
 namespace argskata
@@ -31,10 +31,10 @@ namespace argskata
             {
             public:
                 void Parse(const string &bareSchema, const vector<string>& args);
-                [[nodiscard]] auto GetSchema() const -> unordered_set<Argument, ArgumentHasher>;
+                [[nodiscard]] auto GetSchema() const -> unordered_map<string, Argument>;
 
             private:
-                unordered_set<Argument, ArgumentHasher> schema_;
+                unordered_map<string, Argument> schema_;
 
                 static void AssertValidSchemaFormat(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] static auto SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool;
