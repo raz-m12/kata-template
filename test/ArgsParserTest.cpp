@@ -103,16 +103,21 @@ namespace argskata_test
         ASSERT_TRUE(parser.GetArgValue("f"));
     }
 
+    /** Although empty schema is allowed, empty schema with arguments to parse is forbidden. */
     TEST(ArgumentValueValidator, ThrowsWhenSchemaIsEmptyAndThereAreArguments)
     {
         const string ArgumentNotInSchema{"-x"};
+        const string SchemaIsEmpty{"()"};
 
-        ASSERT_THROW(ArgsParser parser("()", { ArgumentNotInSchema }), ArgumentNotPartOfTheSchemaException);
+        ASSERT_THROW(ArgsParser parser(SchemaIsEmpty, { ArgumentNotInSchema }), ArgumentNotPartOfTheSchemaException);
     }
 
-    TEST(ArgumentValueValidator, DISABLED_ThrowsWhenArgumentIsNotPartOfSchema)
+    TEST(ArgumentValueValidator, ThrowsWhenArgumentIsNotPartOfSchema)
     {
-        
+        const string ArgumentNotInSchema{"-x"};
+        const string Schema{"(d,f)"};
+
+        ASSERT_THROW(ArgsParser (Schema, { ArgumentNotInSchema }), ArgumentNotPartOfTheSchemaException);
     }
 
     TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)
