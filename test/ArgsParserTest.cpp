@@ -98,11 +98,7 @@ namespace argskata_test
 
     // TODO(RV) Add fixture that describes the argument list tests
     //          Possibly add a parameterized test where needed
-    TEST(ArgumentValueValidator, BooleanFlagDefaultsToTrueIfInArgumentList)
-    {
-        ArgsParser parser{"(f)", {"-f"}};
-        ASSERT_TRUE(parser.GetArgValue("f"));
-    }
+
 
     /** Although empty schema is allowed, empty schema with arguments to parse is forbidden. */
     TEST(ArgumentValueValidator, ThrowsWhenSchemaIsEmptyAndThereAreArguments)
@@ -119,6 +115,13 @@ namespace argskata_test
         const string Schema{"(d,f)"};
 
         ASSERT_THROW(ArgsParser (Schema, { ArgumentNotInSchema }), ArgumentNotPartOfTheSchemaException);
+    }
+
+
+    TEST(ArgumentValueValidator, BooleanFlagDefaultsToTrueIfInArgumentList)
+    {
+        ArgsParser parser{"(f)", {"-f"}};
+        ASSERT_TRUE(parser.GetArgValue("f"));
     }
 
     TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)

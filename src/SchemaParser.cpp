@@ -153,14 +153,16 @@ namespace argskata
             #pragma unroll 1
             for (const auto &arg : args)
             {
-                if (!ArgumentIsValid(arg))
+                if (!ArgumentIsPartOfSchema(arg))
                 {
                     throw ArgumentNotPartOfTheSchemaException();
                 }
+
+
             }
         }
 
-        auto SchemaParser::ArgumentIsValid(const std::string & /*arg*/) const -> bool
+        auto SchemaParser::ArgumentIsPartOfSchema(const std::string & /*arg*/) const -> bool
         {
             return false;
         }
