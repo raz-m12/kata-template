@@ -23,6 +23,7 @@ namespace argskata
             class Argument
             {
             public:
+
                 Argument(string name, ArgumentType type);
                 auto operator==(const Argument &other) const -> bool;
                 auto operator!=(const Argument &other) const -> bool;

@@ -41,7 +41,7 @@
         "compare": "cpp",
         "concepts": "cpp",
         "string": "cpp",
-        "unordered_map": "cpp",
+        "unordered_set": "cpp",
         "exception": "cpp",
         "algorithm": "cpp",
         "memory": "cpp",
@@ -91,6 +91,7 @@
         "iomanip": "cpp",
         "iostream": "cpp",
         "stdexcept": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "unordered_map": "cpp"
     }
 }

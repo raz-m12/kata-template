@@ -3,7 +3,7 @@
 
 #include "iostream"
 #include "vector"
-#include "unordered_map"
+#include "unordered_set"
 #include "include/Argument.hpp"
 
 namespace argskata
@@ -13,6 +13,18 @@ namespace argskata
         namespace impl
         {
             using namespace std;
+
+            struct ArgumentHasher
+            {
+                std::size_t operator()(const Argument& k) const
+                {
+                    using std::hash;
+                    using std::size_t;
+                    using std::string;
+
+                    return 1;//((hash<string>()(k.name_) ^ (hash<ArgumentType>()(k.type_) << 1)) >> 1) ^ (hash<int>()(k.third) << 1);
+                }
+            };
 
             class SchemaMustStartAndEndWithParenthesisException : public exception
             {
@@ -30,10 +42,10 @@ namespace argskata
             {
             public:
                 void Parse(const string &bareSchema, const vector<string>& args);
-                [[nodiscard]] auto GetSchema() const -> unordered_map<string, Argument>;
+                [[nodiscard]] auto GetSchema() const -> unordered_set<Argument, ArgumentHasher>;
 
             private:
-                unordered_map<string, Argument> schema_;
+                unordered_set<Argument, ArgumentHasher> schema_;
 
                 static void AssertValidSchemaFormat(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] static auto SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool;
