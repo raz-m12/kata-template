@@ -124,6 +124,12 @@ namespace argskata_test
         ASSERT_TRUE(parser.GetArgValue("f"));
     }
 
+    TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToTrueIfInArgumentList)
+    {
+        ArgsParser parser{"(f#)", {"-f 3"}};
+        ASSERT_TRUE(parser.GetArgValue("f"));
+    }
+
     TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)
     {
         ArgsParser parser{"f", {}};

@@ -50,8 +50,8 @@ namespace argskata
                 static auto RemoveRedundantChars(string &token, ArgumentType tokenType) -> void;
 
                 auto PopulateArgumentsWithValues(const vector<string>& args)            -> void;
-                auto ArgumentIsPartOfSchema(const std::string& /*arg*/) const                  -> bool;
-
+                auto ArgumentIsPartOfSchema(const std::string& arg)                     -> bool;
+                auto DecideValidArgumentValue(const std::string& arg)                   -> void;
             };
         } // namespace impl
         using impl::SchemaMustStartAndEndWithParenthesisException;

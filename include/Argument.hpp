@@ -32,6 +32,8 @@ namespace argskata
                 auto operator==(const Argument &other) const -> bool;
                 auto operator!=(const Argument &other) const -> bool;
 
+                [[nodiscard]] auto name() const -> string;
+                [[nodiscard]] auto type() const -> ArgumentType;
             private:
                 string name_;
                 ArgumentType type_;

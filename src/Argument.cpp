@@ -35,5 +35,16 @@ namespace argskata
         {
             return !(*this == other);
         }
+
+        auto Argument::name() const -> string
+        {
+            return name_;
+        }
+
+        auto Argument::type() const -> ArgumentType
+        {
+            return type_;
+        }
+
     } // namespace lib
 } // namespace argskata

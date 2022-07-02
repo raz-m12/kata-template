@@ -42,7 +42,7 @@ namespace argskata
             string token;
             iss.ignore(); // ignore first character '('
 
-#pragma unroll 2
+            #pragma unroll 1
             while (getline(iss, token, ','))
             {
                 if (IsSchemaLastToken(token))
@@ -153,19 +153,34 @@ namespace argskata
             #pragma unroll 1
             for (const auto &arg : args)
             {
-                if (!ArgumentIsPartOfSchema(arg))
+                auto schemaArg = ArgumentIsPartOfSchema(arg);
+                if (schemaArg)
                 {
                     throw ArgumentNotPartOfTheSchemaException();
                 }
-
-
+                DecideValidArgumentValue(arg);
             }
         }
 
-        auto SchemaParser::ArgumentIsPartOfSchema(const std::string & /*arg*/) const -> bool
+        auto SchemaParser::ArgumentIsPartOfSchema(const std::string & arg) -> bool
         {
             return false;
+      
+            // for(Argument& elem: schema_)
+            // {
+            //     if(elem.name() == arg) 
+            //     {
+            //         return elem;
+            //     }
+            // }
+            // return nullptr;
         }
+
+        auto SchemaParser::DecideValidArgumentValue(const string& arg) -> void
+        {
+            
+        }
+
 
         auto SchemaParser::GetSchema() const -> std::unordered_set<Argument, ArgumentHasher>
         {
