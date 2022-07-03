@@ -36,6 +36,7 @@ namespace argskata
                 [[nodiscard]] auto type() const -> ArgumentType;
             private:
                 string name_;
+                string value_;
                 ArgumentType type_;
             };
 

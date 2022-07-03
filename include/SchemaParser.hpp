@@ -32,6 +32,7 @@ namespace argskata
             public:
                 void Parse(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] auto GetSchema() const -> unordered_map<string, Argument>;
+                // TODO(RV) [[nodiscard]] auto GetValue(const string& argName) const -> 
 
             private:
                 unordered_map<string, Argument> schema_;

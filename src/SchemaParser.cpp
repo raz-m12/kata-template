@@ -3,9 +3,6 @@
 #include "include/SchemaParser.hpp"
 
 
-using std::pair;
-
-
 namespace argskata
 {
     namespace lib
@@ -148,29 +145,35 @@ namespace argskata
                 break;
 
             default:
-                throw std::invalid_argument("Unhandled token type");
+                throw invalid_argument("Unhandled token type");
             }
         }
 
-        auto SchemaParser::PopulateArgumentsWithValues(const std::vector<std::string> &args) -> void
+        auto SchemaParser::PopulateArgumentsWithValues(const vector<string> &args) -> void
         {
-            #pragma unroll 1
-            for (const auto &arg : args)
-            {
-                auto schemaArg = ArgumentIsPartOfSchema(arg);
-                if (schemaArg)
-                {
-                    throw ArgumentNotPartOfTheSchemaException();
-                }
-                DecideValidArgumentValue(arg);
-            }
+            size_t curParsePos = 0;
+
+            // while(curParsePos < args.size())
+            // {
+            //     auto argType = getArgT
+            // }
+
+            // #pragma unroll 1
+            // for (const auto &arg : args)
+            // {
+            //     auto schemaArg = ArgumentIsPartOfSchema(arg);
+            //     if (schemaArg)
+            //     {
+            //         throw ArgumentNotPartOfTheSchemaException();
+            //     }
+            //     DecideValidArgumentValue(arg);
+            // }
         }
 
-        auto SchemaParser::ArgumentIsPartOfSchema(const std::string & arg) -> bool
+        auto SchemaParser::ArgumentIsPartOfSchema(const string & argName) -> bool
         {
             return false;
-      
-            // for(Argument& elem: schema_)
+            // for(auto& elem: schema_)
             // {
             //     if(elem.name() == arg) 
             //     {
@@ -186,7 +189,7 @@ namespace argskata
         }
 
 
-        auto SchemaParser::GetSchema() const -> std::unordered_map<string, Argument>
+        auto SchemaParser::GetSchema() const -> unordered_map<string, Argument>
         {
             return schema_;
         }

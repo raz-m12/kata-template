@@ -109,7 +109,7 @@ namespace argskata_test
         ASSERT_THROW(ArgsParser parser(SchemaIsEmpty, { ArgumentNotInSchema }), ArgumentNotPartOfTheSchemaException);
     }
 
-    TEST(ArgumentValueValidator, ThrowsWhenArgumentIsNotPartOfSchema)
+    TEST(ArgumentValueValidator, DISABLED_ThrowsWhenArgumentIsNotPartOfSchema)
     {
         const string ArgumentNotInSchema{"-x"};
         const string Schema{"(d,f)"};
@@ -124,9 +124,9 @@ namespace argskata_test
         ASSERT_TRUE(parser.GetArgValue("f"));
     }
 
-    TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToTrueIfInArgumentList)
+    TEST(ArgumentValueValidator, DISABLED_IntegerDefaultsToTrueIfInArgumentList)
     {
-        ArgsParser parser{"(f#)", {"-f 3"}};
+        ArgsParser parser{"(f#)", {"-f", "3"}};
         ASSERT_TRUE(parser.GetArgValue("f"));
     }
 
