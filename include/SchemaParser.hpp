@@ -31,11 +31,11 @@ namespace argskata
             {
             public:
                 void Parse(const string &bareSchema, const vector<string>& args);
-                [[nodiscard]] auto GetSchema() const -> unordered_map<string, Argument>;
+                [[nodiscard]] auto GetSchema() const -> unordered_map<string, AbstractArgument>;
                 // TODO(RV) [[nodiscard]] auto GetValue(const string& argName) const -> 
 
             private:
-                unordered_map<string, Argument> schema_;
+                unordered_map<string, AbstractArgument> schema_;
 
                 static void AssertValidSchemaFormat(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] static auto SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool;

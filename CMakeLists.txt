@@ -37,6 +37,7 @@ set (SRCS
    src/main.cpp
    src/ArgsParser.cpp
    src/Argument.cpp
+   src/Utils.cpp
    src/SchemaParser.cpp
    test/ArgsParserTest.cpp
    test/ArgumentTest.cpp)

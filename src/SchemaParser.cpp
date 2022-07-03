@@ -53,35 +53,35 @@ namespace argskata
 
                 if (IsBooleanType(token))
                 {
-                    schema_.insert(make_pair(token, Argument{token, _boolean}));
+                    schema_.insert(make_pair(token, AbstractArgument{token, _boolean}));
                     continue;
                 }
 
                 if (IsIntegerType(token))
                 {
                     RemoveRedundantChars(token, _integer);
-                    schema_.insert(make_pair(token, Argument{token, _integer}));
+                    schema_.insert(make_pair(token, AbstractArgument{token, _integer}));
                     continue;
                 }
 
                 if (IsStringType(token))
                 {
                     RemoveRedundantChars(token, _string);
-                    schema_.insert(make_pair(token, Argument{token, _string}));
+                    schema_.insert(make_pair(token, AbstractArgument{token, _string}));
                     continue;
                 }
 
                 if (IsDoubleType(token))
                 {
                     RemoveRedundantChars(token, _double);
-                    schema_.insert(make_pair(token, Argument{token, _double}));
+                    schema_.insert(make_pair(token, AbstractArgument{token, _double}));
                     continue;
                 }
 
                 if (IsStringArrayType(token))
                 {
                     RemoveRedundantChars(token, _strArr);
-                    schema_.insert(make_pair(token, Argument{token, _strArr}));
+                    schema_.insert(make_pair(token, AbstractArgument{token, _strArr}));
                     continue;
                 }
 
@@ -189,7 +189,7 @@ namespace argskata
         }
 
 
-        auto SchemaParser::GetSchema() const -> unordered_map<string, Argument>
+        auto SchemaParser::GetSchema() const -> unordered_map<string, AbstractArgument>
         {
             return schema_;
         }

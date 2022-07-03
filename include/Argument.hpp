@@ -21,34 +21,25 @@ namespace argskata
                 _strArr
             };
 
-            class ArgumentHasher;
-
-            class Argument
+            class AbstractArgument
             {
             public:
-                friend ArgumentHasher;
 
-                Argument(string name, ArgumentType type);
-                auto operator==(const Argument &other) const -> bool;
-                auto operator!=(const Argument &other) const -> bool;
+                AbstractArgument(string name, ArgumentType type);
+                auto operator==(const AbstractArgument &other) const -> bool;
+                auto operator!=(const AbstractArgument &other) const -> bool;
 
-                [[nodiscard]] auto name() const -> string;
-                [[nodiscard]] auto type() const -> ArgumentType;
+                [[nodiscard]] auto Name() const -> string;
+                [[nodiscard]] auto Type() const -> ArgumentType;
             private:
                 string name_;
                 string value_;
                 ArgumentType type_;
             };
 
-            class ArgumentHasher
-            {
-                public:
-                auto operator()(const Argument &arg) const -> size_t;
-            };
         } // namespace impl
 
-        using impl::Argument;
-        using impl::ArgumentHasher;
+        using impl::AbstractArgument;
         using impl::ArgumentType;
     } // namespace lib
 } // namespace argskata

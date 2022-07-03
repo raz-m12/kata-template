@@ -46,8 +46,8 @@ namespace argskata_test
         ArgsParser parser{schema, EmptyArgs};
 
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("f", Argument{"f", ArgumentType::_boolean}),
-                                            Pair("d", Argument{"d", ArgumentType::_boolean})));
+                                            Pair("f", AbstractArgument{"f", ArgumentType::_boolean}),
+                                            Pair("d", AbstractArgument{"d", ArgumentType::_boolean})));
     }
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
@@ -56,8 +56,8 @@ namespace argskata_test
         ArgsParser parser(schema, EmptyArgs);
 
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("i", Argument{"i", ArgumentType::_integer}),
-                                            Pair("o", Argument{"o", ArgumentType::_integer})));
+                                            Pair("i", AbstractArgument{"i", ArgumentType::_integer}),
+                                            Pair("o", AbstractArgument{"o", ArgumentType::_integer})));
     }
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArguments)
@@ -66,8 +66,8 @@ namespace argskata_test
         ArgsParser parser(schema, EmptyArgs);
 
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("i", Argument{"i", ArgumentType::_string}),
-                                            Pair("o", Argument{"o", ArgumentType::_string})));
+                                            Pair("i", AbstractArgument{"i", ArgumentType::_string}),
+                                            Pair("o", AbstractArgument{"o", ArgumentType::_string})));
     }
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesDoubleArguments)
@@ -76,8 +76,8 @@ namespace argskata_test
         ArgsParser parser(schema, EmptyArgs);
 
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("i", Argument{"i", ArgumentType::_double}),
-                                            Pair("o",Argument{"o", ArgumentType::_double})));
+                                            Pair("i", AbstractArgument{"i", ArgumentType::_double}),
+                                            Pair("o",AbstractArgument{"o", ArgumentType::_double})));
     }
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArrayArguments)
@@ -86,8 +86,8 @@ namespace argskata_test
         ArgsParser parser(schema, EmptyArgs);
 
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("i", Argument{"i", ArgumentType::_strArr}),
-                                            Pair("o", Argument{"o", ArgumentType::_strArr})));
+                                            Pair("i", AbstractArgument{"i", ArgumentType::_strArr}),
+                                            Pair("o", AbstractArgument{"o", ArgumentType::_strArr})));
     }
 
     TEST_F(SchemaValidationFixture, ThrowsOnInvalidSchemaCharacterDetected)
