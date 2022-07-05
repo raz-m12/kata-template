@@ -52,7 +52,7 @@ namespace argskata
             {
                 public:
                 BooleanArgument(const string& name, const ArgumentType& type): AbstractArgument{name, type} { }
-                ~BooleanArgument() = default;
+                ~BooleanArgument() override = default;
                 BooleanArgument(BooleanArgument const&) = default;
                 BooleanArgument(BooleanArgument&&) = delete;
                 auto operator=(BooleanArgument const&) -> BooleanArgument& = default;
