@@ -2,6 +2,7 @@
 #define ARGSPARSER_HPP
 
 #include <iostream>
+#include <memory>
 #include "include/SchemaParser.hpp"
 
 // ==============================================
@@ -23,6 +24,7 @@ namespace argskata
         namespace impl
         {
             using std::string;
+            using std::shared_ptr;
 
             class ArgsParser
             {
@@ -30,7 +32,7 @@ namespace argskata
                 ArgsParser(const string &bareSchema, const vector<string> &args);
                 
                 [[nodiscard]] static auto GetArgValue(const string &argName) -> bool;
-                [[nodiscard]] auto GetSchema()                         const -> unordered_map<string, AbstractArgument>;
+                [[nodiscard]] auto GetSchema()                         const -> unordered_map<string, shared_ptr<AbstractArgument>>;
                 static auto MapCmdLineArgsToParserInput(int argc, char *argv[]) -> vector<string>;
 
             private:
