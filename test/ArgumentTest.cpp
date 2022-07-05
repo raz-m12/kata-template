@@ -5,12 +5,15 @@ using namespace argskata::lib;
 
 namespace argskata_test
 {
+    using std::shared_ptr;
+    using std::make_shared;
+
     TEST(ArgumentValueValidator, BooleanArgumentIsTrue)
     {
-        AbstractArgument arg{"d", ArgumentType::_boolean};
+        shared_ptr<BooleanArgument> arg = make_shared<BooleanArgument>("d", ArgumentType::_boolean);
 
-        //arg.SetValue(false);
+        arg->SetValue("");
 
-        //ASSERT_FALSE(arg.Value());
+        ASSERT_TRUE(BooleanArgument::Value(arg));
     }
-}
+} // namespace argskata_test

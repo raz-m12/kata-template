@@ -4,7 +4,6 @@
 
 using argskata::lib::AbstractArgument;
 using std::string;
-using std::hash;
 using std::size_t;
 using std::string;
 
@@ -34,6 +33,21 @@ namespace argskata
         auto AbstractArgument::Type() const -> ArgumentType
         {
             return type_;
+        }
+
+        auto BooleanArgument::SetValue(string /* argValue */) -> void
+        {
+            value_ = true;
+        }
+
+        auto BooleanArgument::Value(const shared_ptr<AbstractArgument>& arg) -> bool
+        {
+            auto ptr = dynamic_pointer_cast<BooleanArgument>(arg);
+            if(ptr != nullptr)
+            {
+                return ptr->value_;
+            }
+            return false;
         }
 
     } // namespace lib

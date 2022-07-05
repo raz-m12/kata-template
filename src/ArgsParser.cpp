@@ -18,7 +18,7 @@ namespace argskata
             return false; //schemaParser_.;
         }
 
-        auto ArgsParser::GetSchema() const -> unordered_map<string, AbstractArgument>
+        auto ArgsParser::GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>
         {
             return schemaParser_.GetSchema();
         }

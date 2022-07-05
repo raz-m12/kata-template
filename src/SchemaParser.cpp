@@ -53,35 +53,35 @@ namespace argskata
 
                 if (IsBooleanType(token))
                 {
-                    schema_.insert(make_pair(token, AbstractArgument{token, _boolean}));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _boolean)));
                     continue;
                 }
 
                 if (IsIntegerType(token))
                 {
                     RemoveRedundantChars(token, _integer);
-                    schema_.insert(make_pair(token, AbstractArgument{token, _integer}));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _integer)));
                     continue;
                 }
 
                 if (IsStringType(token))
                 {
                     RemoveRedundantChars(token, _string);
-                    schema_.insert(make_pair(token, AbstractArgument{token, _string}));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _string)));
                     continue;
                 }
 
                 if (IsDoubleType(token))
                 {
                     RemoveRedundantChars(token, _double);
-                    schema_.insert(make_pair(token, AbstractArgument{token, _double}));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _double)));
                     continue;
                 }
 
                 if (IsStringArrayType(token))
                 {
                     RemoveRedundantChars(token, _strArr);
-                    schema_.insert(make_pair(token, AbstractArgument{token, _strArr}));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _strArr)));
                     continue;
                 }
 
@@ -149,9 +149,9 @@ namespace argskata
             }
         }
 
-        auto SchemaParser::PopulateArgumentsWithValues(const vector<string> &args) -> void
+        auto SchemaParser::PopulateArgumentsWithValues(const vector<string> &/* args */) -> void
         {
-            size_t curParsePos = 0;
+            /* size_t curParsePos = 0; */
 
             // while(curParsePos < args.size())
             // {
@@ -170,7 +170,7 @@ namespace argskata
             // }
         }
 
-        auto SchemaParser::ArgumentIsPartOfSchema(const string & argName) -> bool
+        auto SchemaParser::ArgumentIsPartOfSchema(const string & /* argName */) -> bool
         {
             return false;
             // for(auto& elem: schema_)
@@ -183,13 +183,13 @@ namespace argskata
             // return nullptr;
         }
 
-        auto SchemaParser::DecideValidArgumentValue(const string& arg) -> void
+        auto SchemaParser::DecideValidArgumentValue(const string& /* arg */) -> void
         {
             
         }
 
 
-        auto SchemaParser::GetSchema() const -> unordered_map<string, AbstractArgument>
+        auto SchemaParser::GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>
         {
             return schema_;
         }

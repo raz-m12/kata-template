@@ -4,6 +4,7 @@
 #include "iostream"
 #include "vector"
 #include "unordered_map"
+#include "memory"
 #include "include/Argument.hpp"
 
 namespace argskata
@@ -13,6 +14,7 @@ namespace argskata
         namespace impl
         {
             using namespace std;
+            using std::shared_ptr;
 
 
             class SchemaMustStartAndEndWithParenthesisException : public exception
@@ -31,11 +33,11 @@ namespace argskata
             {
             public:
                 void Parse(const string &bareSchema, const vector<string>& args);
-                [[nodiscard]] auto GetSchema() const -> unordered_map<string, AbstractArgument>;
+                [[nodiscard]] auto GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>;
                 // TODO(RV) [[nodiscard]] auto GetValue(const string& argName) const -> 
 
             private:
-                unordered_map<string, AbstractArgument> schema_;
+                unordered_map<string, shared_ptr<AbstractArgument>> schema_;
 
                 static void AssertValidSchemaFormat(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] static auto SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool;

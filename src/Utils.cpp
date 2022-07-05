@@ -15,5 +15,5 @@ namespace argskata
                      (hash<ArgumentType>()(arg.Type()) << 1U)) >> 1U); // ^
                   // (hash<int>()(k.third) << 1);
         }
-    } // lib
-} // argskata
+    } // namespace lib
+} // namespace argskata
