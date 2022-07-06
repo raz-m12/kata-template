@@ -1,19 +1,30 @@
 #include "gmock/gmock.h"
 #include "include/Argument.hpp"
 
-using namespace argskata::lib;
+
 
 namespace argskata_test
 {
+    using namespace argskata::lib;
     using std::shared_ptr;
     using std::make_shared;
+    using std::string;
 
-    TEST(ArgumentValueValidator, BooleanArgumentIsTrue)
+    class AnArgumentValueValidator: public ::testing::Test
     {
-        shared_ptr<BooleanArgument> arg = make_shared<BooleanArgument>("d");
+        public:
+        const shared_ptr<BooleanArgument> BooleanArg = make_shared<BooleanArgument>("d");;
+    };
+    
+    TEST_F(AnArgumentValueValidator, ArgumentBecomesTrueAfterSetValue)
+    {
+        BooleanArg->SetValue("");
 
-        arg->SetValue("");
+        ASSERT_TRUE(BooleanArgument::Value(BooleanArg));
+    }
 
-        ASSERT_TRUE(BooleanArgument::Value(arg));
+    TEST_F(AnArgumentValueValidator, DefaultBooleanArgumentValueIsFalse)
+    {
+        ASSERT_FALSE(BooleanArgument::Value(BooleanArg));
     }
 } // namespace argskata_test

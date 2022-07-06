@@ -28,7 +28,7 @@ namespace argskata
             {
             public:
 
-                AbstractArgument(string name);
+                explicit AbstractArgument(string name);
                 virtual ~AbstractArgument() = default;
                 AbstractArgument(AbstractArgument const&) = default;
                 AbstractArgument(AbstractArgument&&) = delete;
@@ -48,7 +48,7 @@ namespace argskata
             class BooleanArgument: public AbstractArgument
             {
                 public:
-                BooleanArgument(const string& name): AbstractArgument{name} { }
+                explicit BooleanArgument(const string& name): AbstractArgument{name} { }
                 ~BooleanArgument() override = default;
                 BooleanArgument(BooleanArgument const&) = default;
                 BooleanArgument(BooleanArgument&&) = delete;
@@ -61,6 +61,7 @@ namespace argskata
                 private:
                 bool value_ = false;
             };
+            
 
         } // namespace impl
         using impl::BooleanArgument;

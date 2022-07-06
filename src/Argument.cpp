@@ -30,7 +30,7 @@ namespace argskata
             return name_;
         }
 
-        auto BooleanArgument::SetValue(string /* argValue */) -> void
+        auto BooleanArgument::SetValue(string) -> void
         {
             value_ = true;
         }
