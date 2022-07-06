@@ -10,7 +10,7 @@ namespace argskata_test
 
     TEST(ArgumentValueValidator, BooleanArgumentIsTrue)
     {
-        shared_ptr<BooleanArgument> arg = make_shared<BooleanArgument>("d", ArgumentType::_boolean);
+        shared_ptr<BooleanArgument> arg = make_shared<BooleanArgument>("d");
 
         arg->SetValue("");
 

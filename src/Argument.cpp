@@ -11,13 +11,13 @@ namespace argskata
 {
     namespace lib
     {
-        AbstractArgument::AbstractArgument(string name, ArgumentType type) : name_{std::move(name)}, type_(type)
+        AbstractArgument::AbstractArgument(string name) : name_{std::move(name)}
         {
         }
 
         auto AbstractArgument::operator==(const AbstractArgument &other) const -> bool
         {
-            return name_ == other.name_ && type_ == other.type_;
+            return name_ == other.name_;
         }
 
         auto AbstractArgument::operator!=(const AbstractArgument &other) const -> bool
@@ -28,11 +28,6 @@ namespace argskata
         auto AbstractArgument::Name() const -> string
         {
             return name_;
-        }
-
-        auto AbstractArgument::Type() const -> ArgumentType
-        {
-            return type_;
         }
 
         auto BooleanArgument::SetValue(string /* argValue */) -> void

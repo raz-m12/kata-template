@@ -46,8 +46,8 @@ namespace argskata_test
         ArgsParser parser{schema, EmptyArgs};
         
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("f", make_shared<BooleanArgument>("f", ArgumentType::_boolean)),
-                                            Pair("d", make_shared<BooleanArgument>("d", ArgumentType::_boolean))));
+                                            Pair("f", make_shared<BooleanArgument>("f")),
+                                            Pair("d", make_shared<BooleanArgument>("d"))));
     }
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
@@ -56,8 +56,8 @@ namespace argskata_test
         ArgsParser parser(schema, EmptyArgs);
 
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("i", make_shared<BooleanArgument>("i", ArgumentType::_integer)),
-                                            Pair("o", make_shared<BooleanArgument>("o", ArgumentType::_integer))));
+                                            Pair("i", make_shared<BooleanArgument>("i")),
+                                            Pair("o", make_shared<BooleanArgument>("o"))));
     }
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArguments)
@@ -66,8 +66,8 @@ namespace argskata_test
         ArgsParser parser(schema, EmptyArgs);
 
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("i", make_shared<BooleanArgument>("i", ArgumentType::_string)),
-                                            Pair("o", make_shared<BooleanArgument>("o", ArgumentType::_string))));
+                                            Pair("i", make_shared<BooleanArgument>("i")),
+                                            Pair("o", make_shared<BooleanArgument>("o"))));
     }
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesDoubleArguments)
@@ -76,8 +76,8 @@ namespace argskata_test
         ArgsParser parser(schema, EmptyArgs);
 
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("i", make_shared<BooleanArgument>("i", ArgumentType::_double)),
-                                            Pair("o", make_shared<BooleanArgument>("o", ArgumentType::_double))));
+                                            Pair("i", make_shared<BooleanArgument>("i")),
+                                            Pair("o", make_shared<BooleanArgument>("o"))));
     }
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArrayArguments)
@@ -86,8 +86,8 @@ namespace argskata_test
         ArgsParser parser(schema, EmptyArgs);
 
         ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("i", make_shared<BooleanArgument>("i", ArgumentType::_strArr)),
-                                            Pair("o", make_shared<BooleanArgument>("o", ArgumentType::_strArr))));
+                                            Pair("i", make_shared<BooleanArgument>("i")),
+                                            Pair("o", make_shared<BooleanArgument>("o"))));
     }
 
     TEST_F(SchemaValidationFixture, ThrowsOnInvalidSchemaCharacterDetected)

@@ -53,35 +53,35 @@ namespace argskata
 
                 if (IsBooleanType(token))
                 {
-                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _boolean)));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
                 }
 
                 if (IsIntegerType(token))
                 {
                     RemoveRedundantChars(token, _integer);
-                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _integer)));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
                 }
 
                 if (IsStringType(token))
                 {
                     RemoveRedundantChars(token, _string);
-                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _string)));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
                 }
 
                 if (IsDoubleType(token))
                 {
                     RemoveRedundantChars(token, _double);
-                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _double)));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
                 }
 
                 if (IsStringArrayType(token))
                 {
                     RemoveRedundantChars(token, _strArr);
-                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token, _strArr)));
+                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
                 }
 
