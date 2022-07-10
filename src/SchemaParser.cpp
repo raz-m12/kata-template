@@ -10,6 +10,7 @@ namespace argskata
     {
         auto SchemaParser::Parse(const string &bareSchema, const vector<string> &args) -> void
         {
+            // TODO(RV) store the arguments in class variables
             AssertValidSchemaFormat(bareSchema, args);
             PopulateSchemaWithArguments(bareSchema);
             PopulateArgumentsWithValues(args);
@@ -156,7 +157,7 @@ namespace argskata
             auto cleanArgs = StripNonAlphaChars(args);
             size_t curParsePos = 0;
 
-            #pragma unroll
+            #pragma unroll 1
             while(curParsePos < args.size())
             {
                 auto arg = GetAbstractArg(cleanArgs[curParsePos++]);
@@ -165,6 +166,9 @@ namespace argskata
                     arg->SetValue({});
                 } else 
                 {
+                    if(curParsePos == args.size())
+                        throw MissingArgumentValueException();
+
                     arg->SetValue(cleanArgs[curParsePos++]);
                 }
             }
@@ -213,4 +217,4 @@ namespace argskata
         }
   
     } // namespace lib
-} // namespace argskata
+} // namespace argskataù

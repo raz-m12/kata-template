@@ -163,12 +163,9 @@ namespace argskata_test
         ASSERT_THAT(parser.GetIntegerArgument("f"), Eq(3));
     }
 
-    TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)
+    TEST(ArgumentValueValidator, ThrowsWhenIntegerFlagIsMissingValue)
     {
-        ArgsParser parser{"f", {}};
-        auto value = parser.GetBooleanArgument("f");
-
-        ASSERT_FALSE(value);
+        ASSERT_THROW(ArgsParser("(f#)", {"-f"}), MissingArgumentValueException);
     }
 
 } // namespace argskata_test

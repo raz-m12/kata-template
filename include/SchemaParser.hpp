@@ -28,6 +28,10 @@ namespace argskata
             class ArgumentNotPartOfSchemaException : public exception
             {
             };
+            
+            class MissingArgumentValueException : public exception 
+            {
+            };
 
             class SchemaParser
             {
@@ -54,13 +58,14 @@ namespace argskata
                 static auto StripChars(string &token, ArgumentType tokenType) -> void;
 
                 auto PopulateArgumentsWithValues(const vector<string>& args)            -> void;
-                static auto StripNonAlphaChars(const vector<string>& args)            -> vector<string>;
+                static auto StripNonAlphaChars(const vector<string>& args)              -> vector<string>;
                 auto GetAbstractArg(const std::string& arg)                             -> shared_ptr<AbstractArgument>&;
             };
         } // namespace impl
         using impl::SchemaMustStartAndEndWithParenthesisException;
         using impl::SchemaInvalidCharacterDetectedException;
         using impl::ArgumentNotPartOfSchemaException;
+        using impl::MissingArgumentValueException;
         using impl::SchemaParser;
     } // namespace lib
 } // namespace argskata

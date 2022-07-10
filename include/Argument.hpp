@@ -65,7 +65,7 @@ namespace argskata
                 auto operator=(BooleanArgument const&) -> BooleanArgument& = default;
                 auto operator=(BooleanArgument&&) -> BooleanArgument& = delete;
 
-                auto SetValue(string argValue) -> void override;
+                auto SetValue(string) -> void override;
                 static auto Value(const shared_ptr<AbstractArgument>& arg) -> bool;
                 auto Type() -> ArgumentType override;
 
