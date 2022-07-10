@@ -13,9 +13,9 @@ namespace argskata
             schemaParser_.Parse(schema, args);
         }
 
-        auto ArgsParser::GetArgValue(const string & /*argName*/) -> bool
+        auto ArgsParser::GetBooleanArgument(const string & argName) -> bool
         {
-            return false; //schemaParser_.;
+            return schemaParser_.GetBooleanArgument(argName);
         }
 
         auto ArgsParser::GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>

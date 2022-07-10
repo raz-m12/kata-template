@@ -20,7 +20,33 @@ using testing::UnorderedElementsAre;
 
 // Tests:
 // - BooleanFlagDefaultsToFalseWhenNotInArgumentList
+
+// TODO(RV):
+// - https://stackoverflow.com/questions/39049803/google-test-cant-find-user-provided-equality-operator
 // ============================================================
+
+namespace std {
+    template<typename T>
+    auto operator==(const unordered_map<string, shared_ptr<T>> &lhs, const unordered_map<string, shared_ptr<T>> &rhs) -> bool
+    {
+        if(lhs.size() != rhs.size()) { 
+            return false;
+        }
+        
+        return ranges::all_of(lhs.cbegin(), lhs.cend(), [&rhs = as_const(rhs)](pair<string, shared_ptr<T>> pair){
+            auto _it = rhs.find(pair.first);
+            if(_it == rhs.end()) {
+                return false;
+            }
+
+            if(*(pair.second) != *(_it->second)) {
+                return false;
+            }
+            return true;
+        });
+    }
+} // namespace std
+
 namespace argskata_test
 {
     class SchemaValidationFixture : public testing::Test
@@ -40,14 +66,18 @@ namespace argskata_test
         ASSERT_THROW(ArgsParser parser("(f", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
     }
 
+
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedBooleanArguments)
     {
         const string schema{"(f,d)"};
         ArgsParser parser{schema, EmptyArgs};
-        
-        ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("f", make_shared<BooleanArgument>("f")),
-                                            Pair("d", make_shared<BooleanArgument>("d"))));
+
+        std::unordered_map<string, shared_ptr<AbstractArgument>> expected = {
+            make_pair("f", make_shared<BooleanArgument>("f")),
+            make_pair("d", make_shared<BooleanArgument>("d"))
+        };
+
+        ASSERT_THAT(parser.GetSchema(), Eq(expected));
     }
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
@@ -106,7 +136,7 @@ namespace argskata_test
         const string ArgumentNotInSchema{"-x"};
         const string SchemaIsEmpty{"()"};
 
-        ASSERT_THROW(ArgsParser parser(SchemaIsEmpty, { ArgumentNotInSchema }), ArgumentNotPartOfTheSchemaException);
+        ASSERT_THROW(ArgsParser parser(SchemaIsEmpty, { ArgumentNotInSchema }), ArgumentNotPartOfSchemaException);
     }
 
     TEST(ArgumentValueValidator, DISABLED_ThrowsWhenArgumentIsNotPartOfSchema)
@@ -114,26 +144,26 @@ namespace argskata_test
         const string ArgumentNotInSchema{"-x"};
         const string Schema{"(d,f)"};
 
-        ASSERT_THROW(ArgsParser (Schema, { ArgumentNotInSchema }), ArgumentNotPartOfTheSchemaException);
+        ASSERT_THROW(ArgsParser (Schema, { ArgumentNotInSchema }), ArgumentNotPartOfSchemaException);
     }
 
 
     TEST(ArgumentValueValidator, BooleanFlagDefaultsToTrueIfInArgumentList)
     {
         ArgsParser parser{"(f)", {"-f"}};
-        ASSERT_TRUE(parser.GetArgValue("f"));
+        ASSERT_TRUE(parser.GetBooleanArgument("f"));
     }
 
     TEST(ArgumentValueValidator, DISABLED_IntegerDefaultsToTrueIfInArgumentList)
     {
         ArgsParser parser{"(f#)", {"-f", "3"}};
-        ASSERT_TRUE(parser.GetArgValue("f"));
+        ASSERT_TRUE(parser.GetBooleanArgument("f"));
     }
 
     TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)
     {
         ArgsParser parser{"f", {}};
-        auto value = ArgsParser::GetArgValue("f");
+        auto value = parser.GetBooleanArgument("f");
 
         ASSERT_FALSE(value);
     }

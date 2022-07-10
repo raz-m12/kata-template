@@ -31,9 +31,9 @@ namespace argskata
             public:
                 ArgsParser(const string &bareSchema, const vector<string> &args);
                 
-                [[nodiscard]] static auto GetArgValue(const string &argName) -> bool;
-                [[nodiscard]] auto GetSchema()                         const -> unordered_map<string, shared_ptr<AbstractArgument>>;
-                static auto MapCmdLineArgsToParserInput(int argc, char *argv[]) -> vector<string>;
+                [[nodiscard]] auto GetBooleanArgument(const string &argName) -> bool;
+                [[nodiscard]] auto GetSchema()                                const -> unordered_map<string, shared_ptr<AbstractArgument>>;
+                static auto MapCmdLineArgsToParserInput(int argc, char *argv[])     -> vector<string>;
 
             private:
                 SchemaParser schemaParser_;

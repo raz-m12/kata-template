@@ -25,8 +25,12 @@ namespace argskata
             {
             };
 
-            class ArgumentNotPartOfTheSchemaException : public exception
+            class ArgumentNotPartOfSchemaException : public exception
             {
+            };
+
+            struct to_upper {
+                string operator()(string c) { return c; }
             };
 
             class SchemaParser
@@ -34,7 +38,7 @@ namespace argskata
             public:
                 void Parse(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] auto GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>;
-                // TODO(RV) [[nodiscard]] auto GetValue(const string& argName) const -> 
+                [[nodiscard]] auto GetBooleanArgument(const string& argName) const -> bool;
 
             private:
                 unordered_map<string, shared_ptr<AbstractArgument>> schema_;
@@ -50,16 +54,16 @@ namespace argskata
                 [[nodiscard]] static auto IsStringType(const string& token)             -> bool;
                 [[nodiscard]] static auto IsDoubleType(const string& token)             -> bool;
                 [[nodiscard]] static auto IsStringArrayType(const string& token)        -> bool;
-                static auto RemoveRedundantChars(string &token, ArgumentType tokenType) -> void;
+                static auto StripChars(string &token, ArgumentType tokenType) -> void;
 
                 auto PopulateArgumentsWithValues(const vector<string>& args)            -> void;
-                auto ArgumentIsPartOfSchema(const std::string& arg)                     -> bool;
-                auto DecideValidArgumentValue(const std::string& arg)                   -> void;
+                static auto StripNonAlphaChars(const vector<string>& values)            -> vector<string>;
+                auto GetAbstractArg(const std::string& arg)                             -> shared_ptr<AbstractArgument>&;
             };
         } // namespace impl
         using impl::SchemaMustStartAndEndWithParenthesisException;
         using impl::SchemaInvalidCharacterDetectedException;
-        using impl::ArgumentNotPartOfTheSchemaException;
+        using impl::ArgumentNotPartOfSchemaException;
         using impl::SchemaParser;
     } // namespace lib
 } // namespace argskata

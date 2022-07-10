@@ -1,4 +1,5 @@
 #include "sstream"
+#include "algorithm"
 #include "include/Argument.hpp"
 #include "include/SchemaParser.hpp"
 
@@ -23,7 +24,7 @@ namespace argskata
 
             if (SchemaIsEmptyAndThereAreArgumentsToParse(bareSchema, args))
             {
-                throw ArgumentNotPartOfTheSchemaException();
+                throw ArgumentNotPartOfSchemaException();
             }
         }
 
@@ -59,28 +60,28 @@ namespace argskata
 
                 if (IsIntegerType(token))
                 {
-                    RemoveRedundantChars(token, _integer);
+                    StripChars(token, _integer);
                     schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
                 }
 
                 if (IsStringType(token))
                 {
-                    RemoveRedundantChars(token, _string);
+                    StripChars(token, _string);
                     schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
                 }
 
                 if (IsDoubleType(token))
                 {
-                    RemoveRedundantChars(token, _double);
+                    StripChars(token, _double);
                     schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
                 }
 
                 if (IsStringArrayType(token))
                 {
-                    RemoveRedundantChars(token, _strArr);
+                    StripChars(token, _strArr);
                     schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
                 }
@@ -119,7 +120,7 @@ namespace argskata
             return token.length() == 4 && token.at(1) == '[' && token.at(2) == '*' && token.at(3) == ']';
         }
 
-        void SchemaParser::RemoveRedundantChars(string &token, ArgumentType tokenType)
+        void SchemaParser::StripChars(string &token, ArgumentType tokenType)
         {
 
             switch (tokenType)
@@ -149,51 +150,55 @@ namespace argskata
             }
         }
 
-        auto SchemaParser::PopulateArgumentsWithValues(const vector<string> &/* args */) -> void
+        auto SchemaParser::PopulateArgumentsWithValues(const vector<string> &args) -> void
         {
-            /* size_t curParsePos = 0; */
+            auto cleanArgs = StripNonAlphaChars(args);
+            size_t curParsePos = 0;
 
-            // while(curParsePos < args.size())
-            // {
-            //     auto argType = getArgT
-            // }
+            #pragma unroll
+            while(curParsePos < args.size())
+            {
+                auto absArg = GetAbstractArg(cleanArgs[curParsePos++]);
 
-            // #pragma unroll 1
-            // for (const auto &arg : args)
-            // {
-            //     auto schemaArg = ArgumentIsPartOfSchema(arg);
-            //     if (schemaArg)
-            //     {
-            //         throw ArgumentNotPartOfTheSchemaException();
-            //     }
-            //     DecideValidArgumentValue(arg);
-            // }
+                // Initially it is always a boolean
+                absArg->SetValue("");
+            }
         }
 
-        auto SchemaParser::ArgumentIsPartOfSchema(const string & /* argName */) -> bool
+        auto SchemaParser::StripNonAlphaChars(const vector<string>& args) -> vector<string>
         {
-            return false;
-            // for(auto& elem: schema_)
-            // {
-            //     if(elem.name() == arg) 
-            //     {
-            //         return elem;
-            //     }
-            // }
-            // return nullptr;
+            vector<string> result;
+            std::for_each(args.begin(), args.end(), [&result](string arg) { // modify in-place
+                // TODO(RV) currently works only for booleans
+                arg.erase(remove_if(begin(arg), end(arg), [](char _char){
+                    return isalpha(_char) == 0;
+                }), arg.end());
+                
+                result.emplace_back(arg);
+            });
+            return result;
         }
 
-        auto SchemaParser::DecideValidArgumentValue(const string& /* arg */) -> void
+        auto SchemaParser::GetAbstractArg(const string & argName) -> shared_ptr<AbstractArgument>&
         {
-            
-        }
+            auto _it = schema_.find(argName);
 
+            if(_it == schema_.end()) {
+                throw ArgumentNotPartOfSchemaException();
+            }
+
+            return (*_it).second;
+        }
 
         auto SchemaParser::GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>
         {
             return schema_;
         }
 
+        auto SchemaParser::GetBooleanArgument(const string& argName) const -> bool 
+        {
+            return BooleanArgument::Value(schema_.at(argName));
+        }
   
     } // namespace lib
 } // namespace argskata
