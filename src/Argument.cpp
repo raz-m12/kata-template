@@ -5,7 +5,7 @@
 using argskata::lib::AbstractArgument;
 using std::size_t;
 using std::string;
-using std::invalid_argument;
+
 
 namespace argskata
 {

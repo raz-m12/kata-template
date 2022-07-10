@@ -29,10 +29,6 @@ namespace argskata
             {
             };
 
-            struct to_upper {
-                string operator()(string c) { return c; }
-            };
-
             class SchemaParser
             {
             public:
