@@ -61,7 +61,7 @@ namespace argskata
                 if (IsIntegerType(token))
                 {
                     StripChars(token, _integer);
-                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
+                    schema_.insert(make_pair(token, make_shared<IntegerArgument>(token)));
                     continue;
                 }
 
@@ -81,6 +81,7 @@ namespace argskata
 
                 if (IsStringArrayType(token))
                 {
+                    // TODO(RV) change name
                     StripChars(token, _strArr);
                     schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
                     continue;
@@ -158,10 +159,14 @@ namespace argskata
             #pragma unroll
             while(curParsePos < args.size())
             {
-                auto absArg = GetAbstractArg(cleanArgs[curParsePos++]);
-
-                // Initially it is always a boolean
-                absArg->SetValue("");
+                auto arg = GetAbstractArg(cleanArgs[curParsePos++]);
+                if(arg->Type() == ArgumentType::_boolean) 
+                {
+                    arg->SetValue({});
+                } else 
+                {
+                    arg->SetValue(cleanArgs[curParsePos++]);
+                }
             }
         }
 
@@ -170,9 +175,11 @@ namespace argskata
             vector<string> result;
             std::for_each(args.begin(), args.end(), [&result](string arg) { // modify in-place
                 // TODO(RV) currently works only for booleans
-                arg.erase(remove_if(begin(arg), end(arg), [](char _char){
-                    return isalpha(_char) == 0;
-                }), arg.end());
+                if(arg.starts_with('-')) {
+                    arg.erase(remove_if(begin(arg), end(arg), [](char _char){
+                        return isalpha(_char) == 0;
+                    }), arg.end());
+                }
                 
                 result.emplace_back(arg);
             });
@@ -198,6 +205,11 @@ namespace argskata
         auto SchemaParser::GetBooleanArgument(const string& argName) const -> bool 
         {
             return BooleanArgument::Value(schema_.at(argName));
+        }
+
+        auto SchemaParser::GetIntegerArgument(const string& argName) const -> int 
+        {
+            return IntegerArgument::Value(schema_.at(argName));
         }
   
     } // namespace lib

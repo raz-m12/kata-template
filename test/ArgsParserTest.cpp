@@ -81,7 +81,7 @@ namespace argskata_test
     }
 
     /* TODO(RV) As soon as the tests on integers are finished */
-    TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
+    TEST_F(SchemaValidationFixture, DISABLED_VerifiesResultingSchemaParsedIntegerArguments)
     {
         const string schema{"(i#,o#)"};
         ArgsParser parser(schema, EmptyArgs);
@@ -157,10 +157,10 @@ namespace argskata_test
         ASSERT_TRUE(parser.GetBooleanArgument("f"));
     }
 
-    TEST(ArgumentValueValidator, DISABLED_IntegerDefaultsToTrueIfInArgumentList)
+    TEST(ArgumentValueValidator, IntegerValueIsSetToThreeSinceInArgumentList)
     {
         ArgsParser parser{"(f#)", {"-f", "3"}};
-        ASSERT_TRUE(parser.GetBooleanArgument("f"));
+        ASSERT_THAT(parser.GetIntegerArgument("f"), Eq(3));
     }
 
     TEST(ArgumentValueValidator, DISABLED_BooleanFlagDefaultsToFalseIfNotInArgumentList)

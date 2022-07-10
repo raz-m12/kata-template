@@ -3,7 +3,8 @@
 
 #include "iostream"
 #include "memory"
-
+               
+// TODO(RV) refactor format document
 namespace argskata
 {
     namespace lib
@@ -48,6 +49,7 @@ namespace argskata
 
                 [[nodiscard]] auto Name() const -> string;
                 virtual auto SetValue(string argValue) -> void = 0;
+                virtual auto Type() -> ArgumentType = 0;
 
             private:
                 string name_;
@@ -65,6 +67,7 @@ namespace argskata
 
                 auto SetValue(string argValue) -> void override;
                 static auto Value(const shared_ptr<AbstractArgument>& arg) -> bool;
+                auto Type() -> ArgumentType override;
 
                 private:
                 bool value_ = false;
@@ -82,6 +85,7 @@ namespace argskata
 
                 auto SetValue(string argValue) -> void override;
                 static auto Value(const shared_ptr<AbstractArgument>& arg) -> int;
+                auto Type() -> ArgumentType override;
 
                 private:
                 int value_ = 0;

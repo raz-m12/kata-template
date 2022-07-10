@@ -30,7 +30,7 @@ namespace argskata
             return name_;
         }
 
-        auto BooleanArgument::SetValue(string) -> void
+        auto BooleanArgument::SetValue(string placeholder) -> void
         {
             value_ = true;
         }
@@ -43,6 +43,11 @@ namespace argskata
                 return ptr->value_;
             }
             return false;
+        }
+
+        auto BooleanArgument::Type() -> ArgumentType 
+        {
+            return ArgumentType::_boolean;
         }
 
         auto IntegerArgument::SetValue(string value) -> void
@@ -65,6 +70,11 @@ namespace argskata
                 return ptr->value_;
             }
             return 0;
+        }
+
+        auto IntegerArgument::Type() -> ArgumentType 
+        {
+            return ArgumentType::_integer;
         }
 
     } // namespace lib

@@ -35,6 +35,7 @@ namespace argskata
                 void Parse(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] auto GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>;
                 [[nodiscard]] auto GetBooleanArgument(const string& argName) const -> bool;
+                [[nodiscard]] auto GetIntegerArgument(const string& argName) const -> int;
 
             private:
                 unordered_map<string, shared_ptr<AbstractArgument>> schema_;
@@ -53,7 +54,7 @@ namespace argskata
                 static auto StripChars(string &token, ArgumentType tokenType) -> void;
 
                 auto PopulateArgumentsWithValues(const vector<string>& args)            -> void;
-                static auto StripNonAlphaChars(const vector<string>& values)            -> vector<string>;
+                static auto StripNonAlphaChars(const vector<string>& args)            -> vector<string>;
                 auto GetAbstractArg(const std::string& arg)                             -> shared_ptr<AbstractArgument>&;
             };
         } // namespace impl
