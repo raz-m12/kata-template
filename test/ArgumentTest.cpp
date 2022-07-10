@@ -9,6 +9,7 @@ namespace argskata_test
     using std::shared_ptr;
     using std::make_shared;
     using std::string;
+    using testing::Eq;
 
     class AnArgumentValueValidator: public ::testing::Test
     {
@@ -31,8 +32,8 @@ namespace argskata_test
 
     TEST_F(AnArgumentValueValidator, IntegerArgumentValueIsSet)
     {
-        IntArg->SetValue(10);
+        IntArg->SetValue("10");
 
-        ASSERT_THAT(IntegerArgument::Value(IntegerArgument), Eq(10));
+        ASSERT_THAT(IntegerArgument::Value(IntArg), Eq(10));
     }
 } // namespace argskata_test

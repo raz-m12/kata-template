@@ -14,6 +14,14 @@ namespace argskata
             using std::size_t;
             using std::dynamic_pointer_cast;
             using std::shared_ptr;
+            using std::runtime_error;
+
+
+            class InvalidArgumentValueException : public runtime_error
+            {
+                public:
+                explicit InvalidArgumentValueException(const string& msg): runtime_error(msg) { }
+            };
 
             enum ArgumentType
             {
@@ -61,10 +69,29 @@ namespace argskata
                 private:
                 bool value_ = false;
             };
+
+            class IntegerArgument: public AbstractArgument
+            {
+                public:
+                explicit IntegerArgument(const string& name): AbstractArgument{name} { }
+                ~IntegerArgument() override = default;
+                IntegerArgument(IntegerArgument const&) = default;
+                IntegerArgument(IntegerArgument&&) = delete;
+                auto operator=(IntegerArgument const&) -> IntegerArgument& = default;
+                auto operator=(IntegerArgument&&) -> IntegerArgument& = delete;
+
+                auto SetValue(string argValue) -> void override;
+                static auto Value(const shared_ptr<AbstractArgument>& arg) -> int;
+
+                private:
+                int value_ = 0;
+            };
             
 
         } // namespace impl
+        using impl::InvalidArgumentValueException;
         using impl::BooleanArgument;
+        using impl::IntegerArgument;
         using impl::ArgumentType;
         using impl::AbstractArgument;
     } // namespace lib
