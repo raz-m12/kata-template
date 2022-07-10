@@ -166,8 +166,7 @@ namespace argskata
                     arg->SetValue({});
                 } else 
                 {
-                    if(curParsePos == args.size())
-                        throw MissingArgumentValueException();
+                    if(curParsePos == args.size()) throw MissingArgumentValueException();
 
                     arg->SetValue(cleanArgs[curParsePos++]);
                 }
@@ -178,7 +177,6 @@ namespace argskata
         {
             vector<string> result;
             std::for_each(args.begin(), args.end(), [&result](string arg) { // modify in-place
-                // TODO(RV) currently works only for booleans
                 if(arg.starts_with('-')) {
                     arg.erase(remove_if(begin(arg), end(arg), [](char _char){
                         return isalpha(_char) == 0;
@@ -217,4 +215,4 @@ namespace argskata
         }
   
     } // namespace lib
-} // namespace argskataù
+} // namespace argskata
