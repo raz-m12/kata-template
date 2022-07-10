@@ -81,13 +81,13 @@ namespace argskata_test
     }
 
     /* TODO(RV) As soon as the tests on integers are finished */
-    TEST_F(SchemaValidationFixture, DISABLED_VerifiesResultingSchemaParsedIntegerArguments)
+    TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
     {
         const string schema{"(i#,o#)"};
         ArgsParser parser(schema, EmptyArgs);
         std::unordered_map<string, shared_ptr<AbstractArgument>> expected = {
-            make_pair("f", make_shared<IntegerArgument>("f")),
-            make_pair("d", make_shared<IntegerArgument>("d"))
+            make_pair("i", make_shared<IntegerArgument>("i")),
+            make_pair("o", make_shared<IntegerArgument>("o"))
         };
 
         ASSERT_THAT(parser.GetSchema(), Eq(expected));
