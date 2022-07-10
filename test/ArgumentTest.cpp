@@ -36,4 +36,9 @@ namespace argskata_test
 
         ASSERT_THAT(IntegerArgument::Value(IntArg), Eq(10));
     }
+
+    TEST_F(AnArgumentValueValidator, IntegerArgumentDefaultsToZero)
+    {
+        ASSERT_THAT(IntegerArgument::Value(IntArg), Eq(0));
+    }
 } // namespace argskata_test
