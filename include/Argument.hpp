@@ -48,6 +48,7 @@ namespace argskata
                 auto operator!=(const AbstractArgument &other) const -> bool;
 
                 [[nodiscard]] auto Name() const -> string;
+                // TODO(RV) Refactor: make string constant
                 virtual auto SetValue(string argValue) -> void = 0;
                 virtual auto Type() -> ArgumentType = 0;
 
@@ -65,7 +66,7 @@ namespace argskata
                 auto operator=(BooleanArgument const&) -> BooleanArgument& = default;
                 auto operator=(BooleanArgument&&) -> BooleanArgument& = delete;
 
-                auto SetValue(string) -> void override;
+                auto SetValue(string argValue) -> void override;
                 static auto Value(const shared_ptr<AbstractArgument>& arg) -> bool;
                 auto Type() -> ArgumentType override;
 
@@ -108,7 +109,7 @@ namespace argskata
                 private:
                 // TODO(RV)
                 //const static string DEFAULT_STRING_VALUE{""};
-                string value_ = "";
+                string value_;
             };
 
         } // namespace impl

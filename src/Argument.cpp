@@ -15,6 +15,7 @@ namespace argskata
         {
         }
 
+        /* TODO(RV) extend this operator to test values */
         auto AbstractArgument::operator==(const AbstractArgument &other) const -> bool
         {
             return name_ == other.name_;

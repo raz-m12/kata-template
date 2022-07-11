@@ -166,7 +166,10 @@ namespace argskata
                     arg->SetValue({});
                 } else 
                 {
-                    if(curParsePos == args.size()) throw MissingArgumentValueException();
+                    if(curParsePos == args.size()) 
+                    {
+                        throw MissingArgumentValueException();
+                    }
 
                     arg->SetValue(cleanArgs[curParsePos++]);
                 }

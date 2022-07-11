@@ -93,14 +93,17 @@ namespace argskata_test
         ASSERT_THAT(parser.GetSchema(), Eq(expected));
     }
 
-    TEST_F(SchemaValidationFixture, DISABLED_VerifiesResultingSchemaParsesStringArguments)
+    TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArguments)
     {
         const string schema{"(i*,o*)"};
         ArgsParser parser(schema, EmptyArgs);
 
-        ASSERT_THAT(parser.GetSchema(), UnorderedElementsAre(
-                                            Pair("i", make_shared<BooleanArgument>("i")),
-                                            Pair("o", make_shared<BooleanArgument>("o"))));
+        std::unordered_map<string, shared_ptr<AbstractArgument>> expected = {
+            make_pair("i", make_shared<StringArgument>("i")),
+            make_pair("o", make_shared<StringArgument>("o"))
+        };
+
+        ASSERT_THAT(parser.GetSchema(), Eq(expected));
     }
 
     TEST_F(SchemaValidationFixture, DISABLED_VerifiesResultingSchemaParsesDoubleArguments)
