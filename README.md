@@ -1,3 +1,5 @@
+[![Build Status](https://github.com/bast/gtest-demo/actions/workflows/test.yml/badge.svg)](https://github.com/raz-m12/kata-template/actions/workflows/test.yml)
+
 # Description
 
 This is a c++ project used to practice Test-Driven Development (TDD) using Kata exercises. 
