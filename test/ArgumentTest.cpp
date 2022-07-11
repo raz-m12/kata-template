@@ -14,8 +14,9 @@ namespace argskata_test
     class AnArgumentValueValidator: public ::testing::Test
     {
         public:
-        const shared_ptr<BooleanArgument> BooleanArg = make_shared<BooleanArgument>("d");
+        const shared_ptr<BooleanArgument> BooleanArg = make_shared<BooleanArgument>("b");
         const shared_ptr<IntegerArgument> IntArg = make_shared<IntegerArgument>("d");
+        const shared_ptr<StringArgument> StrArg = make_shared<StringArgument>("s");
     };
     
     TEST_F(AnArgumentValueValidator, BooleanArgumentBecomesTrueAfterSetValue)
@@ -40,5 +41,17 @@ namespace argskata_test
     TEST_F(AnArgumentValueValidator, IntegerArgumentDefaultsToZero)
     {
         ASSERT_THAT(IntegerArgument::Value(IntArg), Eq(0));
+    }
+
+    TEST_F(AnArgumentValueValidator, StringArgumentValueIsSet)
+    {
+        StrArg->SetValue("Hello World");
+
+        ASSERT_THAT(StringArgument::Value(StrArg), Eq("Hello World"));
+    }
+
+    TEST_F(AnArgumentValueValidator, StringArgumentDefaultsToEmptyString)
+    {
+        ASSERT_THAT(StringArgument::Value(StrArg), Eq(""));
     }
 } // namespace argskata_test
