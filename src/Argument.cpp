@@ -77,5 +77,26 @@ namespace argskata
             return ArgumentType::_integer;
         }
 
+        auto StringArgument::SetValue(string value) -> void
+        {
+            value_ = value;
+        }
+
+        auto StringArgument::Value(const shared_ptr<AbstractArgument> &arg) -> string
+        {
+            auto ptr = dynamic_pointer_cast<StringArgument>(arg);
+            if (ptr != nullptr)
+            {
+                return ptr->value_;
+            }
+            // TODO(RV)
+            return "";
+        }
+
+        auto StringArgument::Type() -> ArgumentType 
+        {
+            return ArgumentType::_string;
+        }
+
     } // namespace lib
 } // namespace argskata

@@ -90,12 +90,32 @@ namespace argskata
                 private:
                 int value_ = 0;
             };
-            
+
+            class StringArgument: public AbstractArgument
+            {
+                public:
+                explicit StringArgument(const string& name): AbstractArgument{name} { }
+                ~StringArgument() override = default;
+                StringArgument(StringArgument const&) = default;
+                StringArgument(StringArgument&&) = delete;
+                auto operator=(StringArgument const&) -> StringArgument& = default;
+                auto operator=(StringArgument&&) -> StringArgument& = delete;
+
+                auto SetValue(string argValue) -> void override;
+                static auto Value(const shared_ptr<AbstractArgument>& arg) -> string;
+                auto Type() -> ArgumentType override;
+
+                private:
+                // TODO(RV)
+                //const static string DEFAULT_STRING_VALUE{""};
+                string value_ = "";
+            };
 
         } // namespace impl
         using impl::InvalidArgumentValueException;
         using impl::BooleanArgument;
         using impl::IntegerArgument;
+        using impl::StringArgument;
         using impl::ArgumentType;
         using impl::AbstractArgument;
     } // namespace lib
