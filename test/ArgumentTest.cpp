@@ -36,7 +36,7 @@ namespace argskata_test
         ASSERT_FALSE(BooleanArgument::Value(BooleanArg));
     }
 
-    TEST_F(AnArgumentValueValidator, IntegerArgumentValueIsSet)
+    TEST_F(AnArgumentValueValidator, IntegerArgumentValueIsTen)
     {
         IntArg->SetValue("10");
 
@@ -48,7 +48,7 @@ namespace argskata_test
         ASSERT_THAT(IntegerArgument::Value(IntArg), Eq(0));
     }
 
-    TEST_F(AnArgumentValueValidator, StringArgumentValueIsSet)
+    TEST_F(AnArgumentValueValidator, StringArgumentValueIsHelloWorld)
     {
         StrArg->SetValue("Hello World");
 
@@ -61,7 +61,7 @@ namespace argskata_test
     }
 
 
-    TEST_F(AnArgumentValueValidator, DoubleArgumentValueIsSetCorrectly)
+    TEST_F(AnArgumentValueValidator, DoubleArgumentValueIsThirtyFourPointFive)
     {
         DoubleArg->SetValue("34.5");
 
@@ -73,7 +73,7 @@ namespace argskata_test
         ASSERT_THAT(DoubleArgument::Value(DoubleArg), Eq(0));
     }
 
-    TEST_F(AnArgumentValueValidator, StringArrayArgumentValueIsSetCorrectly)
+    TEST_F(AnArgumentValueValidator, StringArrayArgumentIsArrayWithTwoValues)
     {
         StrArrArg->SetValue("argument1");
         vector<string> expected{"argument1"};

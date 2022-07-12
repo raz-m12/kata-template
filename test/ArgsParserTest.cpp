@@ -120,6 +120,19 @@ namespace argskata_test
     }
     
 
+    TEST_F(SchemaValidationFixture, AssertCorrectParseOfStringArrayArguments)
+    {
+        const string schema{"(i[*],o[*])"};
+        ArgsParser parser(schema, EmptyArgs);
+
+        std::unordered_map<string, shared_ptr<AbstractArgument>> expected = {
+            make_pair("i", make_shared<StringArrayArgument>("i")),
+            make_pair("o", make_shared<StringArrayArgument>("o"))
+        };
+
+        ASSERT_THAT(parser.GetSchema(), Eq(expected));
+    }
+
     TEST_F(SchemaValidationFixture, DISABLED_VerifiesResultingSchemaParsesStringArrayArguments)
     {
         const string schema{"(i[*],o[*])"};
@@ -149,7 +162,7 @@ namespace argskata_test
         ASSERT_THROW(ArgsParser parser(SchemaIsEmpty, { ArgumentNotInSchema }), ArgumentNotPartOfSchemaException);
     }
 
-    TEST(ArgumentValueValidator, DISABLED_ThrowsWhenArgumentIsNotPartOfSchema)
+    TEST(ArgumentValueValidator, ThrowsWhenArgumentIsNotPartOfSchema)
     {
         const string ArgumentNotInSchema{"-x"};
         const string Schema{"(d,f)"};
