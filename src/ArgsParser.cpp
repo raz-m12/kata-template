@@ -33,6 +33,11 @@ namespace argskata
             return schemaParser_.GetDoubleArgument(argName);
         }
 
+        auto ArgsParser::GetStringArrayArgument(const string& argName) const -> vector<string>
+        {
+            return schemaParser_.GetStringArrayArgument(argName);
+        }
+
         auto ArgsParser::GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>
         {
             return schemaParser_.GetSchema();

@@ -32,10 +32,11 @@ namespace argskata
                 ArgsParser(const string &bareSchema, const vector<string> &args);
                 
                 
-                [[nodiscard]] auto GetBooleanArgument(const string &argName) const -> bool;
-                [[nodiscard]] auto GetIntegerArgument(const string& argName) const -> int;
-                [[nodiscard]] auto GetStringArgument(const string& argName) const  -> string;
-                [[nodiscard]] auto GetDoubleArgument(const string& argName) const  -> double;
+                [[nodiscard]] auto GetBooleanArgument(const string &argName) const      -> bool;
+                [[nodiscard]] auto GetIntegerArgument(const string& argName) const      -> int;
+                [[nodiscard]] auto GetStringArgument(const string& argName) const       -> string;
+                [[nodiscard]] auto GetDoubleArgument(const string& argName) const       -> double;
+                [[nodiscard]] auto GetStringArrayArgument(const string& argName) const  -> vector<string>;
                 [[nodiscard]] auto GetSchema()                         const -> unordered_map<string, shared_ptr<AbstractArgument>>;
                 static auto MapCmdLineArgsToParserInput(int argc, char *argv[])     -> vector<string>;
 

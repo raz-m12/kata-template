@@ -84,7 +84,7 @@ namespace argskata
                 {
                     // TODO(RV) change name
                     StripChars(token, _strArr);
-                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
+                    schema_.insert(make_pair(token, make_shared<StringArrayArgument>(token)));
                     continue;
                 }
 
