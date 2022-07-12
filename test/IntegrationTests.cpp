@@ -31,4 +31,11 @@ namespace argskata_test
         ArgsParser parser{"(f*)", {"-f", "HelloWorld"}};
         ASSERT_THAT(parser.GetStringArgument("f"), Eq("HelloWorld"));
     }
+
+
+    TEST_F(AnIntegrationTest, DoubleValueIsSetThreePointFourteenSinceInArgList)
+    {
+        ArgsParser parser{"(f##)", {"-f", "3.14"}};
+        ASSERT_THAT(parser.GetDoubleArgument("f"), Eq(3.14));
+    }
 }
