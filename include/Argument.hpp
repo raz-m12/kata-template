@@ -112,10 +112,29 @@ namespace argskata
                 string value_;
             };
 
+            class DoubleArgument: public AbstractArgument
+            {
+                public:
+                explicit DoubleArgument(const string& name): AbstractArgument{name} { }
+                ~DoubleArgument() override = default;
+                DoubleArgument(DoubleArgument const&) = default;
+                DoubleArgument(DoubleArgument&&) = delete;
+                auto operator=(DoubleArgument const&) -> DoubleArgument& = default;
+                auto operator=(DoubleArgument&&) -> DoubleArgument& = delete;
+
+                auto SetValue(string argValue) -> void override;
+                static auto Value(const shared_ptr<AbstractArgument>& arg) -> double;
+                auto Type() -> ArgumentType override;
+
+                private:
+                double value_ = 0;
+            };
+
         } // namespace impl
         using impl::InvalidArgumentValueException;
         using impl::BooleanArgument;
         using impl::IntegerArgument;
+        using impl::DoubleArgument;
         using impl::StringArgument;
         using impl::ArgumentType;
         using impl::AbstractArgument;

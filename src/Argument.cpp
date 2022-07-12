@@ -99,5 +99,33 @@ namespace argskata
             return ArgumentType::_string;
         }
 
+        auto DoubleArgument::SetValue(string value) -> void
+        {
+            try
+            {
+                value_ = stod(value);
+            }
+            catch (const std::exception& e)
+            {
+                throw InvalidArgumentValueException(e.what());
+            }
+        }
+
+        auto DoubleArgument::Value(const shared_ptr<AbstractArgument> &arg) -> double
+        {
+            auto ptr = dynamic_pointer_cast<DoubleArgument>(arg);
+            if (ptr != nullptr)
+            {
+                return ptr->value_;
+            }
+            // TODO(RV)
+            return 0;
+        }
+
+        auto DoubleArgument::Type() -> ArgumentType 
+        {
+            return ArgumentType::_double;
+        }
+
     } // namespace lib
 } // namespace argskata
