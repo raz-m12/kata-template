@@ -38,8 +38,11 @@ namespace argskata
             public:
                 void Parse(const string &bareSchema, const vector<string>& args);
                 [[nodiscard]] auto GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>;
-                [[nodiscard]] auto GetBooleanArgument(const string& argName) const -> bool;
-                [[nodiscard]] auto GetIntegerArgument(const string& argName) const -> int;
+                [[nodiscard]] auto GetBooleanArgument(const string& argName) const     -> bool;
+                [[nodiscard]] auto GetStringArgument(const string& argName)  const     -> string;
+                [[nodiscard]] auto GetIntegerArgument(const string& argName) const     -> int;
+                [[nodiscard]] auto GetDoubleArgument(const string& argName)  const     -> double;
+                [[nodiscard]] auto GetStringArrayArgument(const string& argName) const -> vector<string>;
 
             private:
                 unordered_map<string, shared_ptr<AbstractArgument>> schema_;

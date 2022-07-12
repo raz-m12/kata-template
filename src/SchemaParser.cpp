@@ -69,7 +69,7 @@ namespace argskata
                 if (IsStringType(token))
                 {
                     StripChars(token, _string);
-                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
+                    schema_.insert(make_pair(token, make_shared<StringArgument>(token)));
                     continue;
                 }
 
@@ -215,6 +215,21 @@ namespace argskata
         auto SchemaParser::GetIntegerArgument(const string& argName) const -> int 
         {
             return IntegerArgument::Value(schema_.at(argName));
+        }
+
+        auto SchemaParser::GetStringArgument(const string& argName) const -> string
+        {
+            return StringArgument::Value(schema_.at(argName));
+        }
+
+        auto SchemaParser::GetDoubleArgument(const string& argName) const -> double
+        {
+            return DoubleArgument::Value(schema_.at(argName));
+        }
+
+        auto SchemaParser::GetStringArrayArgument(const string& argName) const -> vector<string>
+        {
+            return StringArrayArgument::Value(schema_.at(argName));
         }
   
     } // namespace lib
