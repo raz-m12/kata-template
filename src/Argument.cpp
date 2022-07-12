@@ -5,6 +5,7 @@
 using argskata::lib::AbstractArgument;
 using std::size_t;
 using std::string;
+using std::vector;
 
 
 namespace argskata
@@ -125,6 +126,34 @@ namespace argskata
         auto DoubleArgument::Type() -> ArgumentType 
         {
             return ArgumentType::_double;
+        }
+
+        auto StringArrayArgument::SetValue(string value) -> void
+        {
+            try
+            {
+                value_.emplace_back(value);
+            }
+            catch (const std::exception& e)
+            {
+                throw InvalidArgumentValueException(e.what());
+            }
+        }
+
+        auto StringArrayArgument::Value(const shared_ptr<AbstractArgument> &arg) -> vector<string>
+        {
+            auto ptr = dynamic_pointer_cast<StringArrayArgument>(arg);
+            if (ptr != nullptr)
+            {
+                return ptr->value_;
+            }
+            // TODO(RV)
+            return {};
+        }
+
+        auto StringArrayArgument::Type() -> ArgumentType 
+        {
+            return ArgumentType::_strArr;
         }
 
     } // namespace lib

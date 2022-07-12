@@ -3,6 +3,7 @@
 
 #include "iostream"
 #include "memory"
+#include "vector"
                
 // TODO(RV) refactor format document
 namespace argskata
@@ -16,6 +17,7 @@ namespace argskata
             using std::dynamic_pointer_cast;
             using std::shared_ptr;
             using std::runtime_error;
+            using std::vector;
 
 
             class InvalidArgumentValueException : public runtime_error
@@ -130,12 +132,31 @@ namespace argskata
                 double value_ = 0;
             };
 
+            class StringArrayArgument: public AbstractArgument
+            {
+                public:
+                explicit StringArrayArgument(const string& name): AbstractArgument{name} { }
+                ~StringArrayArgument() override = default;
+                StringArrayArgument(StringArrayArgument const&) = default;
+                StringArrayArgument(StringArrayArgument&&) = delete;
+                auto operator=(StringArrayArgument const&) -> StringArrayArgument& = default;
+                auto operator=(StringArrayArgument&&) -> StringArrayArgument& = delete;
+
+                auto SetValue(string argValue) -> void override;
+                static auto Value(const shared_ptr<AbstractArgument>& arg) -> vector<string>;
+                auto Type() -> ArgumentType override;
+
+                private:
+                vector<string> value_{};
+            };
+
         } // namespace impl
         using impl::InvalidArgumentValueException;
         using impl::BooleanArgument;
         using impl::IntegerArgument;
         using impl::DoubleArgument;
         using impl::StringArgument;
+        using impl::StringArrayArgument;
         using impl::ArgumentType;
         using impl::AbstractArgument;
     } // namespace lib

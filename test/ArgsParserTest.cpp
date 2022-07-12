@@ -118,6 +118,7 @@ namespace argskata_test
 
         ASSERT_THAT(parser.GetSchema(), Eq(expected));
     }
+    
 
     TEST_F(SchemaValidationFixture, DISABLED_VerifiesResultingSchemaParsesStringArrayArguments)
     {

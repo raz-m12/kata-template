@@ -9,7 +9,10 @@ namespace argskata_test
     using std::shared_ptr;
     using std::make_shared;
     using std::string;
+    using std::vector;
     using testing::Eq;
+    using testing::ElementsAre;
+    using testing::ElementsAreArray;
 
     class AnArgumentValueValidator: public ::testing::Test
     {
@@ -18,6 +21,7 @@ namespace argskata_test
         const shared_ptr<IntegerArgument> IntArg = make_shared<IntegerArgument>("d");
         const shared_ptr<StringArgument> StrArg = make_shared<StringArgument>("s");
         const shared_ptr<DoubleArgument> DoubleArg = make_shared<DoubleArgument>("s");
+        const shared_ptr<StringArrayArgument> StrArrArg = make_shared<StringArrayArgument>("a");
     };
     
     TEST_F(AnArgumentValueValidator, BooleanArgumentBecomesTrueAfterSetValue)
@@ -67,5 +71,18 @@ namespace argskata_test
     TEST_F(AnArgumentValueValidator, DoubleArgumentDefaultsToZero)
     {
         ASSERT_THAT(DoubleArgument::Value(DoubleArg), Eq(0));
+    }
+
+    TEST_F(AnArgumentValueValidator, StringArrayArgumentValueIsSetCorrectly)
+    {
+        StrArrArg->SetValue("argument1");
+        vector<string> expected{"argument1"};
+
+        ASSERT_THAT(StringArrayArgument::Value(StrArrArg), ElementsAreArray(expected));
+    }
+
+    TEST_F(AnArgumentValueValidator, StringArrayArgumentDefaultsToEmptyArray)
+    {
+        ASSERT_THAT(StringArrayArgument::Value(StrArrArg), ElementsAre());
     }
 } // namespace argskata_test
