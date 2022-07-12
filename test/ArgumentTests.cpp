@@ -76,7 +76,8 @@ namespace argskata_test
     TEST_F(AnArgumentValueValidator, StringArrayArgumentIsArrayWithTwoValues)
     {
         StrArrArg->SetValue("argument1");
-        vector<string> expected{"argument1"};
+        StrArrArg->SetValue("argument2");
+        vector<string> expected{"argument1", "argument2"};
 
         ASSERT_THAT(StringArrayArgument::Value(StrArrArg), ElementsAreArray(expected));
     }

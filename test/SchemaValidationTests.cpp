@@ -55,17 +55,7 @@ namespace argskata_test
         static const vector<string> EmptyArgs;
     };
     const vector<string> SchemaValidationFixture::EmptyArgs = {};
-
-    TEST_F(SchemaValidationFixture, ThrowsWhenSchemaDoesNotStartWithOpenParanthesis)
-    {
-        ASSERT_THROW(ArgsParser parser("f)", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
-    }
-
-    TEST_F(SchemaValidationFixture, ThrowsWhenSchemaDoesNotEndWithCloseParanthesis)
-    {
-        ASSERT_THROW(ArgsParser parser("(f", EmptyArgs), SchemaMustStartAndEndWithParenthesisException);
-    }
-
+    
 
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedBooleanArguments)
     {
@@ -120,7 +110,7 @@ namespace argskata_test
     }
     
 
-    TEST_F(SchemaValidationFixture, AssertCorrectParseOfStringArrayArguments)
+    TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsesStringArrayArguments)
     {
         const string schema{"(i[*],o[*])"};
         ArgsParser parser(schema, EmptyArgs);
@@ -142,50 +132,4 @@ namespace argskata_test
                                             Pair("i", make_shared<BooleanArgument>("i")),
                                             Pair("o", make_shared<BooleanArgument>("o"))));
     }
-
-    TEST_F(SchemaValidationFixture, ThrowsOnInvalidSchemaCharacterDetected)
-    {
-        const string schema{"(fd)"};
-        ASSERT_THROW(ArgsParser(schema, EmptyArgs), SchemaInvalidCharacterDetectedException);
-    }
-
-    // TODO(RV) Add fixture that describes the argument list tests
-    //          Possibly add a parameterized test where needed
-
-
-    /** Although empty schema is allowed, empty schema with arguments to parse is forbidden. */
-    TEST(ArgumentValueValidator, ThrowsWhenSchemaIsEmptyAndThereAreArguments)
-    {
-        const string ArgumentNotInSchema{"-x"};
-        const string SchemaIsEmpty{"()"};
-
-        ASSERT_THROW(ArgsParser parser(SchemaIsEmpty, { ArgumentNotInSchema }), ArgumentNotPartOfSchemaException);
-    }
-
-    TEST(ArgumentValueValidator, ThrowsWhenArgumentIsNotPartOfSchema)
-    {
-        const string ArgumentNotInSchema{"-x"};
-        const string Schema{"(d,f)"};
-
-        ASSERT_THROW(ArgsParser (Schema, { ArgumentNotInSchema }), ArgumentNotPartOfSchemaException);
-    }
-
-
-    TEST(ArgumentValueValidator, BooleanFlagDefaultsToTrueIfInArgumentList)
-    {
-        ArgsParser parser{"(f)", {"-f"}};
-        ASSERT_TRUE(parser.GetBooleanArgument("f"));
-    }
-
-    TEST(ArgumentValueValidator, IntegerValueIsSetToThreeSinceInArgumentList)
-    {
-        ArgsParser parser{"(f#)", {"-f", "3"}};
-        ASSERT_THAT(parser.GetIntegerArgument("f"), Eq(3));
-    }
-
-    TEST(ArgumentValueValidator, ThrowsWhenIntegerFlagIsMissingValue)
-    {
-        ASSERT_THROW(ArgsParser("(f#)", {"-f"}), MissingArgumentValueException);
-    }
-
 } // namespace argskata_test

@@ -39,8 +39,10 @@ set (SRCS
    src/Argument.cpp
    src/Utils.cpp
    src/SchemaParser.cpp
-   test/ArgsParserTest.cpp
-   test/ArgumentTest.cpp)
+   test/SchemaValidationTests.cpp
+   test/ArgumentTests.cpp
+   test/UnhappyTests.cpp
+   test/IntegrationTests.cpp)
 add_executable(kata ${SRCS})
 
 # Enables header imports via #include "include/header.hpp"
