@@ -28,6 +28,11 @@ namespace argskata
             return schemaParser_.GetStringArgument(argName);
         }
 
+        auto ArgsParser::GetDoubleArgument(const string& argName) const -> double
+        {
+            return schemaParser_.GetDoubleArgument(argName);
+        }
+
         auto ArgsParser::GetSchema() const -> unordered_map<string, shared_ptr<AbstractArgument>>
         {
             return schemaParser_.GetSchema();

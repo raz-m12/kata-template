@@ -76,7 +76,7 @@ namespace argskata
                 if (IsDoubleType(token))
                 {
                     StripChars(token, _double);
-                    schema_.insert(make_pair(token, make_shared<BooleanArgument>(token)));
+                    schema_.insert(make_pair(token, make_shared<DoubleArgument>(token)));
                     continue;
                 }
 
