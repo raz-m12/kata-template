@@ -25,4 +25,10 @@ namespace argskata_test
         ArgsParser parser{"(f#)", {"-f", "3"}};
         ASSERT_THAT(parser.GetIntegerArgument("f"), Eq(3));
     }
+
+    TEST_F(AnIntegrationTest, StringValueIsSetToHelloWorldSinceInArgumentList)
+    {
+        ArgsParser parser{"(f*)", {"-f", "HelloWorld"}};
+        ASSERT_THAT(parser.GetStringArgument("f"), Eq("HelloWorld"));
+    }
 }
