@@ -2,9 +2,9 @@
 This is a programming problem described in the book [The Coding Dojo Handbook](https://www.amazon.com/Coding-Dojo-Handbook-Emily-Bache/dp/919811803X) on page 111.
 
 > The arguments passed to the program consist of flags and
-> values. Flags should be one character, preceded by a minus
-> sign. Each flag should have zero, or one value associated with
-> it.
+values. Flags should be one character, preceded by a minus
+sign. Each flag should have zero, or one value associated with
+it.
 
 > You should write a parser for this kind of arguments. This
 parser takes a schema detailing what arguments the program
@@ -49,21 +49,11 @@ this indicates a schema with 3 flags: l (a boolean), p (an integer), d (a string
 ### Optional:
 * c++ linters (with vs code support): clang-tidy and cppcheck
 * clang-format
-### Vengono installati in automatico:
+### Installed automatically:
 * vcpkg (package management program)
 * gtest/gmock (downloaded via vcpkg)
 
 # Installation, building and running the tests
-
-## Dependencies
-### Necessary
-* clang version 10.0.0
-* cmake version 3.21.4
-### Optional:
-* c++ linters (with vs code support): clang-tidy and cppcheck
-### Vengono installati in automatico:
-* vcpkg (package management program)
-* gtest/gmock (downloaded via vcpkg)
 
 ## Installation
 Inside the project root run:
