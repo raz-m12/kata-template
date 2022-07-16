@@ -30,6 +30,9 @@
         "altera-id-dependent-backward-branch"
     ],
     "C_Cpp.codeAnalysis.runAutomatically": true,
+
+    // clang format support
+    "editor.formatOnSave": true
     "files.associations": {
         "vector": "cpp",
         "any": "cpp",

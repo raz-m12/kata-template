@@ -1,7 +1,5 @@
 {
     "recommendations": [
-        // Should disable the clang linter from the settings
-        // in case of import errors.
         "jbenden.c-cpp-flylint",
         "tuttieee.emacs-mcx",
         "jeff-hykin.better-cpp-syntax",
@@ -15,6 +13,7 @@
         "ms-vscode.cmake-tools",
         "cschlosser.doxdocgen",
         "ms-vscode.test-adapter-converter",
-        "hbenl.vscode-test-explorer"
+        "hbenl.vscode-test-explorer",
+        "xaver.clang-format"
     ]
 }

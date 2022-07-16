@@ -42,6 +42,17 @@ this indicates a schema with 3 flags: l (a boolean), p (an integer), d (a string
 |--------------------|-----------------------------------------|
 | (f,s*,n#,a##,p[*]) | -f -s Bob -n 1 -a 3.2 -p e1 -p e2 -p e3 |
 
+## Dependencies
+### Necessary
+* clang version 10.0.0
+* cmake version 3.21.4
+### Optional:
+* c++ linters (with vs code support): clang-tidy and cppcheck
+* clang-format
+### Vengono installati in automatico:
+* vcpkg (package management program)
+* gtest/gmock (downloaded via vcpkg)
+
 # Installation, building and running the tests
 
 ## Dependencies
