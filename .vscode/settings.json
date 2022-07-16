@@ -30,5 +30,8 @@
       // rules to be revised
       "fuchsia-*"
     ],
-    "C_Cpp.codeAnalysis.runAutomatically": true
+    "C_Cpp.codeAnalysis.runAutomatically": true,
+
+    // clang format support
+    "editor.formatOnSave": true
 }

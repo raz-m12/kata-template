@@ -6,6 +6,17 @@ The template includes the boilerplate code intended as a starting point for doin
 
 Simply create your own branch and get started, there are plenty of example branches showcasing various examples.
 
+## Dependencies
+### Necessary
+* clang version 10.0.0
+* cmake version 3.21.4
+### Optional:
+* c++ linters (with vs code support): clang-tidy and cppcheck
+* clang-format
+### Vengono installati in automatico:
+* vcpkg (package management program)
+* gtest/gmock (downloaded via vcpkg)
+
 # Installation, building and running the tests
 Inside the project root run:
 ```
