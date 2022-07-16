@@ -32,7 +32,7 @@ namespace argskata
             return name_;
         }
 
-        auto BooleanArgument::SetValue(string) -> void
+        auto BooleanArgument::SetValue(const string& value) -> void
         {
             value_ = true;
         }
@@ -52,7 +52,7 @@ namespace argskata
             return ArgumentType::_boolean;
         }
 
-        auto IntegerArgument::SetValue(string value) -> void
+        auto IntegerArgument::SetValue(const string& value) -> void
         {
             try
             {
@@ -79,7 +79,7 @@ namespace argskata
             return ArgumentType::_integer;
         }
 
-        auto StringArgument::SetValue(string value) -> void
+        auto StringArgument::SetValue(const string& value) -> void
         {
             value_ = value;
         }
@@ -100,7 +100,7 @@ namespace argskata
             return ArgumentType::_string;
         }
 
-        auto DoubleArgument::SetValue(string value) -> void
+        auto DoubleArgument::SetValue(const string& value) -> void
         {
             try
             {
@@ -128,7 +128,7 @@ namespace argskata
             return ArgumentType::_double;
         }
 
-        auto StringArrayArgument::SetValue(string value) -> void
+        auto StringArrayArgument::SetValue(const string& value) -> void
         {
             try
             {

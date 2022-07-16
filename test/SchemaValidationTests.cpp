@@ -70,7 +70,6 @@ namespace argskata_test
         ASSERT_THAT(parser.GetSchema(), Eq(expected));
     }
 
-    /* TODO(RV) As soon as the tests on integers are finished */
     TEST_F(SchemaValidationFixture, VerifiesResultingSchemaParsedIntegerArguments)
     {
         const string schema{"(i#,o#)"};

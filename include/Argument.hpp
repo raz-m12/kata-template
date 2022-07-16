@@ -50,8 +50,7 @@ namespace argskata
                 auto operator!=(const AbstractArgument &other) const -> bool;
 
                 [[nodiscard]] auto Name() const -> string;
-                // TODO(RV) Refactor: make string constant
-                virtual auto SetValue(string argValue) -> void = 0;
+                virtual auto SetValue(const string& argValue) -> void = 0;
                 virtual auto Type() -> ArgumentType = 0;
 
             private:
@@ -68,7 +67,7 @@ namespace argskata
                 auto operator=(BooleanArgument const&) -> BooleanArgument& = default;
                 auto operator=(BooleanArgument&&) -> BooleanArgument& = delete;
 
-                auto SetValue(string argValue) -> void override;
+                auto SetValue(const string& argValue) -> void override;
                 static auto Value(const shared_ptr<AbstractArgument>& arg) -> bool;
                 auto Type() -> ArgumentType override;
 
@@ -86,7 +85,7 @@ namespace argskata
                 auto operator=(IntegerArgument const&) -> IntegerArgument& = default;
                 auto operator=(IntegerArgument&&) -> IntegerArgument& = delete;
 
-                auto SetValue(string argValue) -> void override;
+                auto SetValue(const string& argValue) -> void override;
                 static auto Value(const shared_ptr<AbstractArgument>& arg) -> int;
                 auto Type() -> ArgumentType override;
 
@@ -104,7 +103,7 @@ namespace argskata
                 auto operator=(StringArgument const&) -> StringArgument& = default;
                 auto operator=(StringArgument&&) -> StringArgument& = delete;
 
-                auto SetValue(string argValue) -> void override;
+                auto SetValue(const string& argValue) -> void override;
                 static auto Value(const shared_ptr<AbstractArgument>& arg) -> string;
                 auto Type() -> ArgumentType override;
 
@@ -124,7 +123,7 @@ namespace argskata
                 auto operator=(DoubleArgument const&) -> DoubleArgument& = default;
                 auto operator=(DoubleArgument&&) -> DoubleArgument& = delete;
 
-                auto SetValue(string argValue) -> void override;
+                auto SetValue(const string& argValue) -> void override;
                 static auto Value(const shared_ptr<AbstractArgument>& arg) -> double;
                 auto Type() -> ArgumentType override;
 
@@ -142,7 +141,7 @@ namespace argskata
                 auto operator=(StringArrayArgument const&) -> StringArrayArgument& = default;
                 auto operator=(StringArrayArgument&&) -> StringArrayArgument& = delete;
 
-                auto SetValue(string argValue) -> void override;
+                auto SetValue(const string& argValue) -> void override;
                 static auto Value(const shared_ptr<AbstractArgument>& arg) -> vector<string>;
                 auto Type() -> ArgumentType override;
 
