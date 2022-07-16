@@ -56,7 +56,7 @@ class BooleanArgument : public AbstractArgument {
   auto Type() -> ArgumentType override;
 
  private:
-  inline static bool DEFAULT_VALUE = false;
+  inline static const bool DEFAULT_VALUE = false;
   bool value_ = BooleanArgument::DEFAULT_VALUE;
 };
 
@@ -74,7 +74,7 @@ class IntegerArgument : public AbstractArgument {
   auto Type() -> ArgumentType override;
 
  private:
-  inline static int DEFAULT_VALUE{0};
+  inline static const int DEFAULT_VALUE{0};
   int value_ = IntegerArgument::DEFAULT_VALUE;
 };
 
@@ -92,7 +92,7 @@ class StringArgument : public AbstractArgument {
   auto Type() -> ArgumentType override;
 
  private:
-  inline static string DEFAULT_VALUE = std::string();
+  inline static const string DEFAULT_VALUE = std::string();
   string value_ = StringArgument::DEFAULT_VALUE;
 };
 
@@ -110,7 +110,7 @@ class DoubleArgument : public AbstractArgument {
   auto Type() -> ArgumentType override;
 
  private:
-  inline static double DEFAULT_VALUE{0.0};
+  inline static const double DEFAULT_VALUE{0.0};
   double value_ = DoubleArgument::DEFAULT_VALUE;
 };
 
@@ -129,7 +129,7 @@ class StringArrayArgument : public AbstractArgument {
   auto Type() -> ArgumentType override;
 
  private:
-  inline static vector<string> DEFAULT_VALUE{};
+  inline static const vector<string> DEFAULT_VALUE{};
   vector<string> value_ = StringArrayArgument::DEFAULT_VALUE;
 };
 
