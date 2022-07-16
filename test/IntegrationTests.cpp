@@ -6,18 +6,15 @@
  */
 
 namespace argskata_test
-{   
+{
+    using argskata::lib::ArgsParser;
     using std::string;
     using testing::ElementsAreArray;
     using testing::Eq;
-    using argskata::lib::ArgsParser;
 
     class AnIntegrationTest : public testing::Test
     {
     };
-    
-
-    
 
     TEST_F(AnIntegrationTest, BooleanFlagDefaultsToTrueSinceInArgumentList)
     {
@@ -37,7 +34,6 @@ namespace argskata_test
         ASSERT_THAT(parser.GetStringArgument("f"), Eq("HelloWorld"));
     }
 
-
     TEST_F(AnIntegrationTest, DoubleFlagIsSetThreePointFourteen)
     {
         ArgsParser parser{"(f##)", {"-f", "3.14"}};
@@ -47,7 +43,15 @@ namespace argskata_test
     TEST_F(AnIntegrationTest, StringArrayIsSetToTwoDistinctStrings)
     {
         ArgsParser parser{"(f[*])", {"-f", "Hello", "-f", "World"}};
-        
+
         ASSERT_THAT(parser.GetStringArrayArgument("f"), ElementsAreArray({"Hello", "World"}));
     }
-}
+
+    TEST_F(AnIntegrationTest, TestsAnArgumentParserWithABooleanAndAStringArray)
+    {
+        ArgsParser parser{"(s[*],b)", {"-s", "Hi", "-s", "Hello", "-s", "There", "-b"}};
+
+        ASSERT_THAT(parser.GetStringArrayArgument("s"), ElementsAreArray({"Hi", "Hello", "There"}));
+        ASSERT_TRUE(parser.GetBooleanArgument("-b"));
+    }
+} // namespace argskata_test
