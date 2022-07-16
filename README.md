@@ -2,9 +2,7 @@
 
 This is a c++ project used to practice Test-Driven Development (TDD) using Kata exercises. 
 
-The template includes the boilerplate code intended as a starting point for doing TDD in C++. It uses cmake and the vcpkg package manager to satisfy the dependencies. It is possible to add new dependencies see [branch](TODO_add_branch_link).
-
-Simply create your own branch and get started, there are plenty of example branches showcasing various examples.
+The template includes boilerplate code intended as a starting point for doing TDD in C++. It uses cmake for build automation and vcpkg to satisfy dependencies.
 
 ## Dependencies
 ### Necessary
@@ -38,4 +36,3 @@ ctest
 # or with detailed test output
 ctest --rerun-failed --output-on-failure
 ```
-
