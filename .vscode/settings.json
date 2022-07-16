@@ -32,7 +32,7 @@
     "C_Cpp.codeAnalysis.runAutomatically": true,
 
     // clang format support
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
     "files.associations": {
         "vector": "cpp",
         "any": "cpp",
