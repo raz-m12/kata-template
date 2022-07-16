@@ -47,11 +47,15 @@ namespace argskata_test
         ASSERT_THAT(parser.GetStringArrayArgument("f"), ElementsAreArray({"Hello", "World"}));
     }
 
-    TEST_F(AnIntegrationTest, TestsAnArgumentParserWithABooleanAndAStringArray)
+    TEST_F(AnIntegrationTest, StressTestWithAllArgumentTypes)
     {
-        ArgsParser parser{"(s[*],b)", {"-s", "Hi", "-s", "Hello", "-s", "There", "-b"}};
+        ArgsParser parser{"(f,s*,n#,a##,p[*])", 
+            {"-f", "-s", "Bob", "-n", "1", "-a", "3.2", "-p", "e1", "-p", "e2", "-p", "e3"}};
 
-        ASSERT_THAT(parser.GetStringArrayArgument("s"), ElementsAreArray({"Hi", "Hello", "There"}));
-        ASSERT_TRUE(parser.GetBooleanArgument("-b"));
+        ASSERT_TRUE(parser.GetBooleanArgument("f"));
+        ASSERT_THAT(parser.GetStringArgument("s"), Eq("Bob"));
+        ASSERT_THAT(parser.GetIntegerArgument("n"), Eq(1));
+        ASSERT_THAT(parser.GetDoubleArgument("a"), Eq(3.2));
+        ASSERT_THAT(parser.GetStringArrayArgument("p"), ElementsAreArray({"e1", "e2", "e3"}));
     }
 } // namespace argskata_test
