@@ -27,29 +27,32 @@ this indicates a schema with 3 flags: l (a boolean), p (an integer), d (a string
 
 # Proposed schema structure:
 
-|Character| Type | Schema Example | Value Example
-|---|---|---|----|
-|char    | boolean | (b)          | -b
-|char*   | string  | (s*)         | -s Michael
-|char#   | integer | (i#)         | -i 400
-|char##  | double  | (d##)        | -d 3.14
-|char[*] | string array | (s[*])  | -s value1 -s value2
+|Character| Type    | Schema Example | Value Example
+|---------|---------|----------------|---------------------|
+|char     | boolean | (b)            | -b                  |
+|char*    | string  | (s*)           | -s Michael          |
+|char#    | integer | (i#)           | -i 400              |
+|char##   | double  | (d##)          | -d 3.14             |
+|char[*]  | string array | (s[*])    | -s value1 -s value2 |
 
 
 ## Another example:
 
-| Example schema     | Corresponding example |
-|--------------------|-----------------------|
+| Example schema     | Corresponding example                   |
+|--------------------|-----------------------------------------|
 | (f,s*,n#,a##,p[*]) | -f -s Bob -n 1 -a 3.2 -p e1 -p e2 -p e3 |
 
 # Installation, building and running the tests
 
 ## Dependencies
+### Necessary
 * clang version 10.0.0
 * cmake version 3.21.4
+### Optional:
+* c++ linters (with vs code support): clang-tidy and cppcheck
+### Vengono installati in automatico:
 * vcpkg (package management program)
 * gtest/gmock (downloaded via vcpkg)
-* c++ linters (with vs code support): clang-tidy and cppcheck
 
 ## Installation
 Inside the project root run:
