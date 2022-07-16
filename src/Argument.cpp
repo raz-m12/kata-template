@@ -7,7 +7,6 @@ using std::size_t;
 using std::string;
 using std::vector;
 
-
 namespace argskata
 {
     namespace lib
@@ -32,7 +31,7 @@ namespace argskata
             return name_;
         }
 
-        auto BooleanArgument::SetValue(const string& value) -> void
+        auto BooleanArgument::SetValue(const string &value) -> void
         {
             value_ = true;
         }
@@ -44,21 +43,21 @@ namespace argskata
             {
                 return ptr->value_;
             }
-            return false;
+            return BooleanArgument::DEFAULT_VALUE;
         }
 
-        auto BooleanArgument::Type() -> ArgumentType 
+        auto BooleanArgument::Type() -> ArgumentType
         {
             return ArgumentType::_boolean;
         }
 
-        auto IntegerArgument::SetValue(const string& value) -> void
+        auto IntegerArgument::SetValue(const string &value) -> void
         {
             try
             {
                 value_ = stoi(value);
             }
-            catch (const std::exception& e)
+            catch (const std::exception &e)
             {
                 throw InvalidArgumentValueException(e.what());
             }
@@ -71,15 +70,15 @@ namespace argskata
             {
                 return ptr->value_;
             }
-            return 0;
+            return IntegerArgument::DEFAULT_VALUE;
         }
 
-        auto IntegerArgument::Type() -> ArgumentType 
+        auto IntegerArgument::Type() -> ArgumentType
         {
             return ArgumentType::_integer;
         }
 
-        auto StringArgument::SetValue(const string& value) -> void
+        auto StringArgument::SetValue(const string &value) -> void
         {
             value_ = value;
         }
@@ -91,22 +90,21 @@ namespace argskata
             {
                 return ptr->value_;
             }
-            // TODO(RV)
-            return "";
+            return StringArgument::DEFAULT_VALUE;
         }
 
-        auto StringArgument::Type() -> ArgumentType 
+        auto StringArgument::Type() -> ArgumentType
         {
             return ArgumentType::_string;
         }
 
-        auto DoubleArgument::SetValue(const string& value) -> void
+        auto DoubleArgument::SetValue(const string &value) -> void
         {
             try
             {
                 value_ = stod(value);
             }
-            catch (const std::exception& e)
+            catch (const std::exception &e)
             {
                 throw InvalidArgumentValueException(e.what());
             }
@@ -119,22 +117,21 @@ namespace argskata
             {
                 return ptr->value_;
             }
-            // TODO(RV)
-            return 0;
+            return DoubleArgument::DEFAULT_VALUE;
         }
 
-        auto DoubleArgument::Type() -> ArgumentType 
+        auto DoubleArgument::Type() -> ArgumentType
         {
             return ArgumentType::_double;
         }
 
-        auto StringArrayArgument::SetValue(const string& value) -> void
+        auto StringArrayArgument::SetValue(const string &value) -> void
         {
             try
             {
                 value_.emplace_back(value);
             }
-            catch (const std::exception& e)
+            catch (const std::exception &e)
             {
                 throw InvalidArgumentValueException(e.what());
             }
@@ -147,11 +144,10 @@ namespace argskata
             {
                 return ptr->value_;
             }
-            // TODO(RV)
-            return {};
+            return StringArrayArgument::DEFAULT_VALUE;
         }
 
-        auto StringArrayArgument::Type() -> ArgumentType 
+        auto StringArrayArgument::Type() -> ArgumentType
         {
             return ArgumentType::_strArr;
         }

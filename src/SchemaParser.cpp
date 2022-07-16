@@ -10,7 +10,7 @@ namespace argskata
     {
         auto SchemaParser::Parse(const string &bareSchema, const vector<string> &args) -> void
         {
-            // TODO(RV) store the arguments in class variables
+            // TODO(RV) Improvement: store the arguments in class variables
             AssertValidSchemaFormat(bareSchema, args);
             PopulateSchemaWithArguments(bareSchema);
             PopulateArgumentsWithValues(args);
@@ -82,7 +82,6 @@ namespace argskata
 
                 if (IsStringArrayType(token))
                 {
-                    // TODO(RV) change name
                     StripChars(token, _strArr);
                     schema_.insert(make_pair(token, make_shared<StringArrayArgument>(token)));
                     continue;

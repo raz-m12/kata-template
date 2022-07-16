@@ -15,13 +15,11 @@ using testing::UnorderedElementsAre;
 //    schema
 // 4. Gives as input arguments that do not adhere to the schema
 //    which throws an exception
-// [DOING] Adds schema support for: boolean, string, integer,
-//    double, arrays
 
 // Tests:
 // - BooleanFlagDefaultsToFalseWhenNotInArgumentList
 
-// TODO(RV):
+// TODO(RV) - Solutions to encountered problems:
 // - https://stackoverflow.com/questions/39049803/google-test-cant-find-user-provided-equality-operator
 // ============================================================
 

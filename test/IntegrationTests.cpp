@@ -1,6 +1,10 @@
 #include "gmock/gmock.h"
 #include "include/ArgsParser.hpp"
 
+/**
+ *  TODO(RV) Possibly add a parameterized tests
+ */
+
 namespace argskata_test
 {   
     using std::string;
@@ -13,8 +17,7 @@ namespace argskata_test
     };
     
 
-    // TODO(RV) Add fixture that describes the argument list tests
-    //          Possibly add a parameterized test where needed
+    
 
     TEST_F(AnIntegrationTest, BooleanFlagDefaultsToTrueSinceInArgumentList)
     {
