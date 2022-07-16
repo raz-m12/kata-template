@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-# Code obtained from the follow answer on stackoverflow:
+# This script runs clang-format over the entire solution.
+# Customized to exclude extern and .build directories.
+# Code obtained from the following answer on stackoverflow:
 # https://stackoverflow.com/a/65988393/4561887
 
 # See my ans: https://stackoverflow.com/a/60157372/4561887
