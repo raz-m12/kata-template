@@ -68,6 +68,13 @@ namespace argskata_test
         ASSERT_THAT(DoubleArgument::Value(DoubleArg), Eq(34.5));
     }
 
+    TEST_F(AnArgumentValueValidator, VerifiesNegativeArgumentValue)
+    {
+        DoubleArg->SetValue("-34.5");
+
+        ASSERT_THAT(DoubleArgument::Value(DoubleArg), Eq(-34.5));
+    }
+
     TEST_F(AnArgumentValueValidator, DoubleArgumentDefaultsToZero)
     {
         ASSERT_THAT(DoubleArgument::Value(DoubleArg), Eq(0));
