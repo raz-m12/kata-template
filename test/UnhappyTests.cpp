@@ -1,5 +1,5 @@
-#include "gmock/gmock.h"
 #include "include/ArgsParser.hpp"
+#include "gmock/gmock.h"
 
 using namespace argskata::lib;
 using namespace ::testing;
@@ -7,7 +7,7 @@ using namespace std;
 
 namespace argskata_test {
 class AnUnhappyTest : public testing::Test {
- public:
+public:
   static const vector<string> EmptyArgs;
 };
 const vector<string> AnUnhappyTest::EmptyArgs = {};
@@ -49,4 +49,4 @@ TEST_F(AnUnhappyTest, ThrowsOnInvalidSchemaCharacter) {
 TEST_F(AnUnhappyTest, ThrowsWhenIntegerFlagIsMissingValue) {
   ASSERT_THROW(ArgsParser("(f#)", {"-f"}), MissingArgumentValueException);
 }
-}  // namespace argskata_test
+} // namespace argskata_test

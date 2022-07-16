@@ -32,7 +32,7 @@ auto ArgsParser::GetStringArrayArgument(const string &argName) const
 }
 
 auto ArgsParser::GetSchema() const
-    -> unordered_map<string, shared_ptr<AbstractArgument> > {
+    -> unordered_map<string, shared_ptr<AbstractArgument>> {
   return schemaParser_.GetSchema();
 }
 
@@ -45,5 +45,5 @@ auto ArgsParser::MapCmdLineArgsToParserInput(int argc, char *argv[])
   }
   return parserInput;
 }
-}  // namespace lib
-}  // namespace argskata
+} // namespace lib
+} // namespace argskata

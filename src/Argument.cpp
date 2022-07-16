@@ -103,5 +103,5 @@ auto StringArrayArgument::Type() -> ArgumentType {
   return ArgumentType::_strArr;
 }
 
-}  // namespace lib
-}  // namespace argskata
+} // namespace lib
+} // namespace argskata

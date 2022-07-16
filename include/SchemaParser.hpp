@@ -22,10 +22,10 @@ class ArgumentNotPartOfSchemaException : public exception {};
 class MissingArgumentValueException : public exception {};
 
 class SchemaParser {
- public:
+public:
   void Parse(const string &bareSchema, const vector<string> &args);
   [[nodiscard]] auto GetSchema() const
-      -> unordered_map<string, shared_ptr<AbstractArgument> >;
+      -> unordered_map<string, shared_ptr<AbstractArgument>>;
   [[nodiscard]] auto GetBooleanArgument(const string &argName) const -> bool;
   [[nodiscard]] auto GetStringArgument(const string &argName) const -> string;
   [[nodiscard]] auto GetIntegerArgument(const string &argName) const -> int;
@@ -33,15 +33,16 @@ class SchemaParser {
   [[nodiscard]] auto GetStringArrayArgument(const string &argName) const
       -> vector<string>;
 
- private:
-  unordered_map<string, shared_ptr<AbstractArgument> > schema_;
+private:
+  unordered_map<string, shared_ptr<AbstractArgument>> schema_;
 
   static void AssertValidSchemaFormat(const string &bareSchema,
                                       const vector<string> &args);
-  [[nodiscard]] static auto SchemaStartsAndEndsWithParenthesis(
-      const string &schema) -> bool;
-  [[nodiscard]] static auto SchemaIsEmptyAndThereAreArgumentsToParse(
-      const string &schema, const vector<string> &args) -> bool;
+  [[nodiscard]] static auto
+  SchemaStartsAndEndsWithParenthesis(const string &schema) -> bool;
+  [[nodiscard]] static auto
+  SchemaIsEmptyAndThereAreArgumentsToParse(const string &schema,
+                                           const vector<string> &args) -> bool;
 
   auto PopulateSchemaWithArguments(const string &schema) -> void;
   [[nodiscard]] static auto IsSchemaLastToken(const string &token) -> bool;
@@ -56,13 +57,13 @@ class SchemaParser {
   static auto StripNonAlphaChars(const vector<string> &args) -> vector<string>;
   auto GetAbstractArg(const std::string &arg) -> shared_ptr<AbstractArgument> &;
 };
-}  // namespace impl
+} // namespace impl
 using impl::ArgumentNotPartOfSchemaException;
 using impl::MissingArgumentValueException;
 using impl::SchemaInvalidCharacterDetectedException;
 using impl::SchemaMustStartAndEndWithParenthesisException;
 using impl::SchemaParser;
-}  // namespace lib
-}  // namespace argskata
+} // namespace lib
+} // namespace argskata
 
 #endif

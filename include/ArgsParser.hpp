@@ -25,7 +25,7 @@ using std::shared_ptr;
 using std::string;
 
 class ArgsParser {
- public:
+public:
   ArgsParser(const string &bareSchema, const vector<string> &args);
 
   [[nodiscard]] auto GetBooleanArgument(const string &argName) const -> bool;
@@ -35,16 +35,16 @@ class ArgsParser {
   [[nodiscard]] auto GetStringArrayArgument(const string &argName) const
       -> vector<string>;
   [[nodiscard]] auto GetSchema() const
-      -> unordered_map<string, shared_ptr<AbstractArgument> >;
+      -> unordered_map<string, shared_ptr<AbstractArgument>>;
   static auto MapCmdLineArgsToParserInput(int argc, char *argv[])
       -> vector<string>;
 
- private:
+private:
   SchemaParser schemaParser_;
 };
-}  // namespace impl
+} // namespace impl
 using impl::ArgsParser;
-}  // namespace lib
-}  // namespace argskata
+} // namespace lib
+} // namespace argskata
 
 #endif

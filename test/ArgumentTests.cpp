@@ -1,5 +1,5 @@
-#include "gmock/gmock.h"
 #include "include/Argument.hpp"
+#include "gmock/gmock.h"
 
 namespace argskata_test {
 using namespace argskata::lib;
@@ -12,7 +12,7 @@ using testing::ElementsAreArray;
 using testing::Eq;
 
 class AnArgumentValueValidator : public ::testing::Test {
- public:
+public:
   const shared_ptr<BooleanArgument> BooleanArg =
       make_shared<BooleanArgument>("b");
   const shared_ptr<IntegerArgument> IntArg = make_shared<IntegerArgument>("d");
@@ -80,4 +80,4 @@ TEST_F(AnArgumentValueValidator, StringArrayArgumentIsArrayWithTwoValues) {
 TEST_F(AnArgumentValueValidator, StringArrayArgumentDefaultsToEmptyArray) {
   ASSERT_THAT(StringArrayArgument::Value(StrArrArg), ElementsAre());
 }
-}  // namespace argskata_test
+} // namespace argskata_test

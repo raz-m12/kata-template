@@ -1,5 +1,5 @@
-#include "gmock/gmock.h"
 #include "include/ArgsParser.hpp"
+#include "gmock/gmock.h"
 
 /**
  *  TODO(RV) Possibly add a parameterized tests
@@ -52,4 +52,4 @@ TEST_F(AnIntegrationTest, StressTestWithAllArgumentTypes) {
   ASSERT_THAT(parser.GetStringArrayArgument("p"),
               ElementsAreArray({"e1", "e2", "e3"}));
 }
-}  // namespace argskata_test
+} // namespace argskata_test

@@ -39,12 +39,12 @@ auto SchemaParser::PopulateSchemaWithArguments(const string &bareSchema)
     -> void {
   istringstream iss{bareSchema};
   string token;
-  iss.ignore();  // ignore first character '('
+  iss.ignore(); // ignore first character '('
 
 #pragma unroll 1
   while (getline(iss, token, ',')) {
     if (IsSchemaLastToken(token)) {
-      token.pop_back();  // remove token last character ')'
+      token.pop_back(); // remove token last character ')'
     }
 
     if (IsBooleanType(token)) {
@@ -107,28 +107,28 @@ auto SchemaParser::IsStringArrayType(const string &token) -> bool {
 
 void SchemaParser::StripChars(string &token, ArgumentType tokenType) {
   switch (tokenType) {
-    case _boolean:
-      // nothing to remove when token is a boolean
-      break;
+  case _boolean:
+    // nothing to remove when token is a boolean
+    break;
 
-    case _integer:
-    case _string:
-      token.pop_back();
-      break;
+  case _integer:
+  case _string:
+    token.pop_back();
+    break;
 
-    case _double:
-      token.pop_back();
-      token.pop_back();
-      break;
+  case _double:
+    token.pop_back();
+    token.pop_back();
+    break;
 
-    case _strArr:
-      token.pop_back();
-      token.pop_back();
-      token.pop_back();
-      break;
+  case _strArr:
+    token.pop_back();
+    token.pop_back();
+    token.pop_back();
+    break;
 
-    default:
-      throw invalid_argument("Unhandled token type");
+  default:
+    throw invalid_argument("Unhandled token type");
   }
 }
 
@@ -156,7 +156,7 @@ auto SchemaParser::StripNonAlphaChars(const vector<string> &args)
     -> vector<string> {
   vector<string> result;
   std::for_each(
-      args.begin(), args.end(), [&result](string arg) {  // modify in-place
+      args.begin(), args.end(), [&result](string arg) { // modify in-place
         if (arg.starts_with('-')) {
           arg.erase(remove_if(begin(arg), end(arg),
                               [](char _char) { return isalpha(_char) == 0; }),
@@ -180,7 +180,7 @@ auto SchemaParser::GetAbstractArg(const string &argName)
 }
 
 auto SchemaParser::GetSchema() const
-    -> unordered_map<string, shared_ptr<AbstractArgument> > {
+    -> unordered_map<string, shared_ptr<AbstractArgument>> {
   return schema_;
 }
 
@@ -205,5 +205,5 @@ auto SchemaParser::GetStringArrayArgument(const string &argName) const
   return StringArrayArgument::Value(schema_.at(argName));
 }
 
-}  // namespace lib
-}  // namespace argskata
+} // namespace lib
+} // namespace argskata

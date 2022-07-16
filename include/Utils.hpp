@@ -8,13 +8,13 @@ namespace argskata {
 namespace lib {
 namespace impl {
 class ArgumentHasher {
- public:
+public:
   auto operator()(const AbstractArgument &arg) const -> size_t;
 };
-}  // namespace impl
+} // namespace impl
 
 using impl::ArgumentHasher;
-}  // namespace lib
-}  // namespace argskata
+} // namespace lib
+} // namespace argskata
 
 #endif

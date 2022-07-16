@@ -15,7 +15,7 @@ using std::string;
 using std::vector;
 
 class InvalidArgumentValueException : public runtime_error {
- public:
+public:
   explicit InvalidArgumentValueException(const string &msg)
       : runtime_error(msg) {}
 };
@@ -23,7 +23,7 @@ class InvalidArgumentValueException : public runtime_error {
 enum ArgumentType { _boolean, _string, _integer, _double, _strArr };
 
 class AbstractArgument {
- public:
+public:
   explicit AbstractArgument(string name);
   virtual ~AbstractArgument() = default;
   AbstractArgument(AbstractArgument const &) = default;
@@ -38,12 +38,12 @@ class AbstractArgument {
   virtual auto SetValue(const string &argValue) -> void = 0;
   virtual auto Type() -> ArgumentType = 0;
 
- private:
+private:
   string name_;
 };
 
 class BooleanArgument : public AbstractArgument {
- public:
+public:
   explicit BooleanArgument(const string &name) : AbstractArgument{name} {}
   ~BooleanArgument() override = default;
   BooleanArgument(BooleanArgument const &) = default;
@@ -55,13 +55,13 @@ class BooleanArgument : public AbstractArgument {
   static auto Value(const shared_ptr<AbstractArgument> &arg) -> bool;
   auto Type() -> ArgumentType override;
 
- private:
+private:
   inline static const bool DEFAULT_VALUE = false;
   bool value_ = BooleanArgument::DEFAULT_VALUE;
 };
 
 class IntegerArgument : public AbstractArgument {
- public:
+public:
   explicit IntegerArgument(const string &name) : AbstractArgument{name} {}
   ~IntegerArgument() override = default;
   IntegerArgument(IntegerArgument const &) = default;
@@ -73,13 +73,13 @@ class IntegerArgument : public AbstractArgument {
   static auto Value(const shared_ptr<AbstractArgument> &arg) -> int;
   auto Type() -> ArgumentType override;
 
- private:
+private:
   inline static const int DEFAULT_VALUE{0};
   int value_ = IntegerArgument::DEFAULT_VALUE;
 };
 
 class StringArgument : public AbstractArgument {
- public:
+public:
   explicit StringArgument(const string &name) : AbstractArgument{name} {}
   ~StringArgument() override = default;
   StringArgument(StringArgument const &) = default;
@@ -91,13 +91,13 @@ class StringArgument : public AbstractArgument {
   static auto Value(const shared_ptr<AbstractArgument> &arg) -> string;
   auto Type() -> ArgumentType override;
 
- private:
+private:
   inline static const string DEFAULT_VALUE = std::string();
   string value_ = StringArgument::DEFAULT_VALUE;
 };
 
 class DoubleArgument : public AbstractArgument {
- public:
+public:
   explicit DoubleArgument(const string &name) : AbstractArgument{name} {}
   ~DoubleArgument() override = default;
   DoubleArgument(DoubleArgument const &) = default;
@@ -109,13 +109,13 @@ class DoubleArgument : public AbstractArgument {
   static auto Value(const shared_ptr<AbstractArgument> &arg) -> double;
   auto Type() -> ArgumentType override;
 
- private:
+private:
   inline static const double DEFAULT_VALUE{0.0};
   double value_ = DoubleArgument::DEFAULT_VALUE;
 };
 
 class StringArrayArgument : public AbstractArgument {
- public:
+public:
   explicit StringArrayArgument(const string &name) : AbstractArgument{name} {}
   ~StringArrayArgument() override = default;
   StringArrayArgument(StringArrayArgument const &) = default;
@@ -128,12 +128,12 @@ class StringArrayArgument : public AbstractArgument {
   static auto Value(const shared_ptr<AbstractArgument> &arg) -> vector<string>;
   auto Type() -> ArgumentType override;
 
- private:
+private:
   inline static const vector<string> DEFAULT_VALUE{};
   vector<string> value_ = StringArrayArgument::DEFAULT_VALUE;
 };
 
-}  // namespace impl
+} // namespace impl
 using impl::AbstractArgument;
 using impl::ArgumentType;
 using impl::BooleanArgument;
@@ -142,7 +142,7 @@ using impl::IntegerArgument;
 using impl::InvalidArgumentValueException;
 using impl::StringArgument;
 using impl::StringArrayArgument;
-}  // namespace lib
-}  // namespace argskata
+} // namespace lib
+} // namespace argskata
 
 #endif
