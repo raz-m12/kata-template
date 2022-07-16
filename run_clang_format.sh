@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-# By Gabriel Staples
-# For documentation on this file, see my answer here:
-# [my answer] How to call clang-format over a cpp project folder?:
+# Code obtained from the follow answer on stackoverflow:
 # https://stackoverflow.com/a/65988393/4561887
 
 # See my ans: https://stackoverflow.com/a/60157372/4561887
