@@ -4,6 +4,7 @@
 # For documentation on this file, see my answer here:
 # [my answer] How to call clang-format over a cpp project folder?:
 # https://stackoverflow.com/a/65988393/4561887
+# Adapted to by own needs by Razvan Vasile (not sure what the changes are over the time)
 
 # See my ans: https://stackoverflow.com/a/60157372/4561887
 FULL_PATH_TO_SCRIPT="$(realpath "$0")"
