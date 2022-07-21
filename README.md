@@ -18,21 +18,21 @@ The template includes boilerplate code intended as a starting point for doing TD
 # Installation, building and running the tests
 Inside the project root run:
 ```
-./install
+./install.sh
 ```
 This will configure the package manager vcpkg together with the dependency gtest, the c++ unit testing framework.
 
 From the root directory, to compile and link the project use:
 ```
-cmake .build
-cmake --build .build --target kata
+cd .build && cmake ..
+cmake --build . --target kata
 ```
 
 ## Running the tests
 From the root directory:
 ```bash
-cd .build
-ctest
+# From the .build directory
+./kata
 # or with detailed test output
 ctest --rerun-failed --output-on-failure
 ```
