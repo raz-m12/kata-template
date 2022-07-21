@@ -70,7 +70,7 @@ This will configure the package manager vcpkg together with the dependency gtest
 
 From the root directory, to compile and link the project use:
 ```
-cd .build && cmake ..
+cd .build && cmake -D CMAKE_C_COMPILER=clang .. -D CMAKE_CXX_COMPILER=clang++
 cmake --build . --target kata
 ```
 
