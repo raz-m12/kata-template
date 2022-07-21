@@ -57,8 +57,8 @@ this indicates a schema with 3 flags: l (a boolean), p (an integer), d (a string
 
 ## Downloading the repository
 ```
-git clone https://github.com/raz-m12/kata-template.git
-git checkout args-kata
+git clone --single-branch --branch args-kata https://github.com/raz-m12/kata-template.git
+cd kata-template
 ```
 
 ## Installation
