@@ -55,24 +55,29 @@ this indicates a schema with 3 flags: l (a boolean), p (an integer), d (a string
 
 # Installation, building and running the tests
 
+## Downloading the repository
+```
+git clone https://github.com/raz-m12/kata-template.git
+git checkout args-kata
+```
+
 ## Installation
 Inside the project root run:
 ```
-./install
+./install.sh
 ```
 This will configure the package manager vcpkg together with the dependency gtest, the c++ unit testing framework.
 
 From the root directory, to compile and link the project use:
 ```
-cmake .build
-cmake --build .build --target kata
+cd .build && cmake ..
+cmake --build . --target kata
 ```
 
 ## Running the tests
 From the root directory:
 ```bash
-cd .build
-# Then either to run tests individually
+# From the .build directory, run tests individually
 ./kata
 # Or using cmake (ctest)
 ctest --rerun-failed --output-on-failure
