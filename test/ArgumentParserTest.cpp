@@ -3,9 +3,10 @@
 
 using namespace testing;
 
-namespace Tests {
-using ::testing::Test;
+namespace args {
+namespace tests {
 using args::libs::ArgumentParser;
+using ::testing::Test;
 
 class AnArgumentParser : public Test {
  public:
@@ -13,6 +14,12 @@ class AnArgumentParser : public Test {
 };
 
 TEST_F(AnArgumentParser, RetrievesValueOfABoolean) {
-  ASSERT_FALSE(parser.getArgValue("f"));
+  ASSERT_FALSE(parser.getBooleanValue("f"));
 }
-}  // namespace Tests
+
+TEST_F(AnArgumentParser, RetrievesValueOfABoolean) {
+  parser.setBooleanValue("f");
+  ASSERT_FALSE(parser.getBooleanValue("f"));
+}
+}  // namespace tests
+}  // namespace args

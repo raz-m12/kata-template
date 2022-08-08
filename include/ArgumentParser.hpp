@@ -3,15 +3,14 @@
 
 #include "iostream"
 
-
 namespace args {
 namespace libs {
 using std::string;
 class ArgumentParser {
  public:
-  auto getArgValue(string name) -> bool;
+  auto getBooleanValue(const string& name) -> bool;
 };
-}  // namespace lib
+}  // namespace libs
 }  // namespace args
 
 #endif

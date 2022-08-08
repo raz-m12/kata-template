@@ -2,7 +2,7 @@
 
 namespace args {
 namespace libs {
-auto ArgumentParser::getArgValue(string name) -> bool {
+auto ArgumentParser::getBooleanValue(const string& name) -> bool {
   return false;
 }
 
