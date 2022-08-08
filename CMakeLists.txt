@@ -35,7 +35,8 @@ project (kata_exercise)
 # Creates the executable with source files
 set (SRCS 
     src/main.cpp
-    test/KataTest.cpp)
+    src/ArgumentParser.cpp
+    test/ArgumentParserTest.cpp)
 add_executable(kata ${SRCS})
 
 # Enables header imports via #include "include/header.hpp"
