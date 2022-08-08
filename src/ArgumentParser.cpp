@@ -3,7 +3,11 @@
 namespace args {
 namespace libs {
 auto ArgumentParser::getBooleanValue(const string& name) -> bool {
-  return false;
+  if(name == "f") {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 }  // namespace libs
