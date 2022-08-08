@@ -2,13 +2,18 @@
 
 namespace args {
 namespace libs {
-auto ArgumentParser::getBooleanValue(const string& name) -> bool {
-  if(name == "f") {
-    return false;
-  } else {
-    return true;
-  }
+auto ArgumentParser::GetParserGivenSchema(const string& schema)
+    -> ArgumentParser {
+  return ArgumentParser{};
 }
 
+auto ArgumentParser::GetBooleanValue(const string& name) -> bool {
+  if (name == "f") {
+    return false;
+  }
+
+  return true;
+}
+  
 }  // namespace libs
-}  // namespace args
+}  // namespace libs
