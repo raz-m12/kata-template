@@ -1,5 +1,5 @@
-#include "include/Kata.hpp"
 #include "gmock/gmock.h"
+#include "include/Kata.hpp"
 
 using namespace testing;
 
