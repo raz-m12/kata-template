@@ -12,24 +12,27 @@ using ::testing::Test;
 
 class ArgumentParserStub : public ArgumentParser {
  public:
-  MOCK_METHOD(bool, setBooleanValue, (const string& name));
-  static auto GetParserGivenSchema(const string& schema) -> ArgumentParserStub {
+  MOCK_METHOD(void, setBooleanValue, (const string& arg), (override));
+
+  static auto getParserGivenSchema(const string& schema) -> ArgumentParserStub {
     return ArgumentParserStub{};
   };
 };
 
 class AnArgumentParser : public Test {
  public:
-  ArgumentParserStub parser = ArgumentParserStub::GetParserGivenSchema("");
+  ArgumentParserStub mock = ArgumentParserStub::getParserGivenSchema("");
 };
 
 TEST_F(AnArgumentParser, RetrievesBooleanFlagNotPresentAsArgument) {
-  ASSERT_FALSE(parser.GetBooleanValue("f"));
+  ASSERT_FALSE(mock.getBooleanValue("f"));
 }
 
-TEST_F(AnArgumentParser, RetrievesBooleanFlagPresetAsArgument) {
-  parser.setBooleanValue("g");
-  ASSERT_TRUE(parser.GetBooleanValue("g"));
+TEST_F(AnArgumentParser, RetrievesBooleanFlagPresentAsArgument) {
+  EXPECT_CALL(mock, setBooleanValue("g")).Times(1);
+
+  mock.setBooleanValue("g");
+  ASSERT_TRUE(mock.getBooleanValue("g"));
 }
 }  // namespace tests
 }  // namespace args

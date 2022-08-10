@@ -8,8 +8,9 @@ namespace libs {
 using std::string;
 class ArgumentParser {
  public:
-  static auto GetParserGivenSchema(const string& schema) -> ArgumentParser;
-  auto GetBooleanValue(const string& name) -> bool;
+  static auto getParserGivenSchema(const string& schema) -> ArgumentParser;
+  auto getBooleanValue(const string& arg) -> bool;
+  virtual auto setBooleanValue(const string& arg) -> void;
 };
 }  // namespace libs
 }  // namespace args
