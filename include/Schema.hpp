@@ -10,6 +10,8 @@ using std::string;
 
 class Schema: public ISchema
 {
+ public:
+  Schema(const string& schema);
   auto partOfSchema(const string& param) -> bool override;
 };
 

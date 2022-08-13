@@ -14,33 +14,57 @@ using namespace testing;
 
 namespace args {
 namespace tests {
-using args::libs::ArgumentParser;
+using libs::ArgumentParser;
+using libs::ISchema;
+using std::make_shared;
+using std::shared_ptr;
+using std::unique_ptr;
 using std::string;
 using ::testing::Test;
 
-class ArgumentParserStub : public ArgumentParser {
+class SchemaMock : public ISchema {
  public:
-  explicit ArgumentParserStub(libs::ISchema* schema): ArgumentParser{schema} {}
-  MOCK_METHOD(void, setBooleanValue, (const string& arg), (override));
+  SchemaMock(const string& schema) : ISchema(schema) {}
 
-  static auto getParserGivenSchema(const string& schema) -> ArgumentParserStub {
-    return ArgumentParserStub{nullptr};
+  MOCK_METHOD(bool, partOfSchema, (const string& param), (override));
+};
+
+
+class ArgumentParserMock : public ArgumentParser {
+ public:
+  explicit ArgumentParserMock(shared_ptr<ISchema> schema)
+      : ArgumentParser{schema} {}
+  // MOCK_METHOD(void, setBooleanValue, (const string& arg), (override));
+
+  // TODO: Am I overriding this method or just creating a new one?
+  static auto getParserGivenSchema(const string& input) -> ArgumentParserMock {
+    shared_ptr<SchemaMock> schema = make_shared<SchemaMock>(input);
+    return ArgumentParserMock{schema};
   };
 };
 
-class AnArgumentParser : public Test {
+
+class AnArgumentParserFixture : public Test {
  public:
-  ArgumentParserStub mock = ArgumentParserStub::getParserGivenSchema("");
+  const string schema{"f"};
+  const shared_ptr<SchemaMock> schemaMock = make_shared<SchemaMock>(schema);
+  const unique_ptr<ArgumentParserMock> parser = nullptr;
 };
 
-TEST_F(AnArgumentParser, RetrievesBooleanFlagNotPresentAsArgument) {
-  ASSERT_FALSE(mock.getBooleanValue("f"));
+
+TEST_F(AnArgumentParserFixture, RetrievesBooleanFlagNotPresentAsArgument) {
+  ArgumentParserMock mock = ArgumentParserMock::getParserGivenSchema(schema);
+
+  // ASSERT_FALSE(mock.getBooleanValue("f"));
 }
 
-TEST_F(AnArgumentParser, RetrievesBooleanFlagPresentAsArgument) {
-  EXPECT_CALL(mock, setBooleanValue("g")).Times(1);
+TEST_F(AnArgumentParserFixture, RetrievesBooleanFlagPresentAsArgument) {
+  shared_ptr<ISchema> ischema = parser->getSchema();
 
-  mock.setBooleanValue("g");
+  // EXPECT_CALL(*ischema, partOfSchema("g")).Times(1);
+
+  ArgumentParserMock mock = ArgumentParserMock::getParserGivenSchema(schema);
+
   ASSERT_TRUE(mock.getBooleanValue("g"));
 }
 }  // namespace tests

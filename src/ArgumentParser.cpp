@@ -5,21 +5,22 @@
 
 namespace args {
 namespace libs {
-auto ArgumentParser::getParserGivenSchema(const string& schema)
+using std::make_shared;
+
+auto ArgumentParser::getParserGivenSchema(const string& input)
     -> ArgumentParser {
-  Schema schema2;
-  ISchema* ischema = &schema2;  // &schema2;
-  return ArgumentParser{ischema};
+  shared_ptr<ISchema> schema = make_shared<Schema>(input);  // &schema2;
+  return ArgumentParser{schema};
 }
 
-ArgumentParser::ArgumentParser(ISchema* schema) : _schema(schema) {}
+ArgumentParser::ArgumentParser(shared_ptr<ISchema> schema) : _schema{schema} {}
+
+auto ArgumentParser::getSchema() -> shared_ptr<ISchema> {
+  return _schema;
+}
 
 auto ArgumentParser::getBooleanValue(const string& arg) -> bool {
-  if (arg == "f") {
-    return false;
-  }
-
-  return true;
+  return arg != "f";
 }
 
 /** TODO(RV) is being mocked */

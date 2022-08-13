@@ -7,10 +7,11 @@ namespace args {
 namespace libs {
 
 using std::string;
+using std::move;
 
 class ISchema {
  public:
-  ISchema() = default;
+  explicit ISchema(const string& schema): _schema(move(schema)) { };
   virtual ~ISchema() = default;
 
   ISchema(ISchema const &) = delete;;
@@ -19,9 +20,13 @@ class ISchema {
   auto operator=(ISchema &&) -> ISchema & = delete;
 
   virtual auto partOfSchema(const string& param) -> bool = 0;
+
+ private:
+  ISchema() = default;
+  string _schema;
 };
 
 }  // namespace libs
 }  // namespace args
 
-#endif  //!__ISCHEMA__H__
+#endif  //!ISCHEMA_H
