@@ -2,7 +2,7 @@
 This is essentially the same problem as the one described in the 
 [args kata branch](https://github.com/raz-m12/kata-template/tree/args-kata).
 The difference between these two branches is that here I try to use the 
-mocking API of GMock. 
+[mocking API](https://google.github.io/googletest/gmock_cook_book.html) of GMock. 
 
 # Problem description
 This is a programming problem described in the book [The Coding Dojo Handbook](https://www.amazon.com/Coding-Dojo-Handbook-Emily-Bache/dp/919811803X) on page 111.
