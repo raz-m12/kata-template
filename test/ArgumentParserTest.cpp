@@ -4,6 +4,13 @@
 
 using namespace testing;
 
+/**
+ * Selecting Between Overloaded Functions (Cookbook)
+ * EXPECT_CALL(printer, Print(An<int>()));            // void Print(int);
+ * EXPECT_CALL(printer, Print(Matcher<int>(Lt(5))));  // void Print(int);
+ * EXPECT_CALL(printer, Print(TypedEq<char>('a')));   // void Print(char);
+ */
+
 namespace args {
 namespace tests {
 using args::libs::ArgumentParser;
