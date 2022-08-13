@@ -1,5 +1,6 @@
 #include "gmock/gmock.h"
 #include "include/ArgumentParser.hpp"
+#include "include/ISchema.hpp"
 #include "iostream"
 
 using namespace testing;
@@ -19,10 +20,11 @@ using ::testing::Test;
 
 class ArgumentParserStub : public ArgumentParser {
  public:
+  explicit ArgumentParserStub(libs::ISchema* schema): ArgumentParser{schema} {}
   MOCK_METHOD(void, setBooleanValue, (const string& arg), (override));
 
   static auto getParserGivenSchema(const string& schema) -> ArgumentParserStub {
-    return ArgumentParserStub{};
+    return ArgumentParserStub{nullptr};
   };
 };
 
