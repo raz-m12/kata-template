@@ -1,17 +1,16 @@
 #ifndef SCHEMA_H
 #define SCHEMA_H
 
-#include "iostream"
 #include "include/ISchema.hpp"
+#include "iostream"
 
 namespace args {
 namespace libs {
 using std::string;
 
-class Schema: public ISchema
-{
+class Schema : public ISchema {
  public:
-  Schema(const string& schema);
+  explicit Schema(const string& schema);
   auto partOfSchema(const string& param) -> bool override;
 };
 
