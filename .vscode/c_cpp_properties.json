@@ -4,9 +4,8 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**"
-            ]
-            // see https://stackoverflow.com/questions/45583473/include-errors-detected-in-vscode
-            //"configurationProvider": "ms-vscode.cpptools"
+            ],
+            "compilerPath": "/usr/bin/clang++"
         }
     ],
     "version": 4
