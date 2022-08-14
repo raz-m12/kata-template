@@ -17,6 +17,7 @@ namespace tests {
 using libs::ArgumentParser;
 using libs::ISchema;
 using std::dynamic_pointer_cast;
+using std::invalid_argument;
 using std::make_shared;
 using std::move;
 using std::shared_ptr;
@@ -28,31 +29,29 @@ class SchemaMock : public ISchema {
  public:
   explicit SchemaMock(const string& schema) : ISchema(schema) {}
 
-  MOCK_METHOD(bool, partOfSchema, (const string& param), (override));
+  MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
 };
 
-class ArgumentParserMock : public ArgumentParser {
+class ArgumentParserStub : public ArgumentParser {
  public:
-  explicit ArgumentParserMock(shared_ptr<ISchema> schema)
+  explicit ArgumentParserStub(shared_ptr<ISchema> schema)
       : ArgumentParser{move(schema)} {}
   // MOCK_METHOD(void, setBooleanValue, (const string& arg), (override));
 
-  // TODO(RV): Am I overriding this method or just creating a new one?
-  static auto getParserGivenSchema(const string& input) -> ArgumentParserMock {
+  static auto getParserGivenSchema(const string& input) -> ArgumentParserStub {
     shared_ptr<SchemaMock> schema = make_shared<SchemaMock>(input);
-    return ArgumentParserMock{schema};
+    return ArgumentParserStub{schema};
   };
 };
 
 class AnArgumentParserFixture : public Test {
- private:
-  const string input{"f"};
-  ArgumentParserMock _parser = ArgumentParserMock::getParserGivenSchema(input);
-  shared_ptr<SchemaMock> _schema;
-
  protected:
-  auto getSchema() -> shared_ptr<SchemaMock> { return _schema; }
-  auto getParser() -> ArgumentParserMock& { return _parser; }
+  // NOLINTBEGIN(*-non-private-member-variables-in-classes)
+  const string input{"f"};
+  ArgumentParserStub _parser = ArgumentParserStub::getParserGivenSchema(input);
+  shared_ptr<SchemaMock> _schema;
+  // NOLINTEND(*-non-private-member-variables-in-classes)
+
   void SetUp() override {
     shared_ptr<ISchema> ischema = _parser.getSchema();
     _schema = dynamic_pointer_cast<SchemaMock>(ischema);
@@ -60,15 +59,21 @@ class AnArgumentParserFixture : public Test {
 };
 
 TEST_F(AnArgumentParserFixture, RetrievesBooleanFlagNotPresentAsArgument) {
-  ON_CALL(*getSchema(), partOfSchema("f")).WillByDefault(Return(true));
+  ON_CALL(*_schema, partOfSchema("f")).WillByDefault(Return(true));
 
-  ASSERT_FALSE(getParser().getBooleanValue("f"));
+  ASSERT_FALSE(_parser.getBooleanValue("f"));
 }
 
 TEST_F(AnArgumentParserFixture, RetrievesBooleanFlagPresentAsArgument) {
-  EXPECT_CALL(*getSchema(), partOfSchema("g")).Times(1).WillOnce(Return(true));
+  EXPECT_CALL(*_schema, partOfSchema("g")).Times(1).WillOnce(Return(true));
 
-  ASSERT_TRUE(getParser().getBooleanValue("g"));
+  ASSERT_TRUE(_parser.getBooleanValue("g"));
+}
+
+TEST_F(AnArgumentParserFixture, ThrowsWhenArgumentNotPartOfSchema) {
+  EXPECT_CALL(*_schema, partOfSchema(_)).Times(1).WillOnce(Return(false));
+
+  ASSERT_THROW(_parser.getBooleanValue("f"), invalid_argument);
 }
 }  // namespace tests
 }  // namespace args
