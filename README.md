@@ -1,3 +1,7 @@
+# Other exercises
+* [args-kata2](https://github.com/raz-m12/kata-template/tree/args2) - use of the mocking API.
+* [args-kata](https://github.com/raz-m12/kata-template/tree/args-kata) - initial attempt to use GTest.
+
 # Description
 
 This is a c++ project used to practice Test-Driven Development (TDD) using Kata exercises. 
