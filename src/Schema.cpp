@@ -10,5 +10,9 @@ auto Schema::partOfSchema(const string&  /*param*/) -> bool {
   return false;
 }
 
+auto Schema::parseSchema(const string& schema) -> schemaMap {
+  // TODO(RV)
+}
+
 }  // namespace libs
 }  // namespace args

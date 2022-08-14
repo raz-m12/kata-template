@@ -10,12 +10,17 @@ using namespace testing;
  * EXPECT_CALL(printer, Print(An<int>()));            // void Print(int);
  * EXPECT_CALL(printer, Print(Matcher<int>(Lt(5))));  // void Print(int);
  * EXPECT_CALL(printer, Print(TypedEq<char>('a')));   // void Print(char);
+ * https://chromium.googlesource.com/external/github.com/google/googletest/+/refs/heads/77A9B20B4C1E02FAC90D1D942E1D4C18/googlemock/docs/cheat_sheet.md
+ * EXPECT_CALL(testobject, testfunction(_, _, _))
+ *   .WillOnce(DoAll(SetArgReferee<0>(v), SetArgReferee<1>(i), Return(true)));
+ *
  */
 
 namespace args {
 namespace tests {
 using libs::ArgumentParser;
 using libs::ISchema;
+using libs::schemaMap;
 using std::dynamic_pointer_cast;
 using std::invalid_argument;
 using std::make_shared;
@@ -25,11 +30,34 @@ using std::string;
 using ::testing::Return;
 using ::testing::Test;
 
+class SchemaStub : public ISchema {
+ public:
+  explicit SchemaStub(const string& schema) : ISchema(schema) {}
+
+  auto parseSchema(const string & /* schema */) -> schemaMap override {
+    return {{"g", "true"}};
+  }
+
+  auto partOfSchema(const string& param) -> bool override { return false; }
+};
+
 class SchemaMock : public ISchema {
  public:
   explicit SchemaMock(const string& schema) : ISchema(schema) {}
 
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
+  MOCK_METHOD(schemaMap, parseSchema, (const string& schema),
+              (override));  // NOLINT
+
+  void delegateToStub() {
+    ON_CALL(*this, parseSchema)
+        .WillByDefault([this](const string& schema) -> schemaMap {
+          stub_.parseSchema(schema);
+        });
+  }
+
+ private:
+  SchemaStub stub_{""};
 };
 
 class ArgumentParserStub : public ArgumentParser {
@@ -40,6 +68,7 @@ class ArgumentParserStub : public ArgumentParser {
 
   static auto getParserGivenSchema(const string& input) -> ArgumentParserStub {
     shared_ptr<SchemaMock> schema = make_shared<SchemaMock>(input);
+    schema->delegateToStub();
     return ArgumentParserStub{schema};
   };
 };

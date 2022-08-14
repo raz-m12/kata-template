@@ -25,11 +25,17 @@ auto ArgumentParser::getBooleanValue(const string& arg) -> bool {
   if (!_schema->partOfSchema(arg)) {
     throw invalid_argument("argument not part of schema");
   }
-  return arg != "f";
+  return boolPresentAsCmdLineArg(arg);
 }
 
-/** TODO(RV) currently being mocked */
-auto ArgumentParser::setBooleanValue(const string& /* arg */) -> void {}
+auto ArgumentParser::boolPresentAsCmdLineArg(const string& arg) -> bool {
+  return keyValuePairs.contains(arg);
+}
+
+/** TODO(RV) will be transformed in a template */
+auto ArgumentParser::setBooleanValue(const string& arg) -> void {
+  keyValuePairs[arg] = "true";
+}
 
 }  // namespace libs
 }  // namespace args

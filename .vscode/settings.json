@@ -10,6 +10,9 @@
   "cmake.buildDirectory": "${workspaceFolder}/.build",
   "c-cpp-flylint.enable": false,
   "c-cpp-flylint.cppcheck.enable": false,
+  "c-cpp-flylint.excludeFromWorkspacePaths": [
+    "extern/*"
+  ],
   // see https://www.youtube.com/watch?v=8RSxQ8sluG0
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "C_Cpp.codeAnalysis.clangTidy.enabled": true,
@@ -49,6 +52,7 @@
     "cstring": "cpp",
     "ctime": "cpp",
     "cwchar": "cpp",
-    "cwctype": "cpp"
+    "cwctype": "cpp",
+    "unordered_map": "cpp"
   }
 }
