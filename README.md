@@ -9,13 +9,13 @@ This is a c++ project used to practice Test-Driven Development (TDD) using Kata 
 The template includes boilerplate code intended as a starting point for doing TDD in C++. It uses cmake for build automation and vcpkg to satisfy dependencies.
 
 ## Dependencies
-### Necessary
+### Necessary:
 * clang version 10.0.0
 * cmake version 3.21.4
 ### Optional:
 * c++ linters (with vs code support): clang-tidy and cppcheck
 * clang-format
-### Vengono installati in automatico:
+### Automatically installed:
 * vcpkg (package management program)
 * gtest/gmock (downloaded via vcpkg)
 
