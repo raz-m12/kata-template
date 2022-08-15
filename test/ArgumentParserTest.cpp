@@ -61,24 +61,21 @@ class SchemaMock : public ISchema {
   SchemaStub stub_{""};
 };
 
-class ArgumentParserStub : public ArgumentParser {
- public:
-  explicit ArgumentParserStub(shared_ptr<ISchema> schema)
-      : ArgumentParser{move(schema)} {}
-  // MOCK_METHOD(void, setBooleanValue, (const string& arg), (override));
 
-  static auto getParserGivenSchema(const string& input) -> ArgumentParserStub {
-    shared_ptr<SchemaMock> schema = make_shared<SchemaMock>(input);
-    schema->delegateToStub();
-    return ArgumentParserStub{schema};
-  };
-};
+
 
 class AnArgumentParserFixture : public Test {
+ private:
+  static auto getParserGivenSchema(const string& input) -> ArgumentParser {
+    shared_ptr<SchemaMock> schema = make_shared<SchemaMock>(input);
+    schema->delegateToStub();
+    return ArgumentParser{schema};
+  };
+
  protected:
   // NOLINTBEGIN(*-non-private-member-variables-in-classes)
   const string input{"f"};
-  ArgumentParserStub _parser = ArgumentParserStub::getParserGivenSchema(input);
+  ArgumentParser _parser = getParserGivenSchema(input);
   shared_ptr<SchemaMock> _schema;
   // NOLINTEND(*-non-private-member-variables-in-classes)
 

@@ -2,6 +2,7 @@
 #define ISCHEMA_H
 
 #include <iostream>
+
 #include "unordered_map"
 
 namespace args {
@@ -16,7 +17,7 @@ class ISchema {
  public:
   explicit ISchema(string schema) : _schema(move(schema)){};
   virtual ~ISchema() = default;
-  
+
   ISchema() = delete;
   ISchema(ISchema const &) = delete;
   ISchema(ISchema &&) = delete;
