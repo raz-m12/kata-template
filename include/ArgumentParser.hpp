@@ -32,7 +32,7 @@ class ArgumentParser {
   // TODO(RV) Could be generalized to become a template
   auto boolPresentAsCmdLineArg(const string& arg) -> bool;
 
-  unordered_map<string, string> keyValuePairs;
+  unordered_map<string, string> keyValuePairs_;
   shared_ptr<ISchema> _schema;
 };
 }  // namespace libs

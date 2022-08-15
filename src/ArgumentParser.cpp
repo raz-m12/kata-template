@@ -17,7 +17,9 @@ auto ArgumentParser::getParserGivenSchema(const string& input)
 }
 
 ArgumentParser::ArgumentParser(shared_ptr<ISchema> schema)
-    : _schema{move(schema)} {}
+    : _schema{move(schema)} {
+  keyValuePairs_ = _schema->parseSchema();
+}
 
 auto ArgumentParser::getSchema() -> shared_ptr<ISchema> { return _schema; }
 
@@ -29,12 +31,12 @@ auto ArgumentParser::getBooleanValue(const string& arg) -> bool {
 }
 
 auto ArgumentParser::boolPresentAsCmdLineArg(const string& arg) -> bool {
-  return keyValuePairs.contains(arg);
+  return keyValuePairs_.contains(arg);
 }
 
 /** TODO(RV) will be transformed in a template */
 auto ArgumentParser::setBooleanValue(const string& arg) -> void {
-  keyValuePairs[arg] = "true";
+  keyValuePairs_[arg] = "true";
 }
 
 }  // namespace libs

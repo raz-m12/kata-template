@@ -14,6 +14,11 @@ using namespace testing;
  * EXPECT_CALL(testobject, testfunction(_, _, _))
  *   .WillOnce(DoAll(SetArgReferee<0>(v), SetArgReferee<1>(i), Return(true)));
  *
+ * Using Predicates as Matchers
+ * int IsEven(int n) { return (n % 2) == 0 ? 1 : 0; }
+ * ...
+ * // Bar() must be called with an even number.
+ * EXPECT_CALL(foo, Bar(Truly(IsEven)));
  */
 
 namespace args {
@@ -34,11 +39,9 @@ class SchemaStub : public ISchema {
  public:
   explicit SchemaStub(const string& schema) : ISchema(schema) {}
 
-  auto parseSchema(const string & /* schema */) -> schemaMap override {
-    return {{"g", "true"}};
-  }
+  auto parseSchema() -> schemaMap override { return {{"g", "true"}}; }
 
-  auto partOfSchema(const string& param) -> bool override { return false; }
+  MOCK_METHOD(bool, partOfSchema, (const string& param), (override)); // NOLINT
 };
 
 class SchemaMock : public ISchema {
@@ -46,14 +49,12 @@ class SchemaMock : public ISchema {
   explicit SchemaMock(const string& schema) : ISchema(schema) {}
 
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
-  MOCK_METHOD(schemaMap, parseSchema, (const string& schema),
-              (override));  // NOLINT
+  MOCK_METHOD(schemaMap, parseSchema, (), (override));                 // NOLINT
 
   void delegateToStub() {
-    ON_CALL(*this, parseSchema)
-        .WillByDefault([this](const string& schema) -> schemaMap {
-          stub_.parseSchema(schema);
-        });
+    ON_CALL(*this, parseSchema).WillByDefault([this]() -> schemaMap {
+      return stub_.parseSchema();
+    });
   }
 
  private:

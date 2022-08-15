@@ -10,7 +10,7 @@ auto Schema::partOfSchema(const string&  /*param*/) -> bool {
   return false;
 }
 
-auto Schema::parseSchema(const string& schema) -> schemaMap {
+auto Schema::parseSchema() -> schemaMap {
   // TODO(RV)
 }
 
