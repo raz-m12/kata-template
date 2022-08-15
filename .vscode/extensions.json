@@ -15,6 +15,7 @@
         "ms-vscode.test-adapter-converter",
         "hbenl.vscode-test-explorer",
         "xaver.clang-format",
-        "2211896472.snippets"
+        "2211896472.snippets",
+        "jacqueslucke.gcov-viewer"
     ]
 }
