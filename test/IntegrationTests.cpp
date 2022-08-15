@@ -2,7 +2,7 @@
 #include "gmock/gmock.h"
 
 /**
- *  TODO(RV) Possibly add a parameterized tests
+ *  TODO(RV) Possibly add parameterized tests
  */
 
 namespace argskata_test {
