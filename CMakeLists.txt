@@ -23,12 +23,6 @@ endif()
 # Compiler configurable options, uses the c++2020 standard
 # Passing -Wextra uses a linter as well
 # Adds compile time optimizations -O3
-
-# Code coverage:
-# To be used with the gcov viewer extension
-# set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -Wextra -g --coverage -std=c++2a")
-# To be used with llvm-cov:
-# set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -Wextra -g -fprofile-instr-generate -fcoverage-mapping -std=c++2a")
 # Adds link time optimizations -flto
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -Wextra -g -std=c++2a")
 
@@ -57,7 +51,7 @@ target_include_directories(kata PRIVATE ${header_files})
 find_package(GTest CONFIG REQUIRED)
 target_link_libraries(kata PRIVATE GTest::gmock GTest::gtest GTest::gmock_main GTest::gtest_main)
 
-# Allows to use ctest inside the .build directory. However, 
+# Allows to use ctest inside the .build directory. However,
 # generally this doesn't be used. Use vs code TestMate support.
 enable_testing()
 add_test(Unit kata)
