@@ -17,13 +17,15 @@ auto ArgumentParser::getParserGivenSchema(const string& input)
 }
 
 ArgumentParser::ArgumentParser(shared_ptr<ISchema> schema)
-    : _schema{move(schema)} {
+    : _schema{move(schema)} {}
+
+auto ArgumentParser::parseSchema() -> void {
   keyValuePairs_ = _schema->parseSchema();
 }
 
 auto ArgumentParser::getSchema() -> shared_ptr<ISchema> { return _schema; }
 
-auto ArgumentParser::getBooleanValue(const string& arg) -> bool {
+auto ArgumentParser::getBoolean(const string& arg) -> bool {
   if (!_schema->partOfSchema(arg)) {
     throw invalid_argument("argument not part of schema");
   }
@@ -32,6 +34,13 @@ auto ArgumentParser::getBooleanValue(const string& arg) -> bool {
 
 auto ArgumentParser::boolPresentAsCmdLineArg(const string& arg) -> bool {
   return keyValuePairs_.contains(arg);
+}
+
+auto ArgumentParser::getInteger(const string& arg) -> bool {
+  if (!_schema->partOfSchema(arg)) {
+    throw invalid_argument("argument not part of schema");
+  }
+  return boolPresentAsCmdLineArg(arg);
 }
 
 /** TODO(RV) will be transformed in a template */

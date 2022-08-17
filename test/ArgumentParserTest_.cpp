@@ -11,9 +11,11 @@ using namespace testing;
 //  * EXPECT_CALL(printer, Print(An<int>()));            // void Print(int);
 //  * EXPECT_CALL(printer, Print(Matcher<int>(Lt(5))));  // void Print(int);
 //  * EXPECT_CALL(printer, Print(TypedEq<char>('a')));   // void Print(char);
-//  * https://chromium.googlesource.com/external/github.com/google/googletest/+/refs/heads/77A9B20B4C1E02FAC90D1D942E1D4C18/googlemock/docs/cheat_sheet.md
+//  *
+https://chromium.googlesource.com/external/github.com/google/googletest/+/refs/heads/77A9B20B4C1E02FAC90D1D942E1D4C18/googlemock/docs/cheat_sheet.md
 //  * EXPECT_CALL(testobject, testfunction(_, _, _))
-//  *   .WillOnce(DoAll(SetArgReferee<0>(v), SetArgReferee<1>(i), Return(true)));
+//  *   .WillOnce(DoAll(SetArgReferee<0>(v), SetArgReferee<1>(i),
+Return(true)));
 //  *
 //  * Using Predicates as Matchers
 //  * int IsEven(int n) { return (n % 2) == 0 ? 1 : 0; }
@@ -87,19 +89,19 @@ class AnArgumentParserFixture : public Test {
 TEST_F(AnArgumentParserFixture, RetrievesBooleanFlagNotPresentAsArgument) {
   ON_CALL(*_schema, partOfSchema("f")).WillByDefault(Return(true));
 
-  ASSERT_FALSE(_parser.getBooleanValue("f"));
+  ASSERT_FALSE(_parser.getBoolean("f"));
 }
 
 TEST_F(AnArgumentParserFixture, RetrievesBooleanFlagPresentAsArgument) {
   EXPECT_CALL(*_schema, partOfSchema("g")).Times(1).WillOnce(Return(true));
 
-  ASSERT_TRUE(_parser.getBooleanValue("g"));
+  ASSERT_TRUE(_parser.getBoolean("g"));
 }
 
 TEST_F(AnArgumentParserFixture, ThrowsWhenArgumentNotPartOfSchema) {
   EXPECT_CALL(*_schema, partOfSchema(_)).Times(1).WillOnce(Return(false));
 
-  ASSERT_THROW(_parser.getBooleanValue("f"), invalid_argument);
+  ASSERT_THROW(_parser.getBoolean("f"), invalid_argument);
 }
 }  // namespace tests
 }  // namespace args

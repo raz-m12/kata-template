@@ -20,16 +20,20 @@ class ArgumentParser {
   ArgumentParser(ArgumentParser const&) = delete;
   ArgumentParser(ArgumentParser&&) = delete;
   auto operator=(ArgumentParser const&) -> ArgumentParser& = delete;
-  auto operator=(ArgumentParser &&) -> ArgumentParser& = delete;
+  auto operator=(ArgumentParser &&) -> ArgumentParser& = default;
 
   static auto getParserGivenSchema(const string& input) -> ArgumentParser;
+  auto parseSchema() -> void;
   auto getSchema() -> shared_ptr<ISchema>;
 
-  auto getBooleanValue(const string& arg) -> bool;
+  auto getBoolean(const string& arg) -> bool;
   virtual auto setBooleanValue(const string& arg) -> void;
+
+  auto getInteger(const string& arg) -> bool;
 
  private:
   // TODO(RV) Could be generalized to become a template
+  
   auto boolPresentAsCmdLineArg(const string& arg) -> bool;
 
   unordered_map<string, string> keyValuePairs_;

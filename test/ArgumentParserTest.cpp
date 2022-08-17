@@ -26,12 +26,12 @@ namespace tests {
 using libs::ArgumentParser;
 using libs::ISchema;
 using libs::schemaMap;
-using std::dynamic_pointer_cast;
 using std::invalid_argument;
 using std::make_shared;
-using std::move;
+using std::make_unique;
 using std::shared_ptr;
 using std::string;
+using std::unique_ptr;
 using ::testing::Return;
 using ::testing::Test;
 
@@ -41,7 +41,7 @@ class SchemaStub : public ISchema {
 
   auto parseSchema() -> schemaMap override { return {{"g", "true"}}; }
 
-  MOCK_METHOD(bool, partOfSchema, (const string& param), (override)); // NOLINT
+  MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
 };
 
 class SchemaMock : public ISchema {
@@ -61,46 +61,61 @@ class SchemaMock : public ISchema {
   SchemaStub stub_{""};
 };
 
-
-
-
 class AnArgumentParserFixture : public Test {
- private:
-  static auto getParserGivenSchema(const string& input) -> ArgumentParser {
-    shared_ptr<SchemaMock> schema = make_shared<SchemaMock>(input);
-    schema->delegateToStub();
-    return ArgumentParser{schema};
+ protected:
+  auto initParserUsingSchema(const string& input) -> void {
+    _schema = make_shared<SchemaMock>(input);
+    _schema->delegateToStub();
+
+    _parser = make_unique<ArgumentParser>(_schema);
   };
 
- protected:
-  // NOLINTBEGIN(*-non-private-member-variables-in-classes)
-  const string input{"f"};
-  ArgumentParser _parser = getParserGivenSchema(input);
-  shared_ptr<SchemaMock> _schema;
-  // NOLINTEND(*-non-private-member-variables-in-classes)
-
-  void SetUp() override {
-    shared_ptr<ISchema> ischema = _parser.getSchema();
-    _schema = dynamic_pointer_cast<SchemaMock>(ischema);
-  }
+  unique_ptr<ArgumentParser>
+      _parser;                     // NOLINT(*-non-private-member-variables-*)
+  shared_ptr<SchemaMock> _schema;  // NOLINT(*-non-private-member-variables-*)
 };
 
-TEST_F(AnArgumentParserFixture, RetrievesBooleanFlagNotPresentAsArgument) {
+TEST_F(AnArgumentParserFixture, GetsBooleanFlagNotPresentInSchema) {
+  // Arrange
+  initParserUsingSchema("f");
   ON_CALL(*_schema, partOfSchema("f")).WillByDefault(Return(true));
 
-  ASSERT_FALSE(_parser.getBooleanValue("f"));
+  // Act
+  _parser->parseSchema();
+
+  // Assert
+  ASSERT_FALSE(_parser->getBoolean("f"));
 }
 
-TEST_F(AnArgumentParserFixture, RetrievesBooleanFlagPresentAsArgument) {
+TEST_F(AnArgumentParserFixture, GetsBooleanFlagPresentInSchema) {
+  // Arrange
+  initParserUsingSchema("g");
   EXPECT_CALL(*_schema, partOfSchema("g")).Times(1).WillOnce(Return(true));
 
-  ASSERT_TRUE(_parser.getBooleanValue("g"));
+  // Act
+  _parser->parseSchema();
+
+  // Assert
+  ASSERT_TRUE(_parser->getBoolean("g"));
 }
 
 TEST_F(AnArgumentParserFixture, ThrowsWhenArgumentNotPartOfSchema) {
+  initParserUsingSchema("");
   EXPECT_CALL(*_schema, partOfSchema(_)).Times(1).WillOnce(Return(false));
 
-  ASSERT_THROW(_parser.getBooleanValue("f"), invalid_argument);
+  ASSERT_THROW(_parser->getBoolean("f"), invalid_argument);
+}
+
+TEST_F(AnArgumentParserFixture, GetsIntegerFlagPresentInSchema) {
+  // Arrange
+  initParserUsingSchema("d#");
+  EXPECT_CALL(*_schema, partOfSchema("d")).Times(1).WillOnce(Return(true));
+
+  // Act
+  _parser->parseSchema();
+
+  // Assert
+  ASSERT_TRUE(_parser->getBoolean("d"));
 }
 }  // namespace tests
 }  // namespace args
