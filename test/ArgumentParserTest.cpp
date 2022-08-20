@@ -25,9 +25,9 @@ using namespace testing;
 namespace args {
 namespace tests {
 using libs::ArgumentParser;
-using libs::ISchema;
 using libs::BoolArgument;
 using libs::IntArgument;
+using libs::ISchema;
 using libs::schemaMap;
 using std::invalid_argument;
 using std::make_shared;
@@ -35,7 +35,6 @@ using std::make_unique;
 using std::shared_ptr;
 using std::string;
 using std::unique_ptr;
-using std::make_unique;
 using ::testing::Return;
 using ::testing::Test;
 

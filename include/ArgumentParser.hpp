@@ -1,13 +1,12 @@
 #ifndef ArgumentParser_h
 #define ArgumentParser_h
 
-#include "include/ISchema.hpp"
 #include "include/Argument.hpp"
+#include "include/ISchema.hpp"
 #include "include/Utilities.hpp"
 #include "iostream"
 #include "memory"
 #include "unordered_map"
-
 
 namespace args {
 namespace libs {
@@ -17,8 +16,8 @@ using std::is_same;
 using std::shared_ptr;
 using std::stoi;
 using std::string;
-using std::unordered_map;
 using std::unique_ptr;
+using std::unordered_map;
 
 /* TODO(RV). Question: is it ok not to depend on an interface? */
 class ArgumentParser {
@@ -46,8 +45,7 @@ class ArgumentParser {
   auto boolPresentAsCmdLineArg(const string& arg) -> bool;
 
   // TODO(RV) to remove this variable
-  unordered_map<string, string> keyValuePairs_;
-  unordered_map<string, unique_ptr<IArgument>> keyValuePairs__;
+  schemaMap keyValuePairs_;
   shared_ptr<ISchema> _schema;
 };
 
@@ -56,11 +54,10 @@ auto ArgumentParser::get(const string& arg) -> T {
   if (!_schema->partOfSchema(arg)) {
     throw invalid_argument("argument not part of schema");
   }
-  const auto value = keyValuePairs_[arg];
-  if(!keyValuePairs__[arg]) {
+  if (!keyValuePairs_[arg]) {
     return defaultValueOf<T>();
   }
-  return keyValuePairs__[arg]->getValue<T>();
+  return keyValuePairs_[arg]->getValue<T>();
 }
 
 }  // namespace libs

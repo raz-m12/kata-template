@@ -46,7 +46,6 @@ class IntArgument : public IArgument {
   int _value = 0;
 };
 
-
 class BoolArgument : public IArgument {
  public:
   explicit BoolArgument(bool value);

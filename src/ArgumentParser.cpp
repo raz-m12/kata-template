@@ -19,19 +19,13 @@ ArgumentParser::ArgumentParser(shared_ptr<ISchema> schema)
     : _schema{move(schema)} {}
 
 auto ArgumentParser::parseSchema() -> void {
-  keyValuePairs__ = _schema->parseSchema();
+  keyValuePairs_ = _schema->parseSchema();
 }
 
 auto ArgumentParser::getSchema() -> shared_ptr<ISchema> { return _schema; }
 
-auto ArgumentParser::boolPresentAsCmdLineArg(const string& arg) -> bool {
-  return keyValuePairs_.contains(arg) && keyValuePairs_.at(arg) == "true";
-}
-
 /** TODO(RV). Idea: will be transformed in a template */
-auto ArgumentParser::setBooleanValue(const string& arg) -> void {
-  keyValuePairs_[arg] = "true";
-}
+auto ArgumentParser::setBooleanValue(const string & /* arg */) -> void {}
 
 }  // namespace libs
 }  // namespace args
