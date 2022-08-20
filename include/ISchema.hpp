@@ -4,14 +4,18 @@
 #include <iostream>
 
 #include "unordered_map"
+#include "include/Argument.hpp"
+#include "memory"
 
 namespace args {
 namespace libs {
 
 using std::move;
 using std::string;
+using std::unique_ptr;
 using std::unordered_map;
-using schemaMap = unordered_map<string, string>;
+// TODO(RV) to change to an unique pointer
+using schemaMap = unordered_map<string, unique_ptr<IArgument>>;
 
 class ISchema {
  public:

@@ -3,9 +3,11 @@
 
 #include "include/ISchema.hpp"
 #include "include/Argument.hpp"
+#include "include/Utilities.hpp"
 #include "iostream"
 #include "memory"
 #include "unordered_map"
+
 
 namespace args {
 namespace libs {
@@ -43,6 +45,7 @@ class ArgumentParser {
 
   auto boolPresentAsCmdLineArg(const string& arg) -> bool;
 
+  // TODO(RV) to remove this variable
   unordered_map<string, string> keyValuePairs_;
   unordered_map<string, unique_ptr<IArgument>> keyValuePairs__;
   shared_ptr<ISchema> _schema;
@@ -54,16 +57,10 @@ auto ArgumentParser::get(const string& arg) -> T {
     throw invalid_argument("argument not part of schema");
   }
   const auto value = keyValuePairs_[arg];
+  if(!keyValuePairs__[arg]) {
+    return defaultValueOf<T>();
+  }
   return keyValuePairs__[arg]->getValue<T>();
-
-  /* CANCELLA 
-  if (is_same<T, int>::value) {
-    return stoi(value);
-  }
-  if (is_same<T, bool>::value) {
-    return boolPresentAsCmdLineArg(arg);
-  }
-  */
 }
 
 }  // namespace libs

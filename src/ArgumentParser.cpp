@@ -19,7 +19,7 @@ ArgumentParser::ArgumentParser(shared_ptr<ISchema> schema)
     : _schema{move(schema)} {}
 
 auto ArgumentParser::parseSchema() -> void {
-  keyValuePairs_ = _schema->parseSchema();
+  keyValuePairs__ = _schema->parseSchema();
 }
 
 auto ArgumentParser::getSchema() -> shared_ptr<ISchema> { return _schema; }

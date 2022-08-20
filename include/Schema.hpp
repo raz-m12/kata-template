@@ -12,7 +12,7 @@ class Schema : public ISchema {
  public:
   explicit Schema(const string& schema);
   auto partOfSchema(const string& param) -> bool override;
-  auto parseSchema() -> unordered_map<string, string> override;
+  auto parseSchema() -> schemaMap override;
 };
 
 }  // namespace libs

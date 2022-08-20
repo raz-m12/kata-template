@@ -35,6 +35,7 @@ using std::make_unique;
 using std::shared_ptr;
 using std::string;
 using std::unique_ptr;
+using std::make_unique;
 using ::testing::Return;
 using ::testing::Test;
 
@@ -43,11 +44,11 @@ class SchemaStub : public ISchema {
   explicit SchemaStub(const string& schema) : ISchema(schema) {}
 
   auto parseSchema() -> schemaMap override {
-    return {{
-                "g",
-                "BoolA",
-            },
-            {"d", "3"}};
+    auto arg = make_unique<BoolArgument>(true);
+    schemaMap map{};
+    map.emplace("g", make_unique<BoolArgument>(true));
+    map.emplace("d", make_unique<IntArgument>(3));
+    return map;
   }
 
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
