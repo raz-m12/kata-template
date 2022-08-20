@@ -39,7 +39,7 @@ class SchemaStub : public ISchema {
  public:
   explicit SchemaStub(const string& schema) : ISchema(schema) {}
 
-  auto parseSchema() -> schemaMap override { return {{"g", "true"}}; }
+  auto parseSchema() -> schemaMap override { return {{"g", "true",}, {"d", "3"}}; }
 
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
 };
@@ -84,7 +84,7 @@ TEST_F(AnArgumentParserFixture, GetsBooleanFlagNotPresentInSchema) {
   _parser->parseSchema();
 
   // Assert
-  ASSERT_FALSE(_parser->getBoolean("f"));
+  ASSERT_FALSE(_parser->get<bool>("f"));
 }
 
 TEST_F(AnArgumentParserFixture, GetsBooleanFlagPresentInSchema) {
@@ -96,14 +96,14 @@ TEST_F(AnArgumentParserFixture, GetsBooleanFlagPresentInSchema) {
   _parser->parseSchema();
 
   // Assert
-  ASSERT_TRUE(_parser->getBoolean("g"));
+  ASSERT_TRUE(_parser->get<bool>("g"));
 }
 
 TEST_F(AnArgumentParserFixture, ThrowsWhenArgumentNotPartOfSchema) {
   initParserUsingSchema("");
   EXPECT_CALL(*_schema, partOfSchema(_)).Times(1).WillOnce(Return(false));
 
-  ASSERT_THROW(_parser->getBoolean("f"), invalid_argument);
+  ASSERT_THROW(_parser->get<bool>("f"), invalid_argument);
 }
 
 TEST_F(AnArgumentParserFixture, GetsIntegerFlagPresentInSchema) {
@@ -115,7 +115,8 @@ TEST_F(AnArgumentParserFixture, GetsIntegerFlagPresentInSchema) {
   _parser->parseSchema();
 
   // Assert
-  ASSERT_TRUE(_parser->getBoolean("d"));
+  auto result = _parser->get<int>("d");
+  ASSERT_THAT(result, Eq(3));
 }
 }  // namespace tests
 }  // namespace args

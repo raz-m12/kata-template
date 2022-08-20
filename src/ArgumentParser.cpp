@@ -33,7 +33,7 @@ auto ArgumentParser::getBoolean(const string& arg) -> bool {
 }
 
 auto ArgumentParser::boolPresentAsCmdLineArg(const string& arg) -> bool {
-  return keyValuePairs_.contains(arg);
+  return keyValuePairs_.contains(arg) && keyValuePairs_.at(arg) == "true";
 }
 
 auto ArgumentParser::getInteger(const string& arg) -> bool {
@@ -43,10 +43,12 @@ auto ArgumentParser::getInteger(const string& arg) -> bool {
   return boolPresentAsCmdLineArg(arg);
 }
 
-/** TODO(RV) will be transformed in a template */
+
+/** TODO(RV). Idea: will be transformed in a template */
 auto ArgumentParser::setBooleanValue(const string& arg) -> void {
   keyValuePairs_[arg] = "true";
 }
+
 
 }  // namespace libs
 }  // namespace args

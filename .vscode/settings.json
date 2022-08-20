@@ -53,6 +53,15 @@
     "ctime": "cpp",
     "cwchar": "cpp",
     "cwctype": "cpp",
-    "unordered_map": "cpp"
+    "unordered_map": "cpp",
+    "type_traits": "cpp",
+    "stdexcept": "cpp",
+    "atomic": "cpp",
+    "random": "cpp",
+    "limits": "cpp",
+    "ranges": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp",
+    "variant": "cpp"
   }
 }
