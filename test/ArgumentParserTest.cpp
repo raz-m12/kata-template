@@ -39,7 +39,13 @@ class SchemaStub : public ISchema {
  public:
   explicit SchemaStub(const string& schema) : ISchema(schema) {}
 
-  auto parseSchema() -> schemaMap override { return {{"g", "true",}, {"d", "3"}}; }
+  auto parseSchema() -> schemaMap override {
+    return {{
+                "g",
+                "true",
+            },
+            {"d", "3"}};
+  }
 
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
 };

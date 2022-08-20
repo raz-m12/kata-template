@@ -25,24 +25,9 @@ auto ArgumentParser::parseSchema() -> void {
 
 auto ArgumentParser::getSchema() -> shared_ptr<ISchema> { return _schema; }
 
-auto ArgumentParser::getBoolean(const string& arg) -> bool {
-  if (!_schema->partOfSchema(arg)) {
-    throw invalid_argument("argument not part of schema");
-  }
-  return boolPresentAsCmdLineArg(arg);
-}
-
 auto ArgumentParser::boolPresentAsCmdLineArg(const string& arg) -> bool {
   return keyValuePairs_.contains(arg) && keyValuePairs_.at(arg) == "true";
 }
-
-auto ArgumentParser::getInteger(const string& arg) -> bool {
-  if (!_schema->partOfSchema(arg)) {
-    throw invalid_argument("argument not part of schema");
-  }
-  return boolPresentAsCmdLineArg(arg);
-}
-
 
 /** TODO(RV). Idea: will be transformed in a template */
 auto ArgumentParser::setBooleanValue(const string& arg) -> void {

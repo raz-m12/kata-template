@@ -31,10 +31,8 @@ class ArgumentParser {
   auto parseSchema() -> void;
   auto getSchema() -> shared_ptr<ISchema>;
 
-  auto getBoolean(const string& arg) -> bool;
-  virtual auto setBooleanValue(const string& arg) -> void;
 
-  auto getInteger(const string& arg) -> bool;
+  virtual auto setBooleanValue(const string& arg) -> void;
 
 
   template <class T>
