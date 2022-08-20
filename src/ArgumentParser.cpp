@@ -34,6 +34,5 @@ auto ArgumentParser::setBooleanValue(const string& arg) -> void {
   keyValuePairs_[arg] = "true";
 }
 
-
 }  // namespace libs
 }  // namespace args

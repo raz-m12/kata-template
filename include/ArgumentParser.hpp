@@ -8,13 +8,13 @@
 
 namespace args {
 namespace libs {
-using std::shared_ptr;
-using std::string;
-using std::unordered_map;
-using std::stoi;
 using std::invalid_argument;
 using std::is_integral_v;
 using std::is_same;
+using std::shared_ptr;
+using std::stoi;
+using std::string;
+using std::unordered_map;
 
 /* TODO(RV). Question: is it ok not to depend on an interface? */
 class ArgumentParser {
@@ -31,9 +31,7 @@ class ArgumentParser {
   auto parseSchema() -> void;
   auto getSchema() -> shared_ptr<ISchema>;
 
-
   virtual auto setBooleanValue(const string& arg) -> void;
-
 
   template <class T>
   auto get(const string& arg) -> T;
@@ -54,10 +52,10 @@ auto ArgumentParser::get(const string& arg) -> T {
   }
   const auto value = keyValuePairs_[arg];
 
-  if(is_same<T, int>::value) {
+  if (is_same<T, int>::value) {
     return stoi(value);
-  } 
-  if(is_same<T, bool>::value) {
+  }
+  if (is_same<T, bool>::value) {
     return boolPresentAsCmdLineArg(arg);
   }
 }

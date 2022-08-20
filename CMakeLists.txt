@@ -36,6 +36,7 @@ project (kata_exercise)
 set (SRCS 
     src/main.cpp
     src/ArgumentParser.cpp
+    src/Argument.cpp
     src/Schema.cpp
     test/ArgumentParserTest.cpp)
 add_executable(kata ${SRCS})

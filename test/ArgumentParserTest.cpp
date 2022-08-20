@@ -1,4 +1,5 @@
 #include "gmock/gmock.h"
+#include "include/Argument.hpp"
 #include "include/ArgumentParser.hpp"
 #include "include/ISchema.hpp"
 #include "iostream"
