@@ -14,6 +14,7 @@ class IArgument {
   virtual auto getValueProected() -> any = 0;
 
  public:
+  IArgument() = default;
   virtual ~IArgument() = default;
   IArgument(IArgument const&) = delete;
   IArgument(IArgument&&) = delete;
@@ -31,6 +32,7 @@ auto IArgument::getValue() -> T {
 
 class IntArgument : public IArgument {
  public:
+  explicit IntArgument(int value);
   ~IntArgument() override = default;
   IntArgument(IntArgument const&) = delete;
   IntArgument(IntArgument&&) = delete;
@@ -47,6 +49,7 @@ class IntArgument : public IArgument {
 
 class BoolArgument : public IArgument {
  public:
+  explicit BoolArgument(bool value);
   ~BoolArgument() override = default;
   BoolArgument(BoolArgument const&) = delete;
   BoolArgument(BoolArgument&&) = delete;

@@ -7,7 +7,6 @@
 
 namespace args {
 namespace libs {
-using std::invalid_argument;
 using std::make_shared;
 
 auto ArgumentParser::getParserGivenSchema(const string& input)

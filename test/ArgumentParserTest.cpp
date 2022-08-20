@@ -26,6 +26,8 @@ namespace args {
 namespace tests {
 using libs::ArgumentParser;
 using libs::ISchema;
+using libs::BoolArgument;
+using libs::IntArgument;
 using libs::schemaMap;
 using std::invalid_argument;
 using std::make_shared;
@@ -43,7 +45,7 @@ class SchemaStub : public ISchema {
   auto parseSchema() -> schemaMap override {
     return {{
                 "g",
-                "true",
+                "BoolA",
             },
             {"d", "3"}};
   }
