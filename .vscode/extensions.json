@@ -7,7 +7,6 @@
         "ms-vscode.cpptools",
         "ms-vscode.cpptools-extension-pack",
         "ms-vscode.cpptools-themes",
-        "austin.code-gnu-global",
         "matepek.vscode-catch2-test-adapter",
         "twxs.cmake",
         "ms-vscode.cmake-tools",
@@ -16,6 +15,6 @@
         "hbenl.vscode-test-explorer",
         "xaver.clang-format",
         "2211896472.snippets",
-        "jacqueslucke.gcov-viewer"
+        "llvm-vs-code-extensions.vscode-clangd"
     ]
 }

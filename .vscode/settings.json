@@ -10,6 +10,12 @@
   "cmake.buildDirectory": "${workspaceFolder}/.build",
   "c-cpp-flylint.enable": false,
   "c-cpp-flylint.cppcheck.enable": false,
+  "c-cpp-flylint.excludeFromWorkspacePaths": [
+    "extern/*"
+  ],
+  "editor.formatOnSave": true,
+  // Can use this extension to switch to the gcc compiler
+  // Might need to enable intellisense in the settings panel
   // see https://www.youtube.com/watch?v=8RSxQ8sluG0
   "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
   "C_Cpp.codeAnalysis.clangTidy.enabled": true,
@@ -30,6 +36,40 @@
   ],
   "C_Cpp.codeAnalysis.runAutomatically": true,
   // clang format support
-  "editor.formatOnSave": true,
-  "C_Cpp.errorSquiggles": "Enabled"
+  "C_Cpp.errorSquiggles": "Enabled",
+  "files.associations": {
+    "typeinfo": "cpp",
+    "*.tcc": "cpp",
+    "cassert": "cpp",
+    "cctype": "cpp",
+    "cerrno": "cpp",
+    "cfloat": "cpp",
+    "climits": "cpp",
+    "clocale": "cpp",
+    "cmath": "cpp",
+    "cstdarg": "cpp",
+    "cstddef": "cpp",
+    "cstdio": "cpp",
+    "cstdlib": "cpp",
+    "cstring": "cpp",
+    "ctime": "cpp",
+    "cwchar": "cpp",
+    "cwctype": "cpp",
+    "unordered_map": "cpp",
+    "type_traits": "cpp",
+    "stdexcept": "cpp",
+    "atomic": "cpp",
+    "random": "cpp",
+    "limits": "cpp",
+    "ranges": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp",
+    "variant": "cpp"
+  },
+  // Clangd configuration as a substitution to C_Cpp (developed my Microsoft)
+  "clangd.arguments": [
+    "--compile-commands-dir=${workspaceFolder}/.build",
+    "--completion-style=detailed",
+    "-clang-tidy"
+  ],
 }

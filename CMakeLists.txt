@@ -30,6 +30,8 @@ endif()
 # To be used with llvm-cov:
 # set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -Wextra -g -fprofile-instr-generate -fcoverage-mapping -std=c++2a")
 # Adds link time optimizations -flto
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall -Wextra -g -std=c++2a")
 
 # CppCheck linter (must be installed to be used by the flylint extension)
