@@ -12,6 +12,7 @@ else
     sudo apt install cppcheck
     sudo apt install clang-tidy
     sudo apt install clang-format
+    sudo apt install clangd
 
     # Install the package manager vcpkg and use it to satisfy
     # the dependencies reported in the manifest file (vcpkg.json)
