@@ -4,8 +4,7 @@
 #include "include/ISchema.hpp"
 #include "iostream"
 
-namespace args {
-namespace libs {
+namespace args::libs {
 using std::string;
 
 class Schema : public ISchema {
@@ -15,7 +14,6 @@ class Schema : public ISchema {
   auto parseSchema() -> schemaMap override;
 };
 
-}  // namespace libs
-}  // namespace args
+}  // namespace args::libs
 
 #endif  //! SCHEMA_H

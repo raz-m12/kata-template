@@ -14,8 +14,6 @@
     "extern/*"
   ],
   "editor.formatOnSave": true,
-
-
   // Can use this extension to switch to the gcc compiler
   // Might need to enable intellisense in the settings panel
   // see https://www.youtube.com/watch?v=8RSxQ8sluG0
@@ -39,8 +37,6 @@
   "C_Cpp.codeAnalysis.runAutomatically": true,
   // clang format support
   "C_Cpp.errorSquiggles": "Disabled",
-
-  
   "files.associations": {
     "typeinfo": "cpp",
     "*.tcc": "cpp",
@@ -70,11 +66,13 @@
     "tuple": "cpp",
     "variant": "cpp"
   },
-
   // Clangd configuration as a substitution to C_Cpp (developed my Microsoft)
   "clangd.arguments": [
     "--compile-commands-dir=${workspaceFolder}/.build",
     "--completion-style=detailed",
-    "-clang-tidy"
+    "-clang-tidy",
+    "--background-index",
+    "-log=verbose",
+    "-pretty",
   ],
 }

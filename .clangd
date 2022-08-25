@@ -1,0 +1,18 @@
+If:
+  PathMatch: \.build.*
+Diagnostics:
+  ClangTidy:
+    Remove: [modernize-*, cppcoreguidelines-*, readability-*, cert-*, hicpp-*, misc-*, altera-*, bugprone-*, google-*]
+---
+If:
+  PathMatch: test/.*
+Diagnostics:
+  ClangTidy:
+    Remove: [
+      modernize-use-trailing-return-type,
+      cppcoreguidelines-avoid-non-const-global-variables,
+      cert-err58-cpp,
+      cppcoreguidelines-owning-memory,
+      hicpp-avoid-goto,
+      cppcoreguidelines-avoid-goto
+    ]

@@ -4,8 +4,7 @@
 #include "any"
 #include "utility"
 
-namespace args {
-namespace libs {
+namespace args::libs {
 using std::any;
 using std::any_cast;
 
@@ -62,7 +61,6 @@ class BoolArgument : public IArgument {
   bool _value = false;
 };
 
-}  // namespace libs
-}  // namespace args
+}  // namespace args::libs
 
 #endif  //! ARGUMENT_H

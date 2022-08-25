@@ -7,8 +7,7 @@
 #include "memory"
 #include "unordered_map"
 
-namespace args {
-namespace libs {
+namespace args::libs {
 
 using std::move;
 using std::string;
@@ -35,7 +34,6 @@ class ISchema {
   string _schema;
 };
 
-}  // namespace libs
-}  // namespace args
+}  // namespace args::libs
 
 #endif  //! ISCHEMA_H

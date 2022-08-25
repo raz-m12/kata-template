@@ -8,16 +8,11 @@
 #include "memory"
 #include "unordered_map"
 
-namespace args {
-namespace libs {
+namespace args::libs {
 using std::invalid_argument;
 using std::is_integral_v;
-using std::is_same;
 using std::shared_ptr;
-using std::stoi;
 using std::string;
-using std::unique_ptr;
-using std::unordered_map;
 
 /* TODO(RV). Question: is it ok not to depend on an interface? */
 class ArgumentParser {
@@ -60,7 +55,6 @@ auto ArgumentParser::get(const string& arg) -> T {
   return keyValuePairs_[arg]->getValue<T>();
 }
 
-}  // namespace libs
-}  // namespace args
+}  // namespace args::libs
 
 #endif

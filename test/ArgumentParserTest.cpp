@@ -1,10 +1,12 @@
+// NOLINTBEGIN(*-non-private-member-variables-*)
+
+#include <gmock/gmock-matchers.h>
+
 #include "gmock/gmock.h"
 #include "include/Argument.hpp"
 #include "include/ArgumentParser.hpp"
 #include "include/ISchema.hpp"
 #include "iostream"
-
-using namespace testing;
 
 /**
  * Selecting Between Overloaded Functions (Cookbook)
@@ -22,8 +24,7 @@ using namespace testing;
  * EXPECT_CALL(foo, Bar(Truly(IsEven)));
  */
 
-namespace args {
-namespace tests {
+namespace args::tests {
 using libs::ArgumentParser;
 using libs::BoolArgument;
 using libs::IntArgument;
@@ -35,6 +36,8 @@ using std::make_unique;
 using std::shared_ptr;
 using std::string;
 using std::unique_ptr;
+using ::testing::_;
+using ::testing::Eq;
 using ::testing::Return;
 using ::testing::Test;
 
@@ -127,5 +130,4 @@ TEST_F(AnArgumentParserFixture, GetsIntegerFlagPresentInSchema) {
   auto result = _parser->get<int>("d");
   ASSERT_THAT(result, Eq(3));
 }
-}  // namespace tests
-}  // namespace args
+}  // namespace args::tests

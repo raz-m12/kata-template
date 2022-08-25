@@ -1,7 +1,6 @@
 #include "include/Schema.hpp"
 
-namespace args {
-namespace libs {
+namespace args::libs {
 
 Schema::Schema(const string& schema) : ISchema(schema) {}
 
@@ -12,7 +11,7 @@ auto Schema::partOfSchema(const string & /*param*/) -> bool {
 
 auto Schema::parseSchema() -> schemaMap {
   // TODO(RV)
+  return {};
 }
 
-}  // namespace libs
-}  // namespace args
+}  // namespace args::libs

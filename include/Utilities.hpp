@@ -1,6 +1,7 @@
 
-namespace args {
-namespace libs {
+namespace args::libs {
+
+#include <type_traits>
 
 using std::decay_t;
 
@@ -9,5 +10,4 @@ auto defaultValueOf() -> T {
   return decay_t<T>{};
 }
 
-}  // namespace libs
-}  // namespace args
+}  // namespace args::libs
