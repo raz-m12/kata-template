@@ -28,6 +28,7 @@ namespace args::tests {
 using libs::ArgumentParser;
 using libs::BoolArgument;
 using libs::IntArgument;
+using libs::StringArgument;
 using libs::ISchema;
 using libs::schemaMap;
 using std::invalid_argument;
@@ -50,6 +51,7 @@ class SchemaStub : public ISchema {
     schemaMap map{};
     map.emplace("g", make_unique<BoolArgument>(true));
     map.emplace("d", make_unique<IntArgument>(3));
+    map.emplace("s", make_unique<StringArgument>("abcde"));
     return map;
   }
 

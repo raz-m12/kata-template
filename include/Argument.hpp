@@ -3,10 +3,12 @@
 
 #include "any"
 #include "utility"
+#include <string>
 
 namespace args::libs {
 using std::any;
 using std::any_cast;
+using std::string;
 
 class IArgument {
  protected:
@@ -59,6 +61,22 @@ class BoolArgument : public IArgument {
 
  private:
   bool _value = false;
+};
+
+class StringArgument : public IArgument {
+ public:
+  explicit StringArgument(string value);
+  ~StringArgument() override = default;
+  StringArgument(StringArgument const&) = delete;
+  StringArgument(StringArgument&&) = delete;
+  auto operator=(StringArgument const&) -> StringArgument& = delete;
+  auto operator=(StringArgument &&) -> StringArgument& = default;
+
+ protected:
+  auto getValueProected() -> any override;
+
+ private:
+  string _value;
 };
 
 }  // namespace args::libs
