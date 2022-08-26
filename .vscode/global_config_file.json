@@ -1,0 +1,24 @@
+{
+  "TO_BE_PASTED_IN": "~/.config/Code/User/settings.json",
+  "cmake.configureOnOpen": true,
+  "testMate.cpp.log.userId": "3d9c5d2669430ecfbc229b32ed7007a9f84bdca0",
+  "testMate.cpp.log.logSentry": "enable",
+  "git.confirmSync": false,
+  "debug.onTaskErrors": "showErrors",
+  "diffEditor.ignoreTrimWhitespace": false,
+  "debug.inlineValues": "on",
+  "window.zoomLevel": -1,
+  "files.autoSave": "afterDelay",
+  "c-cpp-flylint.clang.enable": false,
+  "c-cpp-flylint.enable": true,
+  "c-cpp-flylint.flawfinder.enable": false,
+  "c-cpp-flylint.flexelint.enable": false,
+  "c-cpp-flylint.lizard.enable": false,
+  "[cpp]": {
+      "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "editor.tabSize": 2,
+  "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": false,
+  "clangd.path": "/home/razvan/.config/Code/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/14.0.3/clangd_14.0.3/bin/clangd",
+  "C_Cpp.intelliSenseEngine": "Disabled"
+}

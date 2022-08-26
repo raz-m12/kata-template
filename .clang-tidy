@@ -1,7 +1,7 @@
 # clang-tidy -format-style=google --dump-config > .clang-tidy
 # possible styles: 'llvm', 'google', 'webkit', 'mozilla'
 ---
-Checks:          '
+Checks: '
   *,
   -fuchsia-trailing-return, 
   -llvmlibc-callee-namespace, 
