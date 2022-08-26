@@ -145,4 +145,17 @@ TEST_F(AnArgumentParserFixture, GetsStringPresentInMockSchema) {
   auto result = _parser->get<string>("s");
   ASSERT_THAT(result, Eq("abcde"));
 }
+
+TEST_F(AnArgumentParserFixture, GetsDoublePresentInMockSchema) {
+  // Arrange
+  initParserUsingSchema("d##");
+  EXPECT_CALL(*_schema, partOfSchema("d")).Times(1).WillOnce(Return(true));
+
+  // Act
+  _parser->parseSchema("-d 34.5");
+
+  // Assert
+  auto result = _parser->get<double>("d");
+  ASSERT_THAT(result, Eq(34.5));
+}
 }  // namespace args::tests
