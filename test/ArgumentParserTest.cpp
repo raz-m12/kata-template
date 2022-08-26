@@ -29,6 +29,7 @@ using libs::ArgumentParser;
 using libs::BoolArgument;
 using libs::IntArgument;
 using libs::StringArgument;
+using libs::DoubleArgument;
 using libs::ISchema;
 using libs::schemaMap;
 using std::invalid_argument;
@@ -50,12 +51,16 @@ class SchemaStub : public ISchema {
     auto arg = make_unique<BoolArgument>(true);
     schemaMap map{};
     map.emplace("g", make_unique<BoolArgument>(true));
-    map.emplace("d", make_unique<IntArgument>(3));
+    map.emplace("i", make_unique<IntArgument>(3));
     map.emplace("s", make_unique<StringArgument>("abcde"));
+    map.emplace("d", make_unique<DoubleArgument>(doubleValue));
     return map;
   }
 
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
+
+ private:
+  const double doubleValue = 34.5;
 };
 
 class SchemaMock : public ISchema {
@@ -122,14 +127,14 @@ TEST_F(AnArgumentParserFixture, ThrowsWhenArgumentNotPartOfMockSchema) {
 
 TEST_F(AnArgumentParserFixture, GetsIntegerPresentInMockSchema) {
   // Arrange
-  initParserUsingSchema("d#");
-  EXPECT_CALL(*_schema, partOfSchema("d")).Times(1).WillOnce(Return(true));
+  initParserUsingSchema("i#");
+  EXPECT_CALL(*_schema, partOfSchema("i")).Times(1).WillOnce(Return(true));
 
   // Act
-  _parser->parseSchema("-d 3");
+  _parser->parseSchema("-i 3");
 
   // Assert
-  auto result = _parser->get<int>("d");
+  auto result = _parser->get<int>("i");
   ASSERT_THAT(result, Eq(3));
 }
 

@@ -79,6 +79,22 @@ class StringArgument : public IArgument {
   string _value;
 };
 
+class DoubleArgument : public IArgument {
+ public:
+  explicit DoubleArgument(double value);
+  ~DoubleArgument() override = default;
+  DoubleArgument(DoubleArgument const&) = delete;
+  DoubleArgument(DoubleArgument&&) = delete;
+  auto operator=(DoubleArgument const&) -> DoubleArgument& = delete;
+  auto operator=(DoubleArgument &&) -> DoubleArgument& = default;
+
+ protected:
+  auto getValueProected() -> any override;
+
+ private:
+  double _value;
+};
+
 }  // namespace args::libs
 
 #endif  //! ARGUMENT_H
