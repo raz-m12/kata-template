@@ -87,47 +87,60 @@ class AnArgumentParserFixture : public Test {
   shared_ptr<SchemaMock> _schema;  // NOLINT(*-non-private-member-variables-*)
 };
 
-TEST_F(AnArgumentParserFixture, GetsBooleanFlagNotPresentInSchema) {
+TEST_F(AnArgumentParserFixture, BooleanNotPresentInMockSchema) {
   // Arrange
   initParserUsingSchema("f");
   ON_CALL(*_schema, partOfSchema("f")).WillByDefault(Return(true));
 
   // Act
-  _parser->parseSchema();
+  _parser->parseSchema("-f");
 
   // Assert
   ASSERT_FALSE(_parser->get<bool>("f"));
 }
 
-TEST_F(AnArgumentParserFixture, GetsBooleanFlagPresentInSchema) {
+TEST_F(AnArgumentParserFixture, GetsBooleanPresentInMockSchema) {
   // Arrange
   initParserUsingSchema("g");
   EXPECT_CALL(*_schema, partOfSchema("g")).Times(1).WillOnce(Return(true));
 
   // Act
-  _parser->parseSchema();
+  _parser->parseSchema("-g");
 
   // Assert
   ASSERT_TRUE(_parser->get<bool>("g"));
 }
 
-TEST_F(AnArgumentParserFixture, ThrowsWhenArgumentNotPartOfSchema) {
+TEST_F(AnArgumentParserFixture, ThrowsWhenArgumentNotPartOfMockSchema) {
   initParserUsingSchema("");
   EXPECT_CALL(*_schema, partOfSchema(_)).Times(1).WillOnce(Return(false));
 
   ASSERT_THROW(_parser->get<bool>("f"), invalid_argument);
 }
 
-TEST_F(AnArgumentParserFixture, GetsIntegerFlagPresentInSchema) {
+TEST_F(AnArgumentParserFixture, GetsIntegerPresentInMockSchema) {
   // Arrange
   initParserUsingSchema("d#");
   EXPECT_CALL(*_schema, partOfSchema("d")).Times(1).WillOnce(Return(true));
 
   // Act
-  _parser->parseSchema();
+  _parser->parseSchema("-d 3");
 
   // Assert
   auto result = _parser->get<int>("d");
   ASSERT_THAT(result, Eq(3));
+}
+
+TEST_F(AnArgumentParserFixture, GetsStringPresentInMockSchema) {
+  // Arrange
+  initParserUsingSchema("s*");
+  EXPECT_CALL(*_schema, partOfSchema("s")).Times(1).WillOnce(Return(true));
+
+  // Act
+  _parser->parseSchema("-s abcde");
+
+  // Assert
+  auto result = _parser->get<string>("s");
+  ASSERT_THAT(result, Eq("abcde"));
 }
 }  // namespace args::tests

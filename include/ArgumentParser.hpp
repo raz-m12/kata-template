@@ -26,7 +26,7 @@ class ArgumentParser {
   auto operator=(ArgumentParser &&) -> ArgumentParser& = default;
 
   static auto getParserGivenSchema(const string& input) -> ArgumentParser;
-  auto parseSchema() -> void;
+  auto parseSchema(const string& values) -> void;
   auto getSchema() -> shared_ptr<ISchema>;
 
   virtual auto setBooleanValue(const string& arg) -> void;

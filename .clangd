@@ -2,7 +2,7 @@ If:
   PathMatch: \.build.*
 Diagnostics:
   ClangTidy:
-    Remove: [modernize-*, cppcoreguidelines-*, readability-*, cert-*, hicpp-*, misc-*, altera-*, bugprone-*, google-*]
+    Remove: [modernize-*, cppcoreguidelines-*, readability-*, cert-*, hicpp-*, misc-*, altera-*, bugprone-*, google-*, fuchsia-*, llvm-*]
 ---
 If:
   PathMatch: test/.*
