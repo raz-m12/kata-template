@@ -27,11 +27,11 @@
 namespace args::tests {
 using libs::ArgumentParser;
 using libs::BoolArgument;
-using libs::IntArgument;
-using libs::StringArgument;
 using libs::DoubleArgument;
+using libs::IntArgument;
 using libs::ISchema;
 using libs::schemaMap;
+using libs::StringArgument;
 using std::invalid_argument;
 using std::make_shared;
 using std::make_unique;
@@ -47,7 +47,7 @@ class SchemaStub : public ISchema {
  public:
   explicit SchemaStub(const string& schema) : ISchema(schema) {}
 
-  auto parseSchema() -> schemaMap override {
+  auto getKeyValuePairs(const string& /* values */) -> schemaMap override {
     auto arg = make_unique<BoolArgument>(true);
     schemaMap map{};
     map.emplace("g", make_unique<BoolArgument>(true));
@@ -57,6 +57,8 @@ class SchemaStub : public ISchema {
     return map;
   }
 
+  // MOCK_METHOD(schemaMap, getKeyValuePairs, (const string& param), (override));  // NOLINT
+  MOCK_METHOD(void, parseSchema, (), (override));  // NOLINT
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
 
  private:
@@ -68,11 +70,12 @@ class SchemaMock : public ISchema {
   explicit SchemaMock(const string& schema) : ISchema(schema) {}
 
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
-  MOCK_METHOD(schemaMap, parseSchema, (), (override));                 // NOLINT
+  MOCK_METHOD(void, parseSchema, (), (override));                      // NOLINT
+  MOCK_METHOD(schemaMap, getKeyValuePairs, (const string& param), (override));                      // NOLINT
 
   void delegateToStub() {
-    ON_CALL(*this, parseSchema).WillByDefault([this]() -> schemaMap {
-      return stub_.parseSchema();
+    ON_CALL(*this, getKeyValuePairs).WillByDefault([this]() -> schemaMap {
+      return stub_.getKeyValuePairs("");
     });
   }
 
@@ -100,7 +103,7 @@ TEST_F(AnArgumentParserFixture, BooleanNotPresentInMockSchema) {
   ON_CALL(*_schema, partOfSchema("f")).WillByDefault(Return(true));
 
   // Act
-  _parser->parseSchema("-f");
+  _parser->parseArguments("-f");
 
   // Assert
   ASSERT_FALSE(_parser->get<bool>("f"));
@@ -112,7 +115,7 @@ TEST_F(AnArgumentParserFixture, GetsBooleanPresentInMockSchema) {
   EXPECT_CALL(*_schema, partOfSchema("g")).Times(1).WillOnce(Return(true));
 
   // Act
-  _parser->parseSchema("-g");
+  _parser->parseArguments("-g");
 
   // Assert
   ASSERT_TRUE(_parser->get<bool>("g"));
@@ -131,7 +134,7 @@ TEST_F(AnArgumentParserFixture, GetsIntegerPresentInMockSchema) {
   EXPECT_CALL(*_schema, partOfSchema("i")).Times(1).WillOnce(Return(true));
 
   // Act
-  _parser->parseSchema("-i 3");
+  _parser->parseArguments("-i 3");
 
   // Assert
   auto result = _parser->get<int>("i");
@@ -144,7 +147,7 @@ TEST_F(AnArgumentParserFixture, GetsStringPresentInMockSchema) {
   EXPECT_CALL(*_schema, partOfSchema("s")).Times(1).WillOnce(Return(true));
 
   // Act
-  _parser->parseSchema("-s abcde");
+  _parser->parseArguments("-s abcde");
 
   // Assert
   auto result = _parser->get<string>("s");
@@ -157,7 +160,7 @@ TEST_F(AnArgumentParserFixture, GetsDoublePresentInMockSchema) {
   EXPECT_CALL(*_schema, partOfSchema("d")).Times(1).WillOnce(Return(true));
 
   // Act
-  _parser->parseSchema("-d 34.5");
+  _parser->parseArguments("-d 34.5");
 
   // Assert
   auto result = _parser->get<double>("d");

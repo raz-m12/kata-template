@@ -15,10 +15,12 @@ auto ArgumentParser::getParserGivenSchema(const string& input)
 }
 
 ArgumentParser::ArgumentParser(shared_ptr<ISchema> schema)
-    : _schema{move(schema)} {}
+    : _schema{move(schema)} {
+  _schema->parseSchema();
+}
 
-auto ArgumentParser::parseSchema(const string&  /*argValues*/) -> void {
-  keyValuePairs_ = _schema->parseSchema();
+auto ArgumentParser::parseArguments(const string & argValues) -> void {
+  keyValuePairs_ = _schema->getKeyValuePairs(argValues);
 }
 
 auto ArgumentParser::getSchema() -> shared_ptr<ISchema> { return _schema; }

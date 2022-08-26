@@ -27,7 +27,8 @@ class ISchema {
   auto operator=(ISchema const &) -> ISchema & = delete;
   auto operator=(ISchema &&) -> ISchema & = delete;
 
-  virtual auto parseSchema() -> schemaMap = 0;
+  virtual auto parseSchema() -> void = 0;
+  virtual auto getKeyValuePairs(const string& values) -> schemaMap = 0;
   virtual auto partOfSchema(const string &param) -> bool = 0;
 
  private:

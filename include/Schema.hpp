@@ -11,7 +11,8 @@ class Schema : public ISchema {
  public:
   explicit Schema(const string& schema);
   auto partOfSchema(const string& param) -> bool override;
-  auto parseSchema() -> schemaMap override;
+  auto parseSchema() -> void override;
+  auto getKeyValuePairs(const string& values) -> schemaMap override;
 };
 
 }  // namespace args::libs

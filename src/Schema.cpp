@@ -1,4 +1,5 @@
 #include "include/Schema.hpp"
+#include "include/ISchema.hpp"
 
 namespace args::libs {
 
@@ -9,8 +10,11 @@ auto Schema::partOfSchema(const string & /*param*/) -> bool {
   return false;
 }
 
-auto Schema::parseSchema() -> schemaMap {
+auto Schema::parseSchema() -> void {
   // TODO(RV)
+}
+
+auto Schema::getKeyValuePairs(const string& /* values */) -> schemaMap {
   return {};
 }
 
