@@ -1,5 +1,5 @@
 If:
-  PathMatch: \.build.*
+  PathMatch: [\.build.*, /usr/.*]
 Diagnostics:
   ClangTidy:
     Remove: [modernize-*, cppcoreguidelines-*, readability-*, cert-*, hicpp-*, misc-*, altera-*, bugprone-*, google-*]
