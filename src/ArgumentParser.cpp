@@ -19,13 +19,13 @@ ArgumentParser::ArgumentParser(shared_ptr<ISchema> schema)
   _schema->parseSchema();
 }
 
-auto ArgumentParser::parseArguments(const string & argValues) -> void {
+auto ArgumentParser::parseArguments(const string& argValues) -> void {
   keyValuePairs_ = _schema->getKeyValuePairs(argValues);
 }
 
 auto ArgumentParser::getSchema() -> shared_ptr<ISchema> { return _schema; }
 
 /** TODO(RV). Idea: will be transformed in a template */
-auto ArgumentParser::setBooleanValue(const string & /* arg */) -> void {}
+auto ArgumentParser::setBooleanValue(const string& /* arg */) -> void {}
 
 }  // namespace args::libs

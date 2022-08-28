@@ -57,8 +57,7 @@ class SchemaStub : public ISchema {
     return map;
   }
 
-  // MOCK_METHOD(schemaMap, getKeyValuePairs, (const string& param), (override));  // NOLINT
-  MOCK_METHOD(void, parseSchema, (), (override));  // NOLINT
+  MOCK_METHOD(void, parseSchema, (), (override));                      // NOLINT
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
 
  private:
@@ -71,7 +70,8 @@ class SchemaMock : public ISchema {
 
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
   MOCK_METHOD(void, parseSchema, (), (override));                      // NOLINT
-  MOCK_METHOD(schemaMap, getKeyValuePairs, (const string& param), (override));                      // NOLINT
+  MOCK_METHOD(schemaMap, getKeyValuePairs, (const string& param),
+              (override));  // NOLINT
 
   void delegateToStub() {
     ON_CALL(*this, getKeyValuePairs).WillByDefault([this]() -> schemaMap {

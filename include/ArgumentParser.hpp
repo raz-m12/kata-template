@@ -23,7 +23,7 @@ class ArgumentParser {
   ArgumentParser(ArgumentParser const&) = delete;
   ArgumentParser(ArgumentParser&&) = delete;
   auto operator=(ArgumentParser const&) -> ArgumentParser& = delete;
-  auto operator=(ArgumentParser &&) -> ArgumentParser& = default;
+  auto operator=(ArgumentParser&&) -> ArgumentParser& = default;
 
   static auto getParserGivenSchema(const string& input) -> ArgumentParser;
   auto parseArguments(const string& values) -> void;

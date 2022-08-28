@@ -1,9 +1,10 @@
 #ifndef ARGUMENT_H
 #define ARGUMENT_H
 
+#include <string>
+
 #include "any"
 #include "utility"
-#include <string>
 
 namespace args::libs {
 using std::any;
@@ -20,7 +21,7 @@ class IArgument {
   IArgument(IArgument const&) = delete;
   IArgument(IArgument&&) = delete;
   auto operator=(IArgument const&) -> IArgument& = delete;
-  auto operator=(IArgument &&) -> IArgument& = default;
+  auto operator=(IArgument&&) -> IArgument& = default;
 
   template <class T>
   auto getValue() -> T;
@@ -38,7 +39,7 @@ class IntArgument : public IArgument {
   IntArgument(IntArgument const&) = delete;
   IntArgument(IntArgument&&) = delete;
   auto operator=(IntArgument const&) -> IntArgument& = delete;
-  auto operator=(IntArgument &&) -> IntArgument& = default;
+  auto operator=(IntArgument&&) -> IntArgument& = default;
 
  protected:
   auto getValueProected() -> any override;
@@ -54,7 +55,7 @@ class BoolArgument : public IArgument {
   BoolArgument(BoolArgument const&) = delete;
   BoolArgument(BoolArgument&&) = delete;
   auto operator=(BoolArgument const&) -> BoolArgument& = delete;
-  auto operator=(BoolArgument &&) -> BoolArgument& = default;
+  auto operator=(BoolArgument&&) -> BoolArgument& = default;
 
  protected:
   auto getValueProected() -> any override;
@@ -70,7 +71,7 @@ class StringArgument : public IArgument {
   StringArgument(StringArgument const&) = delete;
   StringArgument(StringArgument&&) = delete;
   auto operator=(StringArgument const&) -> StringArgument& = delete;
-  auto operator=(StringArgument &&) -> StringArgument& = default;
+  auto operator=(StringArgument&&) -> StringArgument& = default;
 
  protected:
   auto getValueProected() -> any override;
@@ -86,7 +87,7 @@ class DoubleArgument : public IArgument {
   DoubleArgument(DoubleArgument const&) = delete;
   DoubleArgument(DoubleArgument&&) = delete;
   auto operator=(DoubleArgument const&) -> DoubleArgument& = delete;
-  auto operator=(DoubleArgument &&) -> DoubleArgument& = default;
+  auto operator=(DoubleArgument&&) -> DoubleArgument& = default;
 
  protected:
   auto getValueProected() -> any override;
