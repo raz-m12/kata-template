@@ -7,6 +7,7 @@ if [ -d "$vcpkgDir" ]; then
     echo "Vcpkg directory already exists"
 else
     # Other dependencies
+    sudo apt-get install curl zip unzip tar pkg-config
     sudo apt install cmake
     sudo apt install clang
     sudo apt install cppcheck
