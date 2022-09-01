@@ -1,6 +1,7 @@
 // NOLINTBEGIN(*-non-private-member-variables-*)
 
 #include <gmock/gmock-matchers.h>
+
 #include <vector>
 
 #include "gmock/gmock.h"
@@ -30,10 +31,10 @@ using libs::ArgumentParser;
 using libs::BoolArgument;
 using libs::DoubleArgument;
 using libs::IntArgument;
-using libs::StringArrayArgument;
 using libs::ISchema;
 using libs::schemaMap;
 using libs::StringArgument;
+using libs::StringArrayArgument;
 using std::invalid_argument;
 using std::make_shared;
 using std::make_unique;
@@ -42,10 +43,10 @@ using std::string;
 using std::unique_ptr;
 using std::vector;
 using ::testing::_;
+using ::testing::ElementsAreArray;
 using ::testing::Eq;
 using ::testing::Return;
 using ::testing::Test;
-using ::testing::ElementsAreArray;
 
 class SchemaStub : public ISchema {
  public:
@@ -67,7 +68,7 @@ class SchemaStub : public ISchema {
 
  private:
   const double doubleValue = 34.5;
-  const vector<string> strArrValue = { "Hello", "World" };
+  const vector<string> strArrValue = {"Hello", "World"};
 };
 
 class SchemaMock : public ISchema {
@@ -77,7 +78,7 @@ class SchemaMock : public ISchema {
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
   MOCK_METHOD(void, parseSchema, (), (override));                      // NOLINT
   MOCK_METHOD(schemaMap, getKeyValuePairs, (const string& param),      // NOLINT
-              (override));  
+              (override));
 
   void delegateToStub() {
     ON_CALL(*this, getKeyValuePairs).WillByDefault([this]() -> schemaMap {
@@ -185,6 +186,5 @@ TEST_F(AnArgumentParserFixture, MockSchemaGetsStringArray) {
   auto result = _parser->get<vector<string>>("a");
   ASSERT_THAT(result, ElementsAreArray(result));
 }
-
 
 }  // namespace args::tests

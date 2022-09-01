@@ -7,7 +7,6 @@
 #include "any"
 #include "utility"
 
-
 /* Schema structure
  * DONE f - boolean
  * DONE d# - integer
@@ -15,7 +14,6 @@
  * DONE s* - string
  * s[*] - string array
  */
-
 
 namespace args::libs {
 using std::any;
@@ -44,6 +42,22 @@ auto IArgument::getValue() -> T {
   return any_cast<T>(getValueProected());
 }
 
+class BoolArgument : public IArgument {
+ public:
+  explicit BoolArgument(bool value);
+  ~BoolArgument() override = default;
+  BoolArgument(BoolArgument const&) = delete;
+  BoolArgument(BoolArgument&&) = delete;
+  auto operator=(BoolArgument const&) -> BoolArgument& = delete;
+  auto operator=(BoolArgument&&) -> BoolArgument& = default;
+
+ protected:
+  auto getValueProected() -> any override;
+
+ private:
+  bool _value = false;
+};
+
 class IntArgument : public IArgument {
  public:
   explicit IntArgument(int value);
@@ -60,20 +74,20 @@ class IntArgument : public IArgument {
   int _value = 0;
 };
 
-class BoolArgument : public IArgument {
+class DoubleArgument : public IArgument {
  public:
-  explicit BoolArgument(bool value);
-  ~BoolArgument() override = default;
-  BoolArgument(BoolArgument const&) = delete;
-  BoolArgument(BoolArgument&&) = delete;
-  auto operator=(BoolArgument const&) -> BoolArgument& = delete;
-  auto operator=(BoolArgument&&) -> BoolArgument& = default;
+  explicit DoubleArgument(double value);
+  ~DoubleArgument() override = default;
+  DoubleArgument(DoubleArgument const&) = delete;
+  DoubleArgument(DoubleArgument&&) = delete;
+  auto operator=(DoubleArgument const&) -> DoubleArgument& = delete;
+  auto operator=(DoubleArgument&&) -> DoubleArgument& = default;
 
  protected:
   auto getValueProected() -> any override;
 
  private:
-  bool _value = false;
+  double _value;
 };
 
 class StringArgument : public IArgument {
@@ -106,22 +120,6 @@ class StringArrayArgument : public IArgument {
 
  private:
   vector<string> _value;
-};
-
-class DoubleArgument : public IArgument {
- public:
-  explicit DoubleArgument(double value);
-  ~DoubleArgument() override = default;
-  DoubleArgument(DoubleArgument const&) = delete;
-  DoubleArgument(DoubleArgument&&) = delete;
-  auto operator=(DoubleArgument const&) -> DoubleArgument& = delete;
-  auto operator=(DoubleArgument&&) -> DoubleArgument& = default;
-
- protected:
-  auto getValueProected() -> any override;
-
- private:
-  double _value;
 };
 
 }  // namespace args::libs
