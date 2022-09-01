@@ -14,4 +14,7 @@ auto StringArgument::getValueProected() -> any { return _value; }
 
 DoubleArgument::DoubleArgument(double value) : _value{value} {}
 auto DoubleArgument::getValueProected() -> any { return _value; }
+
+StringArrayArgument::StringArrayArgument(const vector<string>& value) : _value{value} {}
+auto StringArrayArgument::getValueProected() -> any { return _value; }
 }  // namespace args::libs

@@ -1,6 +1,7 @@
 // NOLINTBEGIN(*-non-private-member-variables-*)
 
 #include <gmock/gmock-matchers.h>
+#include <vector>
 
 #include "gmock/gmock.h"
 #include "include/Argument.hpp"
@@ -29,6 +30,7 @@ using libs::ArgumentParser;
 using libs::BoolArgument;
 using libs::DoubleArgument;
 using libs::IntArgument;
+using libs::StringArrayArgument;
 using libs::ISchema;
 using libs::schemaMap;
 using libs::StringArgument;
@@ -38,10 +40,12 @@ using std::make_unique;
 using std::shared_ptr;
 using std::string;
 using std::unique_ptr;
+using std::vector;
 using ::testing::_;
 using ::testing::Eq;
 using ::testing::Return;
 using ::testing::Test;
+using ::testing::ElementsAreArray;
 
 class SchemaStub : public ISchema {
  public:
@@ -54,6 +58,7 @@ class SchemaStub : public ISchema {
     map.emplace("i", make_unique<IntArgument>(3));
     map.emplace("s", make_unique<StringArgument>("abcde"));
     map.emplace("d", make_unique<DoubleArgument>(doubleValue));
+    map.emplace("a", make_unique<StringArrayArgument>(strArrValue));
     return map;
   }
 
@@ -62,6 +67,7 @@ class SchemaStub : public ISchema {
 
  private:
   const double doubleValue = 34.5;
+  const vector<string> strArrValue = { "Hello", "World" };
 };
 
 class SchemaMock : public ISchema {
@@ -70,8 +76,8 @@ class SchemaMock : public ISchema {
 
   MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
   MOCK_METHOD(void, parseSchema, (), (override));                      // NOLINT
-  MOCK_METHOD(schemaMap, getKeyValuePairs, (const string& param),
-              (override));  // NOLINT
+  MOCK_METHOD(schemaMap, getKeyValuePairs, (const string& param),      // NOLINT
+              (override));  
 
   void delegateToStub() {
     ON_CALL(*this, getKeyValuePairs).WillByDefault([this]() -> schemaMap {
@@ -97,7 +103,7 @@ class AnArgumentParserFixture : public Test {
   shared_ptr<SchemaMock> _schema;  // NOLINT(*-non-private-member-variables-*)
 };
 
-TEST_F(AnArgumentParserFixture, BooleanNotPresentInMockSchema) {
+TEST_F(AnArgumentParserFixture, MockSchemaBooleanNotPresent) {
   // Arrange
   initParserUsingSchema("f");
   ON_CALL(*_schema, partOfSchema("f")).WillByDefault(Return(true));
@@ -109,7 +115,7 @@ TEST_F(AnArgumentParserFixture, BooleanNotPresentInMockSchema) {
   ASSERT_FALSE(_parser->get<bool>("f"));
 }
 
-TEST_F(AnArgumentParserFixture, GetsBooleanPresentInMockSchema) {
+TEST_F(AnArgumentParserFixture, MockSchemaGetsBoolean) {
   // Arrange
   initParserUsingSchema("g");
   EXPECT_CALL(*_schema, partOfSchema("g")).Times(1).WillOnce(Return(true));
@@ -121,14 +127,14 @@ TEST_F(AnArgumentParserFixture, GetsBooleanPresentInMockSchema) {
   ASSERT_TRUE(_parser->get<bool>("g"));
 }
 
-TEST_F(AnArgumentParserFixture, ThrowsWhenArgumentNotPartOfMockSchema) {
+TEST_F(AnArgumentParserFixture, MockSchemaThrowsWhenArgumentNotPartOf) {
   initParserUsingSchema("");
   EXPECT_CALL(*_schema, partOfSchema(_)).Times(1).WillOnce(Return(false));
 
   ASSERT_THROW(_parser->get<bool>("f"), invalid_argument);
 }
 
-TEST_F(AnArgumentParserFixture, GetsIntegerPresentInMockSchema) {
+TEST_F(AnArgumentParserFixture, MockSchemaGetsInteger) {
   // Arrange
   initParserUsingSchema("i#");
   EXPECT_CALL(*_schema, partOfSchema("i")).Times(1).WillOnce(Return(true));
@@ -141,7 +147,7 @@ TEST_F(AnArgumentParserFixture, GetsIntegerPresentInMockSchema) {
   ASSERT_THAT(result, Eq(3));
 }
 
-TEST_F(AnArgumentParserFixture, GetsStringPresentInMockSchema) {
+TEST_F(AnArgumentParserFixture, MockSchemaGetsString) {
   // Arrange
   initParserUsingSchema("s*");
   EXPECT_CALL(*_schema, partOfSchema("s")).Times(1).WillOnce(Return(true));
@@ -154,7 +160,7 @@ TEST_F(AnArgumentParserFixture, GetsStringPresentInMockSchema) {
   ASSERT_THAT(result, Eq("abcde"));
 }
 
-TEST_F(AnArgumentParserFixture, GetsDoublePresentInMockSchema) {
+TEST_F(AnArgumentParserFixture, MockSchemaGetsDouble) {
   // Arrange
   initParserUsingSchema("d##");
   EXPECT_CALL(*_schema, partOfSchema("d")).Times(1).WillOnce(Return(true));
@@ -166,4 +172,19 @@ TEST_F(AnArgumentParserFixture, GetsDoublePresentInMockSchema) {
   auto result = _parser->get<double>("d");
   ASSERT_THAT(result, Eq(34.5));
 }
+
+TEST_F(AnArgumentParserFixture, MockSchemaGetsStringArray) {
+  // Arrange
+  initParserUsingSchema("a[*]");
+  EXPECT_CALL(*_schema, partOfSchema("a")).Times(1).WillOnce(Return(true));
+
+  // Act
+  _parser->parseArguments("-a Hello -a World");
+
+  // Assert
+  auto result = _parser->get<vector<string>>("a");
+  ASSERT_THAT(result, ElementsAreArray(result));
+}
+
+
 }  // namespace args::tests

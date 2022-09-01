@@ -75,4 +75,7 @@
     "-log=verbose",
     "-pretty",
   ],
+  "gcovViewer.buildDirectories": [
+    "/home/razvan/Documents/github/katas/.build"
+  ],
 }

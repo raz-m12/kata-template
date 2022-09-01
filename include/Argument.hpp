@@ -2,14 +2,26 @@
 #define ARGUMENT_H
 
 #include <string>
+#include <vector>
 
 #include "any"
 #include "utility"
+
+
+/* Schema structure
+ * DONE f - boolean
+ * DONE d# - integer
+ * DONE d## - double
+ * DONE s* - string
+ * s[*] - string array
+ */
+
 
 namespace args::libs {
 using std::any;
 using std::any_cast;
 using std::string;
+using std::vector;
 
 class IArgument {
  protected:
@@ -78,6 +90,22 @@ class StringArgument : public IArgument {
 
  private:
   string _value;
+};
+
+class StringArrayArgument : public IArgument {
+ public:
+  explicit StringArrayArgument(const vector<string>& value);
+  ~StringArrayArgument() override = default;
+  StringArrayArgument(StringArrayArgument const&) = delete;
+  StringArrayArgument(StringArrayArgument&&) = delete;
+  auto operator=(StringArrayArgument const&) -> StringArrayArgument& = delete;
+  auto operator=(StringArrayArgument&&) -> StringArrayArgument& = default;
+
+ protected:
+  auto getValueProected() -> any override;
+
+ private:
+  vector<string> _value;
 };
 
 class DoubleArgument : public IArgument {
