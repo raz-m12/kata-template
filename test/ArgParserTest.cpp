@@ -1,6 +1,3 @@
 
 
-
-namespace args::tests {
-  
-}
+namespace args::tests {}

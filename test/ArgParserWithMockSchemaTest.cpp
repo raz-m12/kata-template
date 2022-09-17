@@ -9,6 +9,7 @@
 #include "include/ArgumentParser.hpp"
 #include "include/ISchema.hpp"
 #include "iostream"
+#include "test/AnArgumentParserFixture.hpp"
 
 /**
  * Selecting Between Overloaded Functions (Cookbook)
@@ -27,74 +28,20 @@
  */
 
 namespace args::tests {
-using libs::ArgumentParser;
-using libs::BoolArgument;
-using libs::DoubleArgument;
-using libs::IntArgument;
-using libs::ISchema;
 using libs::schemaMap;
-using libs::StringArgument;
-using libs::StringArrayArgument;
 using std::invalid_argument;
-using std::make_shared;
-using std::make_unique;
-using std::shared_ptr;
 using std::string;
-using std::unique_ptr;
 using std::vector;
 using ::testing::_;
 using ::testing::ElementsAreArray;
 using ::testing::Eq;
 using ::testing::Return;
-using ::testing::Test;
-
-class SchemaStub : public ISchema {
- public:
-  explicit SchemaStub(const string& schema) : ISchema(schema) {}
-
-  auto getKeyValuePairs(const string& /* values */) -> schemaMap override {
-    auto arg = make_unique<BoolArgument>(true);
-    schemaMap map{};
-    map.emplace("g", make_unique<BoolArgument>(true));
-    map.emplace("i", make_unique<IntArgument>(3));
-    map.emplace("s", make_unique<StringArgument>("abcde"));
-    map.emplace("d", make_unique<DoubleArgument>(doubleValue));
-    map.emplace("a", make_unique<StringArrayArgument>(strArrValue));
-    return map;
-  }
-
-  MOCK_METHOD(void, parseSchema, (), (override));                      // NOLINT
-  MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
-
- private:
-  const double doubleValue = 34.5;
-  const vector<string> strArrValue = {"Hello", "World"};
-};
-
-class SchemaMock : public ISchema {
- public:
-  explicit SchemaMock(const string& schema) : ISchema(schema) {}
-
-  MOCK_METHOD(bool, partOfSchema, (const string& param), (override));  // NOLINT
-  MOCK_METHOD(void, parseSchema, (), (override));                      // NOLINT
-  MOCK_METHOD(schemaMap, getKeyValuePairs, (const string& param),      // NOLINT
-              (override));
-
-  void delegateToStub() {
-    ON_CALL(*this, getKeyValuePairs).WillByDefault([this]() -> schemaMap {
-      return stub_.getKeyValuePairs("");
-    });
-  }
-
- private:
-  SchemaStub stub_{""};
-};
 
 class AnArgumentParserFixture : public Test {
  protected:
   auto initParserUsingSchema(const string& input) -> void {
     _schema = make_shared<SchemaMock>(input);
-    _schema->delegateToStub();
+    _schema->delegateToStub(true);
 
     _parser = make_unique<ArgumentParser>(_schema);
   };
@@ -103,6 +50,7 @@ class AnArgumentParserFixture : public Test {
       _parser;                     // NOLINT(*-non-private-member-variables-*)
   shared_ptr<SchemaMock> _schema;  // NOLINT(*-non-private-member-variables-*)
 };
+
 
 TEST_F(AnArgumentParserFixture, MockSchemaBooleanNotPresent) {
   // Arrange
